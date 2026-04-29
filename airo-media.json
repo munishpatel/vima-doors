@@ -1,0 +1,142 @@
+{
+  "pages/home/hero": {
+    "mediaType": "image",
+    "currentUrl": "https://img1.wsimg.com/isteam/getty/2248254778",
+    "searchQuery": "elegant front door beautiful home entryway luxury architectural",
+    "alternatives": [
+      "https://img1.wsimg.com/isteam/getty/1367112731",
+      "https://img1.wsimg.com/isteam/getty/2259193873",
+      "https://img1.wsimg.com/isteam/getty/1276885887",
+      "https://img1.wsimg.com/isteam/getty/1886441594"
+    ],
+    "userModified": false,
+    "createdAt": "2026-04-29T20:00:53.943Z",
+    "lastUpdated": "2026-04-29T20:00:53.943Z",
+    "gettyId": "2248254778",
+    "alternativeGettyIds": [
+      "1367112731",
+      "2259193873",
+      "1276885887",
+      "1886441594"
+    ],
+    "requestedSize": {
+      "width": 1920,
+      "height": 1080,
+      "fit": "cover"
+    },
+    "orientations": "horizontal",
+    "compositions": "wide_shot",
+    "moods": "warm,dramatic",
+    "minimumSize": "x_large"
+  },
+  "pages/home/interior-doors": {
+    "mediaType": "image",
+    "currentUrl": "https://img1.wsimg.com/isteam/getty/2175431600",
+    "searchQuery": "interior wooden door close up wood grain texture luxury home",
+    "alternatives": [
+      "https://img1.wsimg.com/isteam/getty/173201523",
+      "https://img1.wsimg.com/isteam/getty/2140620621",
+      "https://img1.wsimg.com/isteam/getty/1497508070"
+    ],
+    "userModified": false,
+    "createdAt": "2026-04-29T20:00:55.398Z",
+    "lastUpdated": "2026-04-29T20:00:55.398Z",
+    "gettyId": "2175431600",
+    "alternativeGettyIds": [
+      "173201523",
+      "2140620621",
+      "1497508070"
+    ],
+    "requestedSize": {
+      "width": 800,
+      "height": 1000,
+      "fit": "cover"
+    },
+    "orientations": "vertical",
+    "moods": "warm,natural"
+  },
+  "pages/home/exterior-doors": {
+    "mediaType": "image",
+    "currentUrl": "https://img1.wsimg.com/isteam/getty/1688649574",
+    "searchQuery": "exterior front door modern home architectural elegant wood",
+    "alternatives": [],
+    "userModified": false,
+    "createdAt": "2026-04-29T20:00:56.111Z",
+    "lastUpdated": "2026-04-29T20:00:56.111Z",
+    "gettyId": "1688649574",
+    "requestedSize": {
+      "width": 800,
+      "height": 1000,
+      "fit": "cover"
+    },
+    "orientations": "vertical",
+    "moods": "warm,bold"
+  },
+  "pages/home/cta-texture": {
+    "mediaType": "image",
+    "currentUrl": "https://img1.wsimg.com/isteam/getty/2159841804",
+    "searchQuery": "wood texture dark walnut grain close up surface material",
+    "alternatives": [
+      "https://img1.wsimg.com/isteam/getty/1406496299",
+      "https://img1.wsimg.com/isteam/getty/536811179",
+      "https://img1.wsimg.com/isteam/getty/2190196514"
+    ],
+    "userModified": false,
+    "createdAt": "2026-04-29T20:00:57.804Z",
+    "lastUpdated": "2026-04-29T20:00:57.804Z",
+    "gettyId": "2159841804",
+    "alternativeGettyIds": [
+      "1406496299",
+      "536811179",
+      "2190196514"
+    ],
+    "requestedSize": {
+      "width": 1920,
+      "height": 600,
+      "fit": "cover"
+    },
+    "orientations": "horizontal",
+    "moods": "warm,dramatic"
+  },
+  "logo/horizontal": {
+    "mediaType": "logo",
+    "currentUrl": "/airo-assets/uploads/logo-horizontal-93ddd6fe.png",
+    "searchQuery": "VIMA DOORS",
+    "alternatives": [
+      "https://isteam.wsimg.com/genai-assistant/logoagent/customer/479cb7eb-bb10-4828-9851-d58ab6dec055/session/957fcbf0-83be-4851-92f2-cb7ed4586211/horizontal-transparent-c186aff637445c5477a620bece1544c2/logo-vima-doors-c186af.png",
+      "https://isteam.wsimg.com/genai-assistant/logoagent/customer/479cb7eb-bb10-4828-9851-d58ab6dec055/session/957fcbf0-83be-4851-92f2-cb7ed4586211/horizontal-transparent-9351313cba67e71c2832e59cabdc4ff2/logo-vima-doors-935131.png",
+      "https://isteam.wsimg.com/genai-assistant/logoagent/customer/479cb7eb-bb10-4828-9851-d58ab6dec055/session/957fcbf0-83be-4851-92f2-cb7ed4586211/horizontal-transparent-36369bf0bdc486810d049445f28ca725/logo-vima-doors-36369b.png",
+      "https://isteam.wsimg.com/genai-assistant/logoagent/customer/479cb7eb-bb10-4828-9851-d58ab6dec055/session/957fcbf0-83be-4851-92f2-cb7ed4586211/horizontal-transparent-4b3915ec375d7593f747b85ccfcbfa82/logo-vima-doors-4b3915.png"
+    ],
+    "solidUrlMap": {
+      "https://isteam.wsimg.com/genai-assistant/logoagent/customer/479cb7eb-bb10-4828-9851-d58ab6dec055/session/957fcbf0-83be-4851-92f2-cb7ed4586211/horizontal-transparent-c186aff637445c5477a620bece1544c2/logo-vima-doors-c186af.png": "https://isteam.wsimg.com/genai-assistant/logoagent/customer/479cb7eb-bb10-4828-9851-d58ab6dec055/session/957fcbf0-83be-4851-92f2-cb7ed4586211/horizontal-solid-737fdacc827ef0088033c128b475a5e1/logo-vima-doors-737fda.png",
+      "https://isteam.wsimg.com/genai-assistant/logoagent/customer/479cb7eb-bb10-4828-9851-d58ab6dec055/session/957fcbf0-83be-4851-92f2-cb7ed4586211/horizontal-transparent-9351313cba67e71c2832e59cabdc4ff2/logo-vima-doors-935131.png": "https://isteam.wsimg.com/genai-assistant/logoagent/customer/479cb7eb-bb10-4828-9851-d58ab6dec055/session/957fcbf0-83be-4851-92f2-cb7ed4586211/horizontal-solid-c447cd1f0708de5a41664829790ee7cd/logo-vima-doors-c447cd.png",
+      "https://isteam.wsimg.com/genai-assistant/logoagent/customer/479cb7eb-bb10-4828-9851-d58ab6dec055/session/957fcbf0-83be-4851-92f2-cb7ed4586211/horizontal-transparent-36369bf0bdc486810d049445f28ca725/logo-vima-doors-36369b.png": "https://isteam.wsimg.com/genai-assistant/logoagent/customer/479cb7eb-bb10-4828-9851-d58ab6dec055/session/957fcbf0-83be-4851-92f2-cb7ed4586211/horizontal-solid-9cf8be88dfc912465603422bfc12f0e9/logo-vima-doors-9cf8be.png",
+      "https://isteam.wsimg.com/genai-assistant/logoagent/customer/479cb7eb-bb10-4828-9851-d58ab6dec055/session/957fcbf0-83be-4851-92f2-cb7ed4586211/horizontal-transparent-4b3915ec375d7593f747b85ccfcbfa82/logo-vima-doors-4b3915.png": "https://isteam.wsimg.com/genai-assistant/logoagent/customer/479cb7eb-bb10-4828-9851-d58ab6dec055/session/957fcbf0-83be-4851-92f2-cb7ed4586211/horizontal-solid-392c8d9498ae11c6e01f78dc3f1ac18a/logo-vima-doors-392c8d.png"
+    },
+    "logoSourceMap": {
+      "https://isteam.wsimg.com/genai-assistant/logoagent/customer/479cb7eb-bb10-4828-9851-d58ab6dec055/session/957fcbf0-83be-4851-92f2-cb7ed4586211/horizontal-transparent-c186aff637445c5477a620bece1544c2/logo-vima-doors-c186af.png": {
+        "sessionId": "957fcbf0-83be-4851-92f2-cb7ed4586211",
+        "logoId": "c186aff6"
+      },
+      "https://isteam.wsimg.com/genai-assistant/logoagent/customer/479cb7eb-bb10-4828-9851-d58ab6dec055/session/957fcbf0-83be-4851-92f2-cb7ed4586211/horizontal-transparent-9351313cba67e71c2832e59cabdc4ff2/logo-vima-doors-935131.png": {
+        "sessionId": "957fcbf0-83be-4851-92f2-cb7ed4586211",
+        "logoId": "9351313c"
+      },
+      "https://isteam.wsimg.com/genai-assistant/logoagent/customer/479cb7eb-bb10-4828-9851-d58ab6dec055/session/957fcbf0-83be-4851-92f2-cb7ed4586211/horizontal-transparent-36369bf0bdc486810d049445f28ca725/logo-vima-doors-36369b.png": {
+        "sessionId": "957fcbf0-83be-4851-92f2-cb7ed4586211",
+        "logoId": "36369bf0"
+      },
+      "https://isteam.wsimg.com/genai-assistant/logoagent/customer/479cb7eb-bb10-4828-9851-d58ab6dec055/session/957fcbf0-83be-4851-92f2-cb7ed4586211/horizontal-transparent-4b3915ec375d7593f747b85ccfcbfa82/logo-vima-doors-4b3915.png": {
+        "sessionId": "957fcbf0-83be-4851-92f2-cb7ed4586211",
+        "logoId": "4b3915ec"
+      }
+    },
+    "userModified": true,
+    "createdAt": "2026-04-29T20:01:51.785Z",
+    "lastUpdated": "2026-04-29T20:09:06.686Z",
+    "uploadSources": {
+      "/airo-assets/uploads/logo-horizontal-93ddd6fe.png": "7ohc0jeyur_1777493346675_file_BF2mXlxvCn.png"
+    }
+  }
+}
