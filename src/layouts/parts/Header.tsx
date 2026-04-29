@@ -38,7 +38,7 @@ export default function Header() {
             className="flex items-center shrink-0"
           >
             <img
-              src="/airo-assets/images/logo/horizontal"
+              src="/assets/logo.png"
               alt="Vima Doors"
               className="h-9 w-auto"
             />
