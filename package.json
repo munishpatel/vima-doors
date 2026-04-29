@@ -1,10 +1,7 @@
 {
-  "name": "v8-app-template",
+  "name": "vima-doors",
   "version": "1.0.0",
   "type": "module",
-  "imports": {
-    "#airo/secrets": "./airo-secrets/src/index.ts"
-  },
   "scripts": {
     "dev": "vite",
     "build": "vite build",
@@ -55,7 +52,6 @@
     "cmdk": "^1.1.1",
     "date-fns": "^4.1.0",
     "embla-carousel-react": "^8.6.0",
-    "express": "^5.1.0",
     "html-to-image": "^1.11.11",
     "input-otp": "^1.4.2",
     "lucide-react": "^0.454.0",
@@ -71,7 +67,6 @@
     "sonner": "^2.0.7",
     "tailwind-merge": "^2.6.1",
     "vaul": "^1.1.2",
-    "vite-plugin-api-routes": "1.2.6",
     "zod": "^3.25.76",
     "zustand": "^5.0.2"
   },
@@ -83,7 +78,6 @@
     "@testing-library/react": "^16.3.2",
     "@testing-library/user-event": "^14.5.2",
     "@types/babel__core": "^7.20.5",
-    "@types/express": "^5.0.3",
     "@types/node": "^22.10.2",
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",

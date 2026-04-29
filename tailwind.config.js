@@ -3,7 +3,6 @@ export default {
   content: [
     './index.html',
     './src/**/*.{ts,tsx,js,jsx}',
-    './dev-tools/src/**/*.{ts,tsx,js,jsx}',
   ],
   theme: {
   	container: {

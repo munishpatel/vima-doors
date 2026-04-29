@@ -10,7 +10,7 @@ export default function Footer() {
           {/* Brand */}
           <div className="md:col-span-2">
             <img
-              src="/airo-assets/images/logo/horizontal?variant=solid"
+              src="/assets/logo.png"
               alt="Vima Doors"
               className="h-8 w-auto mb-5"
               style={{ filter: 'brightness(1.4) contrast(0.9)' }}

@@ -54,7 +54,7 @@ export default function HomePage() {
         {/* Background video */}
         <video
           className="absolute inset-0 w-full h-full object-cover scale-105"
-          src="/assets/hero-video.mp4"
+          src="/assets/herosection_video.mp4"
           autoPlay
           muted
           loop
@@ -141,7 +141,7 @@ export default function HomePage() {
               className="relative aspect-[4/5] overflow-hidden group"
             >
               <img
-                src="/airo-assets/images/pages/home/interior-doors"
+                src="/assets/interior-doors.webp"
                 alt="Interior wooden door with warm wood grain"
                 className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
               />
@@ -233,7 +233,7 @@ export default function HomePage() {
               className="relative aspect-[4/5] overflow-hidden group order-1 md:order-2"
             >
               <img
-                src="/airo-assets/images/pages/home/exterior-doors"
+                src="/assets/exterior-doors.webp"
                 alt="Elegant exterior front door on a modern home"
                 className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
               />
@@ -355,7 +355,7 @@ export default function HomePage() {
         {/* Wood texture background */}
         <div
           className="absolute inset-0 bg-cover bg-center"
-          style={{ backgroundImage: `url('/airo-assets/images/pages/home/cta-texture')` }}
+          style={{ backgroundImage: `url('/assets/cta-texture.webp')` }}
         />
         <div className="absolute inset-0 bg-gray-950/75" />
 
