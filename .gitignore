@@ -1,3 +1,7 @@
+# macOS
+.DS_Store
+**/.DS_Store
+
 # Logs
 logs
 *.log
@@ -40,6 +44,7 @@ build/Release
 # Dependency directories
 node_modules/
 jspm_packages/
+md_files/
 
 # Snowpack dependency directory (https://snowpack.dev/)
 web_modules/
