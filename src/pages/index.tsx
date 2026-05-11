@@ -43,7 +43,7 @@ const testimonials = [
 export default function HomePage() {
   return (
     <>
-      <title>Vima Doors — Doors That Define a Home</title>
+      <title>Vima Doors - Doors That Define a Home</title>
       <meta
         name="description"
         content="3rd-generation family business crafting prefinished interior and exterior doors. Premium quality, security, and design tailored to your home."
@@ -60,7 +60,7 @@ export default function HomePage() {
           loop
           playsInline
         />
-        {/* Top gradient — darkens behind header so white text/logo pops */}
+        {/* Top gradient — darkens behind header so logo pops */}
         <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-transparent to-transparent" />
         {/* Side + bottom gradients for hero text legibility */}
         <div className="absolute inset-0 bg-gradient-to-r from-gray-950/80 via-gray-900/50 to-transparent" />
