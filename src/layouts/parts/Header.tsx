@@ -56,13 +56,21 @@ export default function Header() {
     <div className="fixed top-0 left-0 right-0 z-50">
       {/* ── Top info bar (desktop only) ─────────────────────────────────── */}
       <div
-        className={`hidden md:block overflow-hidden transition-all duration-300 ${
+        className={`block overflow-hidden transition-all duration-300 ${
           scrolled ? 'max-h-0 opacity-0' : 'max-h-10 opacity-100'
         }`}
         style={{ background: 'rgba(15,10,6,0.72)', backdropFilter: 'blur(8px)' }}
       >
         <div className="container mx-auto px-6 lg:px-10">
-          <div className="flex items-center justify-between h-9 text-[11px] tracking-wide text-stone-300">
+          {/* Mobile: centered phone only */}
+          <div className="flex md:hidden items-center justify-center h-9 text-[11px] tracking-[0.15em] uppercase font-medium text-stone-300">
+            <a href={PHONE_TEL} className="flex items-center gap-2 hover:text-white transition-colors duration-150">
+              <Phone size={11} className="text-amber-400" />
+              <span>Call : {PHONE_DISPLAY}</span>
+            </a>
+          </div>
+          {/* Desktop: full row */}
+          <div className="hidden md:flex items-center justify-between h-9 text-[11px] tracking-wide text-stone-300">
             <div className="flex items-center gap-1.5">
               <MapPin size={11} className="text-amber-400 shrink-0" />
               <span>Hyderabad, Telangana</span>
@@ -87,110 +95,94 @@ export default function Header() {
                 <span>WhatsApp Us</span>
               </a>
             </div>
-          </div>
+          </div>{/* end desktop row */}
         </div>
       </div>
 
       {/* ── Main header ─────────────────────────────────────────────────── */}
       <header
-        className={`transition-all duration-500 ${
-          scrolled
-            ? 'bg-background/95 backdrop-blur-md border-b border-border shadow-sm'
-            : 'bg-transparent'
-        }`}
+        className="bg-background/95 backdrop-blur-md border-b border-border shadow-sm"
       >
         <div className="container mx-auto px-6 lg:px-10">
-          <div className="flex h-[72px] items-center justify-between">
+          <div className="flex h-[84px] items-center justify-between">
 
             {/* Logo */}
             <Link
               to="/"
               onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-              className="flex items-center shrink-0 group"
+              className="flex items-center gap-0 shrink-0 group"
             >
+              <img
+                src="/assets/title-logo.png"
+                alt=""
+                className="h-[70px] w-auto object-contain"
+              />
               <img
                 src="/assets/logo.png"
                 alt="Vima Doors"
-                className="h-10 w-auto transition-all duration-500"
+                className="w-[180px] h-[70px] object-contain transition-all duration-500"
               />
             </Link>
 
             {/* Desktop nav */}
-            <nav className="hidden md:flex items-center gap-1">
+            <nav className="hidden md:flex items-center gap-0.5">
               {navItems.map((item) => {
                 const isActive = location.pathname === item.href;
                 return (
-                  <Link
+                  <motion.div
                     key={item.href}
-                    to={item.href}
-                    className={`relative px-4 py-2 text-[11px] tracking-[0.18em] uppercase font-medium transition-colors duration-200 group ${
-                      isActive
-                        ? scrolled
-                          ? 'text-primary'
-                          : 'text-white'
-                        : scrolled
-                        ? 'text-foreground/60 hover:text-foreground'
-                        : 'text-white/75 hover:text-white'
-                    }`}
+                    whileHover={{ y: -1 }}
+                    transition={{ type: 'spring', stiffness: 400, damping: 25 }}
                   >
-                    {item.label}
-                    {/* Active dot */}
-                    {isActive && (
-                      <span
-                        className={`absolute bottom-0.5 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full transition-colors duration-200 ${
-                          scrolled ? 'bg-primary' : 'bg-white'
-                        }`}
-                      />
-                    )}
-                    {/* Hover underline */}
-                    {!isActive && (
-                      <span
-                        className={`absolute bottom-0.5 left-4 right-4 h-px transition-all duration-300 origin-left scale-x-0 group-hover:scale-x-100 ${
-                          scrolled ? 'bg-primary' : 'bg-white/60'
-                        }`}
-                      />
-                    )}
-                  </Link>
+                    <Link
+                      to={item.href}
+                      className={`relative flex items-center px-4 py-2 text-[11px] tracking-[0.18em] uppercase font-semibold rounded-sm transition-colors duration-200 ${
+                        isActive
+                          ? 'text-primary-foreground bg-primary'
+                          : 'text-foreground/60 hover:text-foreground hover:bg-foreground/6'
+                      }`}
+                    >
+                      {item.label}
+                    </Link>
+                  </motion.div>
                 );
               })}
             </nav>
 
             {/* CTA buttons (desktop) */}
-            <div className="hidden md:flex items-center gap-3">
-              {/* WhatsApp */}
-              <a
+            <div className="hidden md:flex items-center">
+              {/* WhatsApp CTA */}
+              <motion.a
                 href={WA_HREF}
                 target="_blank"
                 rel="noopener noreferrer"
-                className={`flex items-center gap-2 text-[11px] tracking-[0.15em] uppercase font-medium px-4 py-2 transition-all duration-200 ${
-                  scrolled
-                    ? 'bg-[#25D366] text-white hover:bg-[#1ebe5d]'
-                    : 'bg-[#25D366]/90 text-white hover:bg-[#25D366]'
-                }`}
+                whileHover={{ scale: 1.04 }}
+                whileTap={{ scale: 0.97 }}
+                transition={{ type: 'spring', stiffness: 400, damping: 20 }}
+                className="relative flex items-center gap-2.5 overflow-hidden rounded-sm px-5 py-2.5 text-white shadow-[0_4px_18px_rgba(37,211,102,0.35)] hover:shadow-[0_6px_24px_rgba(37,211,102,0.55)] transition-shadow duration-300"
+                style={{ background: 'linear-gradient(135deg, #075E54 0%, #128C7E 45%, #25D366 100%)' }}
               >
-                <WhatsAppIcon size={13} />
-                Chat
-              </a>
-              {/* Get a Quote */}
-              <Link
-                to="/contact"
-                className={`flex items-center gap-2 text-[11px] tracking-[0.15em] uppercase font-medium px-4 py-2 border transition-all duration-200 ${
-                  scrolled
-                    ? 'border-primary text-primary hover:bg-primary hover:text-primary-foreground'
-                    : 'border-white/70 text-white hover:bg-white hover:text-foreground'
-                }`}
-              >
-                Get a Quote
-                <ArrowRight size={12} />
-              </Link>
+                {/* Shimmer sweep on hover */}
+                <span className="pointer-events-none absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/20 to-transparent transition-transform duration-500 hover:translate-x-full" />
+
+                {/* Pulse dot — "we're online" */}
+                <span className="relative flex h-2 w-2 shrink-0">
+                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-white opacity-60" />
+                  <span className="relative inline-flex h-2 w-2 rounded-full bg-white" />
+                </span>
+
+                <WhatsAppIcon size={14} />
+
+                <span className="text-[11px] tracking-[0.14em] uppercase font-semibold leading-none">
+                  Chat Now
+                </span>
+              </motion.a>
             </div>
 
             {/* Mobile toggle */}
             <button
               onClick={() => setIsMobileMenuOpen((v) => !v)}
-              className={`md:hidden p-2 -mr-1 transition-colors duration-200 ${
-                scrolled ? 'text-foreground' : 'text-white'
-              }`}
+              className="md:hidden p-2 -mr-1 text-foreground transition-colors duration-200"
               aria-label="Toggle menu"
             >
               <AnimatePresence mode="wait" initial={false}>
