@@ -104,7 +104,7 @@ export default function Header() {
         className="bg-background/95 backdrop-blur-md border-b border-border shadow-sm"
       >
         <div className="container mx-auto px-6 lg:px-10">
-          <div className="flex h-[84px] items-center justify-between">
+          <div className="flex h-[60px] md:h-[84px] items-center justify-between">
 
             {/* Logo */}
             <Link
@@ -115,12 +115,12 @@ export default function Header() {
               <img
                 src="/assets/title-logo.png"
                 alt=""
-                className="h-[70px] w-auto object-contain"
+                className="h-[48px] md:h-[70px] w-auto object-contain"
               />
               <img
                 src="/assets/logo.png"
                 alt="Vima Doors"
-                className="w-[180px] h-[70px] object-contain transition-all duration-500"
+                className="w-[130px] md:w-[180px] h-[48px] md:h-[70px] object-contain transition-all duration-500 -ml-3 md:-ml-4"
               />
             </Link>
 
@@ -182,13 +182,12 @@ export default function Header() {
           {/* Mobile Toggle */}
           <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className={`md:hidden p-2 transition-colors ${
-              scrolled ? 'text-foreground' : 'text-background'
-            }`}
+            className="md:hidden p-2 text-foreground transition-colors"
             aria-label="Toggle menu"
           >
             {isMobileMenuOpen ? <X size={22} /> : <Menu size={22} />}
           </button>
+        </div>
         </div>
 
         {/* ── Mobile menu ───────────────────────────────────────────────── */}

@@ -51,7 +51,7 @@ export default function HomePage() {
 
       {/* ─── HERO ──────────────────────────────────────────────────────────── */}
       <section
-        className="relative flex items-end overflow-hidden h-[calc(100vh-120px)] min-h-[480px]"
+        className="relative flex items-end overflow-hidden -mt-[120px] h-screen min-h-[600px]"
       >
         {/* Background video */}
         <video
