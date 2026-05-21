@@ -31,7 +31,9 @@ export default function RootLayout({ children }: RootLayoutProps) {
   return (
     <Website>
       <Header />
-      {children}
+      <main className="pt-[120px]">
+        {children}
+      </main>
       <Footer />
     </Website>
   );

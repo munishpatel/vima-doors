@@ -50,7 +50,9 @@ export default function HomePage() {
       />
 
       {/* ─── HERO ──────────────────────────────────────────────────────────── */}
-      <section className="relative h-screen min-h-[640px] flex items-end overflow-hidden">
+      <section
+        className="relative flex items-end overflow-hidden -mt-[120px] h-screen min-h-[600px]"
+      >
         {/* Background video */}
         <video
           className="absolute inset-0 w-full h-full object-cover scale-105"
@@ -90,7 +92,7 @@ export default function HomePage() {
               variants={fadeUp}
               className="text-stone-300 text-lg leading-relaxed mb-10 max-w-md"
             >
-              Prefinished interior and exterior doors crafted to the highest standards
+              Premium interior and exterior doors crafted to the highest standards
               of quality, performance, and security — tailored to your taste.
             </motion.p>
             <motion.div variants={fadeUp} className="flex flex-wrap gap-4">
@@ -105,7 +107,7 @@ export default function HomePage() {
                 to="/contact"
                 className="inline-flex items-center gap-2 border border-stone-400 text-stone-200 text-sm tracking-widest uppercase px-7 py-3.5 hover:border-white hover:text-white transition-colors duration-200"
               >
-                Request a Quote
+                Contact Us
               </Link>
             </motion.div>
           </motion.div>
