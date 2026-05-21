@@ -179,37 +179,16 @@ export default function Header() {
               </motion.a>
             </div>
 
-            {/* Mobile toggle */}
-            <button
-              onClick={() => setIsMobileMenuOpen((v) => !v)}
-              className="md:hidden p-2 -mr-1 text-foreground transition-colors duration-200"
-              aria-label="Toggle menu"
-            >
-              <AnimatePresence mode="wait" initial={false}>
-                {isMobileMenuOpen ? (
-                  <motion.span
-                    key="close"
-                    initial={{ rotate: -90, opacity: 0 }}
-                    animate={{ rotate: 0, opacity: 1 }}
-                    exit={{ rotate: 90, opacity: 0 }}
-                    transition={{ duration: 0.15 }}
-                  >
-                    <X size={22} />
-                  </motion.span>
-                ) : (
-                  <motion.span
-                    key="open"
-                    initial={{ rotate: 90, opacity: 0 }}
-                    animate={{ rotate: 0, opacity: 1 }}
-                    exit={{ rotate: -90, opacity: 0 }}
-                    transition={{ duration: 0.15 }}
-                  >
-                    <Menu size={22} />
-                  </motion.span>
-                )}
-              </AnimatePresence>
-            </button>
-          </div>
+          {/* Mobile Toggle */}
+          <button
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            className={`md:hidden p-2 transition-colors ${
+              scrolled ? 'text-foreground' : 'text-background'
+            }`}
+            aria-label="Toggle menu"
+          >
+            {isMobileMenuOpen ? <X size={22} /> : <Menu size={22} />}
+          </button>
         </div>
 
         {/* ── Mobile menu ───────────────────────────────────────────────── */}
