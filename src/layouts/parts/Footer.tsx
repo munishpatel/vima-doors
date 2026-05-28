@@ -16,9 +16,9 @@ const NAV_ITEMS = [
 ];
 
 const SHOWROOM = {
-  label: 'Exclusive Doors Showroom',
+  label: 'Exclusive Doors Showrooms',
   name: 'Shree Shankar Vijay Traders',
-  address: ['23-29, Jyothi Nagar, Ramachandra', 'Puram, Hyderabad,', 'Telangana 502032'],
+  address: ['23-29, Jyothi Nagar, Ramachandra', 'Puram, Hyderabad,', 'Telangana 502032, India'],
   phones: [
     { display: '+91 99490 92929', tel: '+919949092929' },
     { display: '+91 63043 70290', tel: '+916304370290' },
@@ -27,9 +27,9 @@ const SHOWROOM = {
 };
 
 const WORKSHOP = {
-  label: 'Workshop',
-  name: 'Manufacturing Unit',
-  address: ['Plot 14, Industrial Estate,', 'Patancheru, Sangareddy,', 'Telangana 502319'],
+  label: 'Exclusive Doors Showrooms',
+  name: 'Shree Shankar Vijay Trading',
+  address: ['5-143/31 I, Shankarpalli - Hyderabad Rd, Shankarpalle, Telangana 501203, India'],
   phones: [
     { display: '+91 97010 92929', tel: '+919701092929' },
     { display: '+91 86399 63823', tel: '+918639963823' },
@@ -220,7 +220,7 @@ export default function Footer() {
           </div>
 
           {/* Navigate */}
-          <div className="lg:col-span-2">
+          <div className="lg:col-span-2 lg:pl-20">
             <h4 className="text-[10px] tracking-[0.22em] uppercase text-amber-200/90 font-semibold mb-5">
               Navigate
             </h4>
