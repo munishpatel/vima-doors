@@ -2,6 +2,7 @@ import { RouteObject } from 'react-router-dom';
 import { lazy } from 'react';
 import HomePage from './pages/index';
 
+const AboutPage = lazy(() => import('./pages/about'));
 const NotFoundPage = lazy(() => import('./pages/_404'));
 
 export const routes: RouteObject[] = [
@@ -10,12 +11,16 @@ export const routes: RouteObject[] = [
     element: <HomePage />,
   },
   {
+    path: '/about',
+    element: <AboutPage />,
+  },
+  {
     path: '*',
     element: <NotFoundPage />,
   },
 ];
 
 // Types for type-safe navigation
-export type Path = '/';
+export type Path = '/' | '/about';
 
 export type Params = Record<string, string | undefined>;
