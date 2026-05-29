@@ -70,13 +70,13 @@ function ContactBlock({
   return (
     <div>
       <ColumnHeading>{data.label}</ColumnHeading>
-      <p className="font-heading text-lg text-stone-100 mb-4 leading-snug">
+      <p className="font-heading text-lg text-[#5cb85c] mb-4 leading-snug">
         {data.name}
       </p>
 
       <ul className="space-y-3.5 text-base">
         {/* Address */}
-        <li className="flex items-start gap-3 text-stone-400">
+        <li className="flex items-start gap-3 text-stone-100">
           <MapPin
             size={15}
             className="mt-0.5 shrink-0 text-amber-400/80"
@@ -103,7 +103,7 @@ function ContactBlock({
               <a
                 key={p.tel}
                 href={`tel:${p.tel}`}
-                className="text-stone-400 hover:text-stone-100 transition-colors duration-200 tracking-wide"
+                className="text-stone-100 hover:text-white transition-colors duration-200 tracking-wide"
               >
                 {p.display}
               </a>
@@ -124,7 +124,7 @@ function ContactBlock({
                 <a
                   key={e}
                   href={`mailto:${e}`}
-                  className="text-stone-400 hover:text-stone-100 transition-colors duration-200"
+                  className="text-stone-100 hover:text-white transition-colors duration-200"
                 >
                   {e}
                 </a>
