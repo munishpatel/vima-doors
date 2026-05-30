@@ -16,7 +16,7 @@ export default function IndiaBadges() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-60px' }}
           transition={{ duration: 0.5, ease: 'easeOut' }}
-          className="flex flex-wrap items-center justify-center gap-8 md:gap-14"
+          className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-14"
         >
           {BADGES.map((badge, i) => (
             <motion.div
@@ -30,7 +30,7 @@ export default function IndiaBadges() {
               <img
                 src={badge.src}
                 alt={badge.alt}
-                className={`w-auto object-contain ${badge.className ?? 'h-32 md:h-40'}`}
+                className={`w-auto object-contain ${badge.className ?? 'h-24 md:h-40'}`}
               />
             </motion.div>
           ))}
