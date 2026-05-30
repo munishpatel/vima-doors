@@ -18,6 +18,19 @@ const stagger = {
   visible: { transition: { staggerChildren: 0.12 } },
 };
 
+// ─── Trust Badges ─────────────────────────────────────────────────────────────
+const GREEN_FILTER = 'brightness(0) saturate(100%) invert(37%) sepia(52%) saturate(530%) hue-rotate(101deg) brightness(90%)';
+
+const TRUST_BADGES = [
+  { src: '/assets/strip/trust.png',      label: 'Trust of\n3 Decades'       },
+  { src: '/assets/strip/creativity.png', label: 'Endless Design\nInnovation' },
+  { src: '/assets/strip/shield-checkmark.png', label: 'Zero Error\nProducts' },
+  { src: '/assets/strip/people-connection.png', label: 'Widest Dealer\nNetwork' },
+  { src: '/assets/strip/quality.png',    label: 'Premium\nQuality'           },
+  { src: '/assets/strip/precision.png',  label: 'Precision\nCrafting'        },
+  { src: '/assets/title-logo.png',       label: 'Elegant\nDesigns' },
+];
+
 // ─── Testimonials Data ────────────────────────────────────────────────────────
 const testimonials = [
   {
@@ -76,13 +89,7 @@ export default function HomePage() {
             animate="visible"
             className="max-w-2xl"
           >
-            <motion.p
-              variants={fadeUp}
-              className="text-xs tracking-[0.3em] uppercase text-stone-300 mb-5 font-medium"
-            >
-              3rd Generation Family Craftsmanship
-            </motion.p>
-            <motion.h1
+<motion.h1
               variants={fadeUp}
               className="font-heading text-5xl md:text-6xl lg:text-7xl text-white leading-[1.05] tracking-tight mb-7"
             >
@@ -90,7 +97,7 @@ export default function HomePage() {
             </motion.h1>
             <motion.p
               variants={fadeUp}
-              className="text-stone-300 text-lg leading-relaxed mb-10 max-w-md"
+              className="text-stone-300 text-lg leading-relaxed mb-10 max-w-md text-justify"
             >
               Premium interior and exterior doors crafted to the highest standards
               of quality, performance, and security — tailored to your taste.
@@ -128,6 +135,152 @@ export default function HomePage() {
             <ChevronDown size={16} />
           </motion.div>
         </motion.div>
+      </section>
+
+      {/* ─── WELCOME ───────────────────────────────────────────────────────── */}
+      <section className="relative py-24 md:py-32 bg-gradient-to-b from-muted/50 to-muted overflow-hidden">
+        {/* Decorative ambient glows — more layered and modern */}
+        <div className="pointer-events-none absolute -top-28 -right-28 h-96 w-96 rounded-full bg-primary/[0.08] blur-3xl" />
+        <div className="pointer-events-none absolute -bottom-32 -left-32 h-96 w-96 rounded-full bg-primary/[0.05] blur-3xl" />
+        <div className="pointer-events-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-[500px] w-[500px] rounded-full bg-primary/[0.02] blur-3xl" />
+
+        <div className="relative container mx-auto px-6 lg:px-10">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+            {/* Text — left */}
+            <motion.div
+              variants={stagger}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+            >
+              <motion.p
+                variants={fadeUp}
+                className="text-xs tracking-[0.3em] uppercase text-primary mb-5 font-semibold"
+              >
+                India&rsquo;s Leading Door Manufacturer &amp; Supplier
+              </motion.p>
+              <motion.h2
+                variants={fadeUp}
+                className="font-heading text-4xl md:text-5xl lg:text-6xl text-foreground leading-[1.08] tracking-tight"
+              >
+                Welcome to <span className="text-primary">Vima Doors</span>
+              </motion.h2>
+              <motion.div
+                variants={fadeUp}
+                className="mt-7 mb-8 h-px w-20 bg-gradient-to-r from-primary/70 to-transparent"
+              />
+
+              <motion.p
+                variants={fadeUp}
+                className="text-lg text-foreground/80 leading-relaxed mb-6 text-justify"
+              >
+                At Vima Doors, we carry forward three generations of craftsmanship to
+                bring you doors that are built to impress and designed to last. As one of
+                India&rsquo;s trusted door manufacturers and suppliers, we specialise in
+                premium prefinished interior and exterior doors — delivering quality,
+                security, and elegance that truly defines a home.
+              </motion.p>
+              <motion.p
+                variants={fadeUp}
+                className="hidden md:block text-muted-foreground leading-relaxed mb-6 text-justify"
+              >
+                Whether you are furnishing a new home, renovating a space, or sourcing
+                for a commercial project, we have the right door for you. From warm,
+                character-rich interior doors to weather-resistant exterior doors that
+                make a bold first impression, our collections are crafted to suit every
+                style, space, and budget.
+              </motion.p>
+              <motion.p
+                variants={fadeUp}
+                className="hidden md:block text-muted-foreground leading-relaxed text-justify"
+              >
+                Every door that leaves our workshop is prefinished to the highest
+                standard — saving you time on-site without compromising on finish. Over
+                the years, Vima Doors has earned the trust and loyalty of homeowners,
+                architects, and contractors alike, who return to us time and again for
+                our consistent quality and honest craftsmanship. We work closely with
+                each customer to deliver tailored solutions, backed by the expertise of
+                a family that has lived and breathed door manufacturing for over three
+                decades.
+              </motion.p>
+            </motion.div>
+
+            {/* Image — right (hero image + offset detail card) */}
+            <motion.div
+              variants={fadeIn}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+              className="relative mx-auto w-full max-w-md lg:max-w-none pr-10 pb-12 lg:pr-16 lg:pb-16"
+            >
+              {/* Main image */}
+              <div className="group relative aspect-[4/5] overflow-hidden rounded-2xl shadow-[0_20px_60px_rgba(0,0,0,0.18)]">
+                <img
+                  src="/assets/welcome_door.jpg"
+                  alt="Vima Doors prefinished interior door"
+                  className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+                />
+                <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/25 to-transparent" />
+                <span className="absolute bottom-5 left-5 bg-background/85 backdrop-blur-sm text-[10px] tracking-[0.2em] uppercase text-foreground/70 px-3 py-1.5 rounded-md">
+                  Hero Door
+                </span>
+              </div>
+
+              {/* Offset detail card */}
+              <motion.div
+                initial={{ opacity: 0, y: 24 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, ease: 'easeOut', delay: 0.2 }}
+                className="absolute bottom-0 right-0 w-2/5 aspect-[3/4] overflow-hidden rounded-xl border-[6px] border-background shadow-[0_16px_40px_rgba(0,0,0,0.22)]"
+              >
+                <img
+                  src="/assets/welcome_door.jpg"
+                  alt="Close-up of carved fan detail with brass medallion"
+                  className="h-full w-full object-cover object-[50%_42%] scale-[2.8]"
+                />
+                <span className="absolute bottom-3 left-3 bg-background/85 backdrop-blur-sm text-[9px] tracking-[0.18em] uppercase text-foreground/70 px-2.5 py-1 rounded">
+                  Detail / Grain
+                </span>
+              </motion.div>
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
+      {/* ─── TRUST STRIP ───────────────────────────────────────────────────── */}
+      <section className="py-12 md:py-16 bg-[#f0f7f0]">
+        <div className="container mx-auto px-6 lg:px-10">
+          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-y-10 gap-x-6">
+            {TRUST_BADGES.map((badge, i) => (
+              <motion.div
+                key={badge.label}
+                initial={{ opacity: 0, y: 18 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: '-60px' }}
+                transition={{ duration: 0.5, ease: 'easeOut', delay: i * 0.07 }}
+                className="group flex flex-col items-center gap-4"
+              >
+                {'src' in badge ? (
+                  <img
+                    src={badge.src}
+                    alt={badge.label}
+                    className="h-12 w-12 object-contain transition-transform duration-300 group-hover:scale-110"
+                    style={badge.noFilter ? undefined : { filter: GREEN_FILTER }}
+                  />
+                ) : (
+                  <badge.Icon
+                    className="h-12 w-12 text-[#2d6a35] transition-transform duration-300 group-hover:scale-110"
+                    strokeWidth={1.5}
+                  />
+                )}
+                <p className="text-center text-[11px] md:text-xs tracking-[0.18em] uppercase text-foreground/80 font-semibold leading-relaxed whitespace-pre-line">
+                  {badge.label}
+                </p>
+              </motion.div>
+            ))}
+          </div>
+        </div>
       </section>
 
       {/* ─── INTERIOR DOORS ────────────────────────────────────────────────── */}
