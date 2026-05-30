@@ -250,8 +250,39 @@ export default function HomePage() {
 
       {/* ─── TRUST STRIP ───────────────────────────────────────────────────── */}
       <section className="py-12 md:py-16 bg-[#f0f7f0]">
-        <div className="container mx-auto px-6 lg:px-10">
-          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-y-10 gap-x-6">
+        {/* Mobile: horizontal scroll — Desktop: 7-col grid */}
+        <div className="md:hidden overflow-hidden">
+          <style>{`
+            @keyframes marquee {
+              0% { transform: translateX(0); }
+              100% { transform: translateX(-50%); }
+            }
+          `}</style>
+          <div
+            className="flex gap-10 w-max"
+            style={{ animation: 'marquee 18s linear infinite' }}
+          >
+            {[...TRUST_BADGES, ...TRUST_BADGES].map((badge, i) => (
+              <div
+                key={`${badge.label}-${i}`}
+                className="flex flex-col items-center gap-3 w-24"
+              >
+                <img
+                  src={badge.src}
+                  alt={badge.label}
+                  className="h-10 w-10 object-contain"
+                  style={{ filter: GREEN_FILTER }}
+                />
+                <p className="text-center text-[10px] tracking-[0.15em] uppercase text-foreground/80 font-semibold leading-relaxed whitespace-pre-line">
+                  {badge.label}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div className="hidden md:block container mx-auto px-6 lg:px-10">
+          <div className="grid md:grid-cols-4 lg:grid-cols-7 gap-y-10 gap-x-6">
             {TRUST_BADGES.map((badge, i) => (
               <motion.div
                 key={badge.label}
@@ -261,19 +292,12 @@ export default function HomePage() {
                 transition={{ duration: 0.5, ease: 'easeOut', delay: i * 0.07 }}
                 className="group flex flex-col items-center gap-4"
               >
-                {'src' in badge ? (
-                  <img
-                    src={badge.src}
-                    alt={badge.label}
-                    className="h-12 w-12 object-contain transition-transform duration-300 group-hover:scale-110"
-                    style={badge.noFilter ? undefined : { filter: GREEN_FILTER }}
-                  />
-                ) : (
-                  <badge.Icon
-                    className="h-12 w-12 text-[#2d6a35] transition-transform duration-300 group-hover:scale-110"
-                    strokeWidth={1.5}
-                  />
-                )}
+                <img
+                  src={badge.src}
+                  alt={badge.label}
+                  className="h-12 w-12 object-contain transition-transform duration-300 group-hover:scale-110"
+                  style={{ filter: GREEN_FILTER }}
+                />
                 <p className="text-center text-[11px] md:text-xs tracking-[0.18em] uppercase text-foreground/80 font-semibold leading-relaxed whitespace-pre-line">
                   {badge.label}
                 </p>
