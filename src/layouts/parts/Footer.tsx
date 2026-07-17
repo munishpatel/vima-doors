@@ -16,9 +16,9 @@ const NAV_ITEMS = [
 ];
 
 const SHOWROOM = {
-  label: 'Exclusive Doors Showroom',
+  label: 'Exclusive Doors Showrooms',
   name: 'Shree Shankar Vijay Traders',
-  address: ['23-29, Jyothi Nagar, Ramachandra', 'Puram, Hyderabad,', 'Telangana 502032'],
+  address: ['23-29, Jyothi Nagar, Ramachandra', 'Puram, Hyderabad,', 'Telangana 502032, India'],
   phones: [
     { display: '+91 99490 92929', tel: '+919949092929' },
     { display: '+91 63043 70290', tel: '+916304370290' },
@@ -27,9 +27,9 @@ const SHOWROOM = {
 };
 
 const WORKSHOP = {
-  label: 'Workshop',
-  name: 'Manufacturing Unit',
-  address: ['Plot 14, Industrial Estate,', 'Patancheru, Sangareddy,', 'Telangana 502319'],
+  label: 'Exclusive Doors Showrooms',
+  name: 'Shree Shankar Vijay Trading',
+  address: ['5-143/31 I, Shankarpalli - Hyderabad Rd, Shankarpalle, Telangana 501203, India'],
   phones: [
     { display: '+91 97010 92929', tel: '+919701092929' },
     { display: '+91 86399 63823', tel: '+918639963823' },
@@ -70,13 +70,13 @@ function ContactBlock({
   return (
     <div>
       <ColumnHeading>{data.label}</ColumnHeading>
-      <p className="font-heading text-lg text-stone-100 mb-4 leading-snug">
+      <p className="font-heading text-lg text-[#5cb85c] mb-4 leading-snug">
         {data.name}
       </p>
 
       <ul className="space-y-3.5 text-base">
         {/* Address */}
-        <li className="flex items-start gap-3 text-stone-400">
+        <li className="flex items-start gap-3 text-stone-100">
           <MapPin
             size={15}
             className="mt-0.5 shrink-0 text-amber-400/80"
@@ -103,7 +103,7 @@ function ContactBlock({
               <a
                 key={p.tel}
                 href={`tel:${p.tel}`}
-                className="text-stone-400 hover:text-stone-100 transition-colors duration-200 tracking-wide"
+                className="text-stone-100 hover:text-white transition-colors duration-200 tracking-wide"
               >
                 {p.display}
               </a>
@@ -124,7 +124,7 @@ function ContactBlock({
                 <a
                   key={e}
                   href={`mailto:${e}`}
-                  className="text-stone-400 hover:text-stone-100 transition-colors duration-200"
+                  className="text-stone-100 hover:text-white transition-colors duration-200"
                 >
                   {e}
                 </a>
@@ -220,7 +220,7 @@ export default function Footer() {
           </div>
 
           {/* Navigate */}
-          <div className="lg:col-span-2">
+          <div className="lg:col-span-2 lg:pl-20">
             <h4 className="text-[10px] tracking-[0.22em] uppercase text-amber-200/90 font-semibold mb-5">
               Navigate
             </h4>
