@@ -2,6 +2,8 @@ import { type ReactElement } from 'react';
 
 import Footer from '@/layouts/parts/Footer';
 import Header from '@/layouts/parts/Header';
+import IndiaBadges from '@/layouts/parts/IndiaBadges';
+import Locations from '@/layouts/parts/Locations';
 import Website from '@/layouts/Website';
 
 /**
@@ -34,6 +36,8 @@ export default function RootLayout({ children }: RootLayoutProps) {
       <main className="pt-[120px]">
         {children}
       </main>
+      <IndiaBadges />
+      <Locations />
       <Footer />
     </Website>
   );
