@@ -412,10 +412,10 @@ export default function ContactPage() {
                           value={form.message}
                           onChange={update('message')}
                           rows={5}
-                          className={`mt-2 resize-none ${
+                          className={`mt-2 resize-none placeholder:text-stone-400 ${
                             errors.message
                               ? 'border-destructive focus-visible:ring-destructive'
-                              : ''
+                              : 'border-stone-300'
                           }`}
                         />
                         {errors.message && (
@@ -491,8 +491,10 @@ function Field({
       </Label>
       <Input
         id={id}
-        className={`mt-2 h-11 ${
-          error ? 'border-destructive focus-visible:ring-destructive' : ''
+        className={`mt-2 h-11 placeholder:text-stone-400 ${
+          error
+            ? 'border-destructive focus-visible:ring-destructive'
+            : 'border-stone-300'
         }`}
         {...props}
       />
