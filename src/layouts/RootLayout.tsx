@@ -1,4 +1,5 @@
-import { type ReactElement } from 'react';
+import { type ReactElement, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 
 import Footer from '@/layouts/parts/Footer';
 import Header from '@/layouts/parts/Header';
@@ -30,6 +31,14 @@ interface RootLayoutProps {
 }
 
 export default function RootLayout({ children }: RootLayoutProps) {
+  const { pathname } = useLocation();
+
+  // Reset scroll to the top whenever the route changes — otherwise React Router
+  // preserves the previous page's scroll offset on navigation.
+  useEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: 'instant' as ScrollBehavior });
+  }, [pathname]);
+
   return (
     <Website>
       <Header />
