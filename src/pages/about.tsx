@@ -117,13 +117,22 @@ export default function AboutPage() {
         content="From a humble timber depot in Jyothi Nagar to a trusted name in doors across Hyderabad — three generations of craftsmanship behind Vima Doors. Learn our story, mission, and values."
       />
 
-      {/* ─── HERO ─────────────────────────────────────────────────────── */}
-      <section
-        className="relative overflow-hidden py-20 md:py-28"
-        style={{ backgroundColor: '#1a0f08' }}
-      >
-        <div className="pointer-events-none absolute -top-32 left-1/2 h-72 w-[60rem] -translate-x-1/2 rounded-full bg-amber-500/[0.07] blur-3xl" />
-        <div className="pointer-events-none absolute -bottom-24 -right-24 h-80 w-80 rounded-full bg-primary/[0.06] blur-3xl" />
+      {/* ─── HERO (cinematic) ─────────────────────────────────────────── */}
+      <section className="relative overflow-hidden py-24 md:py-36">
+        {/* Full-bleed backdrop with a slow ken-burns settle */}
+        <motion.img
+          src="/assets/welcome_door.jpg"
+          alt=""
+          aria-hidden
+          initial={{ scale: 1.12 }}
+          animate={{ scale: 1 }}
+          transition={{ duration: 2.4, ease: 'easeOut' }}
+          className="absolute inset-0 h-full w-full object-cover object-center"
+        />
+        {/* Warm cinematic veil — fades into the dark stats band below */}
+        <div className="absolute inset-0 bg-gradient-to-b from-[#140a04]/80 via-[#1a0f08]/60 to-[#0f0805]" />
+        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_35%,rgba(15,8,5,0.55)_100%)]" />
+        <div className="pointer-events-none absolute -top-32 left-1/2 h-72 w-[60rem] -translate-x-1/2 rounded-full bg-amber-500/[0.12] blur-3xl" />
 
         <motion.div
           variants={stagger}
