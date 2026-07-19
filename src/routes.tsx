@@ -3,6 +3,7 @@ import { lazy } from 'react';
 import HomePage from './pages/index';
 
 const AboutPage = lazy(() => import('./pages/about'));
+const GalleryPage = lazy(() => import('./pages/gallery'));
 const ContactPage = lazy(() => import('./pages/contact'));
 const NotFoundPage = lazy(() => import('./pages/_404'));
 
@@ -16,6 +17,10 @@ export const routes: RouteObject[] = [
     element: <AboutPage />,
   },
   {
+    path: '/gallery',
+    element: <GalleryPage />,
+  },
+  {
     path: '/contact',
     element: <ContactPage />,
   },
@@ -26,6 +31,6 @@ export const routes: RouteObject[] = [
 ];
 
 // Types for type-safe navigation
-export type Path = '/' | '/about' | '/contact';
+export type Path = '/' | '/about' | '/gallery' | '/contact';
 
 export type Params = Record<string, string | undefined>;
