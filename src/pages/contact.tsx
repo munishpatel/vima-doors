@@ -176,42 +176,131 @@ export default function ContactPage() {
         content="Get in touch with Vima Doors. Call, email, WhatsApp, or send us a message and our team will help you find the perfect door for your home or project."
       />
 
-      {/* ─── HERO ─────────────────────────────────────────────────────── */}
-      <section
-        className="relative overflow-hidden py-20 md:py-28"
-        style={{ backgroundColor: '#1a0f08' }}
-      >
-        {/* Ambient amber glows */}
-        <div className="pointer-events-none absolute -top-32 left-1/2 h-72 w-[60rem] -translate-x-1/2 rounded-full bg-amber-500/[0.07] blur-3xl" />
-        <div className="pointer-events-none absolute -bottom-24 -right-24 h-80 w-80 rounded-full bg-primary/[0.06] blur-3xl" />
+      {/* ─── HERO (the door that opens) ───────────────────────────────── */}
+      <section className="relative overflow-hidden bg-background py-16 md:py-24">
+        <div className="pointer-events-none absolute -top-28 -right-24 h-96 w-96 rounded-full bg-amber-400/[0.16] blur-3xl" />
+        <div className="pointer-events-none absolute -bottom-32 -left-28 h-96 w-96 rounded-full bg-primary/[0.06] blur-3xl" />
 
-        <motion.div
-          variants={stagger}
-          initial="hidden"
-          animate="visible"
-          className="relative container mx-auto px-6 lg:px-10 text-center"
-        >
-          <motion.p
-            variants={fadeUp}
-            className="text-xs tracking-[0.3em] uppercase text-amber-300/90 mb-5 font-semibold"
-          >
-            Get in Touch
-          </motion.p>
-          <motion.h1
-            variants={fadeUp}
-            className="font-heading text-4xl md:text-5xl lg:text-6xl text-white leading-[1.08] tracking-tight"
-          >
-            Let&rsquo;s Build Something<br />Worth Opening.
-          </motion.h1>
-          <motion.p
-            variants={fadeUp}
-            className="mx-auto mt-6 max-w-xl text-stone-300 leading-relaxed"
-          >
-            Whether you&rsquo;re furnishing a new home, renovating a space, or
-            sourcing for a project — our team is here to help you find the
-            perfect door. Reach out and we&rsquo;ll get back to you shortly.
-          </motion.p>
-        </motion.div>
+        <div className="relative container mx-auto px-6 lg:px-10">
+          <div className="grid grid-cols-1 items-center gap-14 lg:grid-cols-2 lg:gap-10">
+            {/* Copy */}
+            <motion.div
+              variants={stagger}
+              initial="hidden"
+              animate="visible"
+              className="text-center lg:text-left"
+            >
+              <motion.p
+                variants={fadeUp}
+                className="text-xs tracking-[0.3em] uppercase text-primary mb-5 font-semibold"
+              >
+                Get in Touch
+              </motion.p>
+              <motion.h1
+                variants={fadeUp}
+                className="font-heading text-4xl md:text-5xl lg:text-6xl text-foreground leading-[1.08] tracking-tight"
+              >
+                Let&rsquo;s Build Something
+                <br />
+                Worth Opening.
+              </motion.h1>
+              <motion.p
+                variants={fadeUp}
+                className="mx-auto mt-6 max-w-xl text-muted-foreground leading-relaxed lg:mx-0"
+              >
+                Whether you&rsquo;re furnishing a new home, renovating a space,
+                or sourcing for a project — our team is here to help you find
+                the perfect door. Reach out and we&rsquo;ll get back to you
+                shortly.
+              </motion.p>
+
+              {/* Open-now pill + quick actions */}
+              <motion.div
+                variants={fadeUp}
+                className="mt-8 flex flex-wrap items-center justify-center gap-3 lg:justify-start"
+              >
+                <span className="inline-flex items-center gap-2.5 rounded-full border border-border bg-white/60 px-4 py-2.5 text-xs font-semibold text-foreground/80">
+                  <span className="relative flex h-2 w-2">
+                    <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-500 opacity-60" />
+                    <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500" />
+                  </span>
+                  Mon – Sat · 9 AM – 8 PM
+                </span>
+                <a
+                  href="tel:+918106802929"
+                  className="inline-flex items-center gap-2 rounded-full bg-primary px-5 py-2.5 text-xs font-semibold uppercase tracking-[0.14em] text-primary-foreground transition-colors hover:bg-primary/90"
+                >
+                  <Phone size={13} />
+                  Call Us
+                </a>
+                <a
+                  href={WA_HREF}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 rounded-full border border-[#25D366]/40 bg-[#25D366]/10 px-5 py-2.5 text-xs font-semibold uppercase tracking-[0.14em] text-[#128C7E] transition-colors hover:bg-[#25D366]/20"
+                >
+                  <WhatsAppIcon size={13} />
+                  WhatsApp
+                </a>
+              </motion.div>
+            </motion.div>
+
+            {/* The doorway — hover to swing it open */}
+            <motion.div
+              initial={{ opacity: 0, y: 32 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, ease: 'easeOut', delay: 0.2 }}
+              className="group relative mx-auto w-[72%] max-w-[340px] lg:max-w-[380px]"
+            >
+              {/* Warm glow behind the doorway */}
+              <div className="pointer-events-none absolute -inset-8 rounded-t-full bg-gradient-to-t from-amber-400/30 via-amber-300/20 to-transparent blur-2xl opacity-60 transition-opacity duration-700 group-hover:opacity-100" />
+
+              <div className="relative aspect-[3/5] [perspective:1400px]">
+                {/* Door frame */}
+                <div className="pointer-events-none absolute -inset-2.5 rounded-t-full border-2 border-primary/25 md:-inset-3.5" />
+                {/* Light spilling from inside */}
+                <div className="absolute inset-0 rounded-t-full bg-gradient-to-t from-amber-500/50 via-amber-300/40 to-amber-100/30" />
+                {/* The door — swings open on hover */}
+                <div className="absolute inset-0 origin-left overflow-hidden rounded-t-full shadow-[0_24px_60px_rgba(26,15,8,0.35)] transition-transform duration-700 ease-out [transform-style:preserve-3d] group-hover:[transform:rotateY(-24deg)]">
+                  <img
+                    src="/assets/exterior-doors.webp"
+                    alt="Ornate wooden double doors with brass handles"
+                    className="h-full w-full object-cover"
+                  />
+                  <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/30 to-transparent opacity-40" />
+                </div>
+              </div>
+
+              {/* Floating chips */}
+              <motion.div
+                initial={{ opacity: 0, x: 20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: 0.7, duration: 0.5, ease: 'easeOut' }}
+                className="absolute -right-8 top-14 z-10 flex items-center gap-2 rounded-full bg-white px-4 py-2.5 shadow-[0_10px_30px_rgba(26,15,8,0.18)] md:-right-14"
+              >
+                <MapPin size={13} className="text-primary" />
+                <span className="text-xs font-semibold text-foreground">
+                  Hyderabad
+                </span>
+              </motion.div>
+              <motion.div
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: 0.9, duration: 0.5, ease: 'easeOut' }}
+                className="absolute -left-8 bottom-16 z-10 flex items-center gap-2 rounded-full bg-white px-4 py-2.5 shadow-[0_10px_30px_rgba(26,15,8,0.18)] md:-left-14"
+              >
+                <Clock size={13} className="text-primary" />
+                <span className="text-xs font-semibold text-foreground">
+                  Replies within a day
+                </span>
+              </motion.div>
+
+              <p className="mt-10 text-center text-xs italic text-muted-foreground/70">
+                Every great home starts at the door — ours is open.
+              </p>
+            </motion.div>
+          </div>
+        </div>
       </section>
 
       {/* ─── CONTACT + FORM ───────────────────────────────────────────── */}
