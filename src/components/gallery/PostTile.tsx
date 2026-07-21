@@ -1,5 +1,5 @@
 import { motion } from 'motion/react';
-import { Clapperboard, Play } from 'lucide-react';
+import { Clapperboard, Play, ZoomIn } from 'lucide-react';
 import { GalleryPost } from '@/data/gallery';
 import { mediaUrl, posterUrl, GRID_IMAGE_TRANSFORM } from '@/lib/cloudinary';
 
@@ -42,10 +42,14 @@ export default function PostTile({
         </span>
       )}
 
-      {/* Hover scrim (desktop) */}
+      {/* Hover scrim (desktop) — play affordance for video, zoom for images */}
       <span className="absolute inset-0 flex items-center justify-center bg-black/0 opacity-0 transition-all duration-300 group-hover:bg-black/45 group-hover:opacity-100 group-focus-visible:bg-black/45 group-focus-visible:opacity-100">
         <span className="flex h-12 w-12 translate-y-2 items-center justify-center rounded-full bg-white/15 backdrop-blur-sm transition-transform duration-300 group-hover:translate-y-0">
-          <Play size={18} className="ml-0.5 fill-white text-white" />
+          {post.type === 'video' ? (
+            <Play size={18} className="ml-0.5 fill-white text-white" />
+          ) : (
+            <ZoomIn size={18} className="text-white" />
+          )}
         </span>
       </span>
     </motion.button>
