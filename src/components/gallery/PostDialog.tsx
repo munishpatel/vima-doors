@@ -1,5 +1,5 @@
 import * as DialogPrimitive from '@radix-ui/react-dialog';
-import { Fragment } from 'react';
+import { Fragment, useEffect, useRef } from 'react';
 import {
   BadgeCheck,
   ChevronLeft,
@@ -53,6 +53,27 @@ export default function PostDialog({
   onPrev: () => void;
   onNext: () => void;
 }) {
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  // Play with sound on open. Opening the dialog comes from a user click, so
+  // there is user activation and browsers permit unmuted autoplay. If a
+  // browser still blocks it, fall back to muted playback rather than nothing.
+  useEffect(() => {
+    if (!post || post.type !== 'video') return;
+    const video = videoRef.current;
+    if (!video) return;
+
+    video.muted = false;
+    video.volume = 1;
+    const played = video.play();
+    if (played) {
+      played.catch(() => {
+        video.muted = true;
+        video.play().catch(() => {});
+      });
+    }
+  }, [post]);
+
   return (
     <DialogPrimitive.Root
       open={post !== null}
@@ -81,12 +102,12 @@ export default function PostDialog({
               {post.type === 'video' ? (
                 <video
                   key={post.id}
+                  ref={videoRef}
                   src={post.src}
                   poster={posterUrl(post.src, 'so_0,f_auto,q_auto,w_1080')}
                   controls
                   playsInline
                   autoPlay
-                  muted
                   loop
                   preload="metadata"
                   className="max-h-[52dvh] w-full object-contain md:max-h-[86dvh]"
