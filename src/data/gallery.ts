@@ -1,5 +1,3 @@
-import { posterUrl } from '@/lib/cloudinary';
-
 /**
  * Curated gallery content mirroring the live @vimadoors Instagram profile.
  * Adding a future post = paste one more Cloudinary URL + caption here.
@@ -20,7 +18,7 @@ export const PROFILE = {
   // wordmark, the same pairing used in the site Header.
   avatar: { mark: '/assets/title-logo.png', wordmark: '/assets/logo.png' },
   url: 'https://instagram.com/vimadoors',
-  stats: { posts: 11, followers: 46, following: 16 },
+  stats: { posts: 12, followers: 46, following: 16 },
   bio: [
     '🚪 Exclusive Doors showroom',
     'Manufacture Of All Types Of Doors',
@@ -28,20 +26,38 @@ export const PROFILE = {
   ],
 };
 
-export const HIGHLIGHTS = [
+export type Highlight = {
+  id: string;
+  label: string;
+  cover: string;
+  stories: string[]; // full-frame story image URLs, shown in order
+};
+
+export const HIGHLIGHTS: Highlight[] = [
   {
     id: 'cnc-cutting',
     label: 'CNC Cutting',
-    // Stand-in cover: poster frame of the teak-carving reel. Swap for a
-    // dedicated cover URL when available.
-    cover: posterUrl(
-      'https://res.cloudinary.com/vimadoors/video/upload/v1784416657/video1_kjmwix.mp4',
-      'so_0,f_auto,q_auto,c_fill,ar_1:1,w_160',
-    ),
+    // Cover: Om-sunburst CNC cut on white marble.
+    cover: '/assets/cnc-cutting-highlight.png',
+    stories: [
+      'https://res.cloudinary.com/vimadoors/image/upload/v1784675623/highlight1_chf6a8.jpg',
+      'https://res.cloudinary.com/vimadoors/image/upload/v1784675624/highlight2_c0ez5w.jpg',
+      'https://res.cloudinary.com/vimadoors/image/upload/v1784675623/highlight3_xbq4hg.jpg',
+      'https://res.cloudinary.com/vimadoors/image/upload/v1784675624/highlight4_dwbxpj.jpg',
+      'https://res.cloudinary.com/vimadoors/image/upload/v1784675624/highlight5_rtvhj2.jpg',
+    ],
   },
 ];
 
 export const POSTS: GalleryPost[] = [
+  {
+    id: 'post-11',
+    type: 'video',
+    src: 'https://res.cloudinary.com/vimadoors/video/upload/v1784675623/highlight_luyhqq.mp4',
+    caption:
+      'Precision in every pass. ⚙️ Watch our CNC router carve intricate designs into premium teak — where modern technology meets timeless craftsmanship. #vimadoors #cnc #cncrouter #cnccutting #woodworking #doordesign #teakwood #customdoors #interiordesign #hyderabad',
+    alt: 'CNC router machine carving decorative designs into a teak wood door panel',
+  },
   {
     id: 'post-1',
     type: 'video',
@@ -117,5 +133,13 @@ export const POSTS: GalleryPost[] = [
     src: 'https://res.cloudinary.com/vimadoors/image/upload/v1784417742/img4_gac1h3.jpg',
     caption: 'Work Place and workshop',
     alt: 'The Vima Doors workshop and work place',
+  },
+  {
+    id: 'post-12',
+    type: 'image',
+    src: 'https://res.cloudinary.com/vimadoors/image/upload/v1784675624/img5_gqryba.jpg',
+    caption:
+      'Step inside our showroom. 🚪 A world of doors under one roof — teak, laminate, veneer & designer panels, each crafted to make an impression. Visit us in Hyderabad! #vimadoors #showroom #doorshowroom #doors #teakwood #laminatedoor #veneerdoors #doordesign #interiordesign #hyderabad',
+    alt: 'Rows of display doors in various designs inside the Vima Doors showroom',
   },
 ];
