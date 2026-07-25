@@ -127,7 +127,7 @@ export default function StoryViewer({
             className="fixed inset-0 z-50 flex items-center justify-center outline-none"
           >
             <DialogPrimitive.Title className="sr-only">
-              {highlight.label} — story highlights by @{PROFILE.handle}
+              {highlight.label}, story highlights by @{PROFILE.handle}
             </DialogPrimitive.Title>
 
             {/* Click the dark surround to close */}
@@ -190,7 +190,7 @@ export default function StoryViewer({
               <img
                 key={stories[index]}
                 src={mediaUrl(stories[index], STORY_TRANSFORM)}
-                alt={`${highlight.label} — ${index + 1} of ${count}`}
+                alt={`${highlight.label}, ${index + 1} of ${count}`}
                 className="absolute inset-0 h-full w-full object-contain"
                 draggable={false}
               />
