@@ -101,7 +101,7 @@ export default function Header() {
 
       {/* ── Main header ─────────────────────────────────────────────────── */}
       <header
-        className="bg-background/95 backdrop-blur-md border-b border-border shadow-sm"
+        className="bg-background/70 backdrop-blur-md border-b border-border shadow-sm"
       >
         <div className="container mx-auto px-6 lg:px-10">
           <div className="flex h-[60px] md:h-[84px] items-center justify-between">

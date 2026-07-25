@@ -64,11 +64,11 @@ export default function HomePage() {
 
       {/* ─── HERO ──────────────────────────────────────────────────────────── */}
       <section
-        className="relative flex items-end overflow-hidden -mt-[120px] h-screen min-h-[600px]"
+        className="relative flex items-end overflow-hidden -mt-6 md:mt-0 h-[calc(100svh-96px)] md:h-[calc(100svh-120px)] min-h-[600px]"
       >
         {/* Background video */}
         <video
-          className="absolute inset-0 w-full h-full object-cover scale-105"
+          className="absolute inset-0 w-full h-full object-cover object-[center_35%]"
           src="/assets/herosection_video.mp4"
           autoPlay
           muted
