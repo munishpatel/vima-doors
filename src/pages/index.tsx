@@ -35,7 +35,7 @@ const TRUST_BADGES = [
 const testimonials = [
   {
     quote:
-      "Vima Doors transformed our home's entryway. The craftsmanship is extraordinary — every detail speaks to decades of expertise.",
+      "Vima Doors transformed our home's entryway. The craftsmanship is extraordinary. Every detail speaks to decades of expertise.",
     name: 'Ramu Vaddaji',
     project: 'Full Home Renovation, BHEL',
   },
@@ -75,7 +75,7 @@ export default function HomePage() {
           loop
           playsInline
         />
-        {/* Top gradient — darkens behind header so logo pops */}
+        {/* Top gradient, darkens behind header so logo pops */}
         <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-transparent to-transparent" />
         {/* Side + bottom gradients for hero text legibility */}
         <div className="absolute inset-0 bg-gradient-to-r from-gray-950/80 via-gray-900/50 to-transparent" />
@@ -100,7 +100,7 @@ export default function HomePage() {
               className="text-stone-300 text-lg leading-relaxed mb-10 max-w-md text-justify"
             >
               Premium interior and exterior doors crafted to the highest standards
-              of quality, performance, and security — tailored to your taste.
+              of quality, performance, and security, tailored to your taste.
             </motion.p>
             <motion.div variants={fadeUp} className="flex flex-wrap gap-4">
               <Link
@@ -139,14 +139,14 @@ export default function HomePage() {
 
       {/* ─── WELCOME ───────────────────────────────────────────────────────── */}
       <section className="relative py-24 md:py-32 bg-gradient-to-b from-muted/50 to-muted overflow-hidden">
-        {/* Decorative ambient glows — more layered and modern */}
+        {/* Decorative ambient glows, more layered and modern */}
         <div className="pointer-events-none absolute -top-28 -right-28 h-96 w-96 rounded-full bg-primary/[0.08] blur-3xl" />
         <div className="pointer-events-none absolute -bottom-32 -left-32 h-96 w-96 rounded-full bg-primary/[0.05] blur-3xl" />
         <div className="pointer-events-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-[500px] w-[500px] rounded-full bg-primary/[0.02] blur-3xl" />
 
         <div className="relative container mx-auto px-6 lg:px-10">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
-            {/* Text — left */}
+            {/* Text (left) */}
             <motion.div
               variants={stagger}
               initial="hidden"
@@ -177,7 +177,7 @@ export default function HomePage() {
                 At Vima Doors, we carry forward three generations of craftsmanship to
                 bring you doors that are built to impress and designed to last. As one of
                 India&rsquo;s trusted door manufacturers and suppliers, we specialise in
-                premium prefinished interior and exterior doors — delivering quality,
+                premium prefinished interior and exterior doors, delivering quality,
                 security, and elegance that truly defines a home.
               </motion.p>
               <motion.p
@@ -195,7 +195,7 @@ export default function HomePage() {
                 className="hidden md:block text-muted-foreground leading-relaxed text-justify"
               >
                 Every door that leaves our workshop is prefinished to the highest
-                standard — saving you time on-site without compromising on finish. Over
+                standard, saving you time on-site without compromising on finish. Over
                 the years, Vima Doors has earned the trust and loyalty of homeowners,
                 architects, and contractors alike, who return to us time and again for
                 our consistent quality and honest craftsmanship. We work closely with
@@ -205,7 +205,7 @@ export default function HomePage() {
               </motion.p>
             </motion.div>
 
-            {/* Image — right (hero image + offset detail card) */}
+            {/* Image (right): hero image + offset detail card */}
             <motion.div
               variants={fadeIn}
               initial="hidden"
@@ -250,7 +250,7 @@ export default function HomePage() {
 
       {/* ─── TRUST STRIP ───────────────────────────────────────────────────── */}
       <section className="py-12 md:py-16 bg-[#f0f7f0]">
-        {/* Mobile: horizontal scroll — Desktop: 7-col grid */}
+        {/* Mobile: horizontal scroll. Desktop: 7-col grid */}
         <div className="md:hidden overflow-hidden">
           <style>{`
             @keyframes marquee {
@@ -342,7 +342,7 @@ export default function HomePage() {
                 Warmth in<br />Every Room
               </motion.h2>
               <motion.p variants={fadeUp} className="text-muted-foreground leading-relaxed mb-5">
-                Our interior doors are more than transitions between spaces — they're
+                Our interior doors are more than transitions between spaces. They're
                 architectural statements. Crafted from premium hardwoods and finished
                 to perfection, each door brings warmth, character, and lasting beauty
                 to your home.
@@ -369,7 +369,7 @@ export default function HomePage() {
       <section className="py-24 md:py-32 bg-muted overflow-hidden">
         <div className="container mx-auto px-6 lg:px-10">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-20 items-center">
-            {/* Text — left */}
+            {/* Text (left) */}
             <motion.div
               variants={stagger}
               initial="hidden"
@@ -385,12 +385,12 @@ export default function HomePage() {
               </motion.h2>
               <motion.p variants={fadeUp} className="text-muted-foreground leading-relaxed mb-5">
                 Your front door is the face of your home. Our exterior doors combine
-                striking design with engineered performance — weather-resistant,
+                striking design with engineered performance: weather-resistant,
                 secure, and built to endure decades of use without compromise.
               </motion.p>
               <motion.p variants={fadeUp} className="text-muted-foreground leading-relaxed mb-10">
                 From classic solid wood to modern flush designs, every exterior door
-                is prefinished and ready to install — saving time without sacrificing quality.
+                is prefinished and ready to install, saving time without sacrificing quality.
               </motion.p>
               <motion.div variants={fadeUp}>
                 <Link
@@ -403,7 +403,7 @@ export default function HomePage() {
               </motion.div>
             </motion.div>
 
-            {/* Image — right */}
+            {/* Image (right) */}
             <motion.div
               variants={fadeIn}
               initial="hidden"
@@ -489,7 +489,7 @@ export default function HomePage() {
                 Ready to Find<br />Your Perfect Door?
               </motion.h2>
               <motion.p variants={fadeUp} className="text-stone-300 mt-5 leading-relaxed">
-                Tell us about your project and we'll help you find the right door —
+                Tell us about your project and we'll help you find the right door,
                 tailored to your style, space, and budget.
               </motion.p>
             </motion.div>

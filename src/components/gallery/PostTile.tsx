@@ -35,14 +35,14 @@ export default function PostTile({
         className="h-full w-full object-cover transition-transform duration-500 ease-out group-hover:scale-[1.04]"
       />
 
-      {/* Video badge — top-right, like IG reels */}
+      {/* Video badge, top-right, like IG reels */}
       {post.type === 'video' && (
         <span className="absolute right-2.5 top-2.5 text-white drop-shadow-[0_1px_4px_rgba(0,0,0,0.6)]">
           <Clapperboard size={16} className="fill-white/20" />
         </span>
       )}
 
-      {/* Hover scrim (desktop) — play affordance for video, zoom for images */}
+      {/* Hover scrim (desktop): play affordance for video, zoom for images */}
       <span className="absolute inset-0 flex items-center justify-center bg-black/0 opacity-0 transition-all duration-300 group-hover:bg-black/45 group-hover:opacity-100 group-focus-visible:bg-black/45 group-focus-visible:opacity-100">
         <span className="flex h-12 w-12 translate-y-2 items-center justify-center rounded-full bg-white/15 backdrop-blur-sm transition-transform duration-300 group-hover:translate-y-0">
           {post.type === 'video' ? (

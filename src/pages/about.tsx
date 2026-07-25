@@ -68,7 +68,7 @@ const VALUES = [
   {
     icon: Handshake,
     title: 'Relationships That Last',
-    body: 'We build long-term partnerships with our customers, channel partners, and suppliers — trust earned across generations.',
+    body: 'We build long-term partnerships with our customers, channel partners, and suppliers, trust earned across generations.',
   },
   {
     icon: Users,
@@ -111,10 +111,10 @@ function Eyebrow({
 export default function AboutPage() {
   return (
     <>
-      <title>About Us — Vima Doors</title>
+      <title>About Us | Vima Doors</title>
       <meta
         name="description"
-        content="From a humble timber depot in Jyothi Nagar to a trusted name in doors across Hyderabad — three generations of craftsmanship behind Vima Doors. Learn our story, mission, and values."
+        content="From a humble timber depot in Jyothi Nagar to a trusted name in doors across Hyderabad. Three generations of craftsmanship behind Vima Doors. Learn our story, mission, and values."
       />
 
       {/* ─── HERO (cinematic) ─────────────────────────────────────────── */}
@@ -129,7 +129,7 @@ export default function AboutPage() {
           transition={{ duration: 2.4, ease: 'easeOut' }}
           className="absolute inset-0 h-full w-full object-cover object-center"
         />
-        {/* Warm cinematic veil — fades into the dark stats band below */}
+        {/* Warm cinematic veil, fades into the dark stats band below */}
         <div className="absolute inset-0 bg-gradient-to-b from-[#140a04]/80 via-[#1a0f08]/60 to-[#0f0805]" />
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_35%,rgba(15,8,5,0.55)_100%)]" />
         <div className="pointer-events-none absolute -top-32 left-1/2 h-72 w-[60rem] -translate-x-1/2 rounded-full bg-amber-500/[0.12] blur-3xl" />
@@ -154,7 +154,7 @@ export default function AboutPage() {
             className="mx-auto mt-6 max-w-2xl text-stone-300 leading-relaxed"
           >
             What began as a small family timber depot in Hyderabad has grown into
-            one of the region&rsquo;s most trusted names in doors — yet the
+            one of the region&rsquo;s most trusted names in doors, yet the
             craftsmanship, honesty, and care that started it all have never
             changed.
           </motion.p>
@@ -192,7 +192,7 @@ export default function AboutPage() {
 
         <div className="relative container mx-auto px-6 lg:px-10">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
-            {/* Image — the storefront */}
+            {/* Image (the storefront) */}
             <motion.div
               variants={fadeIn}
               initial="hidden"
@@ -250,8 +250,8 @@ export default function AboutPage() {
                 showroom. It started in Jyothi Nagar, Hyderabad, as{' '}
                 <span className="text-foreground font-medium">
                   Shree Shankar Vijay Timber Depot
-                </span>{' '}
-                — a modest timber business built on our founders&rsquo; deep
+                </span>
+                , a modest timber business built on our founders&rsquo; deep
                 knowledge of wood and a simple ambition: to become a trusted name
                 in timber and door products across the region.
               </motion.p>
@@ -260,7 +260,7 @@ export default function AboutPage() {
                 className="text-muted-foreground leading-relaxed mb-5"
               >
                 Over the decades we earned a respected place in the market by
-                never compromising on quality — offering designer door panels,
+                never compromising on quality, offering designer door panels,
                 customized doors, veneer moulded doors, plywood, and PVC/WPC
                 products. As the second generation joined the business, they
                 carried the same craft forward, growing from timber trading into
@@ -347,7 +347,7 @@ export default function AboutPage() {
               className="text-muted-foreground leading-relaxed mt-5"
             >
               As manufacturers and traders, we craft and supply doors for every
-              home, project, and budget — engineered for durability and finished
+              home, project, and budget, engineered for durability and finished
               to impress.
             </motion.p>
           </motion.div>
@@ -401,9 +401,9 @@ export default function AboutPage() {
               <p className="text-stone-300 leading-relaxed">
                 To lead our industry by investing continuously in technology and
                 craftsmanship that elevate everyday living. We aim to give
-                customers the widest choice of premium doors — built on
+                customers the widest choice of premium doors, built on
                 innovation, a genuine understanding of their needs, and service
-                that goes beyond the sale — while growing responsibly and in
+                that goes beyond the sale, while growing responsibly and in
                 harmony with the environment.
               </p>
             </motion.div>
@@ -424,7 +424,7 @@ export default function AboutPage() {
                 Our Vision
               </h3>
               <p className="text-stone-300 leading-relaxed">
-                To be the most trusted name in doors — shaping preferred
+                To be the most trusted name in doors, shaping preferred
                 lifestyles through relentless innovation, uncompromising quality,
                 and design that stands the test of time. We see a future where
                 every Vima door is a mark of craftsmanship a family can rely on
@@ -510,7 +510,7 @@ export default function AboutPage() {
                 variants={fadeUp}
                 className="text-muted-foreground mt-4 leading-relaxed"
               >
-                Visit our showroom or reach out to our team — we&rsquo;d love to
+                Visit our showroom or reach out to our team, we&rsquo;d love to
                 help you bring your project to life.
               </motion.p>
             </motion.div>

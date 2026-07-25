@@ -55,7 +55,7 @@ export const POSTS: GalleryPost[] = [
     type: 'video',
     src: 'https://res.cloudinary.com/vimadoors/video/upload/v1784675623/highlight_luyhqq.mp4',
     caption:
-      'Precision in every pass. ⚙️ Watch our CNC router carve intricate designs into premium teak — where modern technology meets timeless craftsmanship. #vimadoors #cnc #cncrouter #cnccutting #woodworking #doordesign #teakwood #customdoors #interiordesign #hyderabad',
+      'Precision in every pass. ⚙️ Watch our CNC router carve intricate designs into premium teak, where modern technology meets timeless craftsmanship. #vimadoors #cnc #cncrouter #cnccutting #woodworking #doordesign #teakwood #customdoors #interiordesign #hyderabad',
     alt: 'CNC router machine carving decorative designs into a teak wood door panel',
   },
   {
@@ -139,7 +139,7 @@ export const POSTS: GalleryPost[] = [
     type: 'image',
     src: 'https://res.cloudinary.com/vimadoors/image/upload/v1784675624/img5_gqryba.jpg',
     caption:
-      'Step inside our showroom. 🚪 A world of doors under one roof — teak, laminate, veneer & designer panels, each crafted to make an impression. Visit us in Hyderabad! #vimadoors #showroom #doorshowroom #doors #teakwood #laminatedoor #veneerdoors #doordesign #interiordesign #hyderabad',
+      'Step inside our showroom. 🚪 A world of doors under one roof: teak, laminate, veneer & designer panels, each crafted to make an impression. Visit us in Hyderabad! #vimadoors #showroom #doorshowroom #doors #teakwood #laminatedoor #veneerdoors #doordesign #interiordesign #hyderabad',
     alt: 'Rows of display doors in various designs inside the Vima Doors showroom',
   },
 ];
