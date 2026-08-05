@@ -147,7 +147,7 @@ export default function ContactPage() {
 
     setStatus('sending');
 
-    // No backend is wired up — compose a pre-filled email so the enquiry
+    // No backend is wired up, so compose a pre-filled email so the enquiry
     // reaches the showroom inbox directly from the visitor's mail client.
     const subject = `New enquiry from ${form.name.trim()}`;
     const body = [
@@ -170,7 +170,7 @@ export default function ContactPage() {
 
   return (
     <>
-      <title>Contact Us — Vima Doors</title>
+      <title>Contact Us | Vima Doors</title>
       <meta
         name="description"
         content="Get in touch with Vima Doors. Call, email, WhatsApp, or send us a message and our team will help you find the perfect door for your home or project."
@@ -209,7 +209,7 @@ export default function ContactPage() {
                 className="mx-auto mt-6 max-w-xl text-muted-foreground leading-relaxed lg:mx-0"
               >
                 Whether you&rsquo;re furnishing a new home, renovating a space,
-                or sourcing for a project — our team is here to help you find
+                or sourcing for a project, our team is here to help you find
                 the perfect door. Reach out and we&rsquo;ll get back to you
                 shortly.
               </motion.p>
@@ -245,7 +245,7 @@ export default function ContactPage() {
               </motion.div>
             </motion.div>
 
-            {/* The doorway — hover to swing it open */}
+            {/* The doorway (hover to swing it open) */}
             <motion.div
               initial={{ opacity: 0, y: 32 }}
               animate={{ opacity: 1, y: 0 }}
@@ -260,7 +260,7 @@ export default function ContactPage() {
                 <div className="pointer-events-none absolute -inset-2.5 rounded-t-full border-2 border-primary/25 md:-inset-3.5" />
                 {/* Light spilling from inside */}
                 <div className="absolute inset-0 rounded-t-full bg-gradient-to-t from-amber-500/50 via-amber-300/40 to-amber-100/30" />
-                {/* The door — swings open on hover */}
+                {/* The door (swings open on hover) */}
                 <div className="absolute inset-0 origin-left overflow-hidden rounded-t-full shadow-[0_24px_60px_rgba(26,15,8,0.35)] transition-transform duration-700 ease-out [transform-style:preserve-3d] group-hover:[transform:rotateY(-24deg)]">
                   <img
                     src="/assets/exterior-doors.webp"
@@ -296,7 +296,7 @@ export default function ContactPage() {
               </motion.div>
 
               <p className="mt-10 text-center text-xs italic text-muted-foreground/70">
-                Every great home starts at the door — ours is open.
+                Every great home starts at the door. Ours is open.
               </p>
             </motion.div>
           </div>

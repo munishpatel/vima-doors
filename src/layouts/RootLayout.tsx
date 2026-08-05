@@ -33,7 +33,7 @@ interface RootLayoutProps {
 export default function RootLayout({ children }: RootLayoutProps) {
   const { pathname } = useLocation();
 
-  // Reset scroll to the top whenever the route changes — otherwise React Router
+  // Reset scroll to the top whenever the route changes. Otherwise React Router
   // preserves the previous page's scroll offset on navigation.
   useEffect(() => {
     window.scrollTo({ top: 0, left: 0, behavior: 'instant' as ScrollBehavior });
