@@ -1,5 +1,5 @@
 /**
- * Router Hooks — hook exports only
+ * Router Hooks (hook exports only)
  *
  * Separated from router.ts to satisfy Vite Fast Refresh rules:
  * a module must export only hooks OR only non-hooks, not both.

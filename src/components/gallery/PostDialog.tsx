@@ -121,7 +121,7 @@ export default function PostDialog({
                 />
               )}
 
-              {/* Prev / next — overlay chevrons */}
+              {/* Prev / next (overlay chevrons) */}
               <button
                 type="button"
                 onClick={onPrev}

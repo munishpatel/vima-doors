@@ -28,7 +28,7 @@ const stagger = {
 };
 
 /* ------------------------------------------------------------------ */
-/*  Hero collage — real posts, tilted like scattered prints            */
+/*  Hero collage: real posts, tilted like scattered prints             */
 /* ------------------------------------------------------------------ */
 
 const COLLAGE_TRANSFORM = 'so_0,f_auto,q_auto,c_fill,ar_4:5,w_480';
@@ -70,10 +70,10 @@ export default function GalleryPage() {
 
   return (
     <MotionConfig reducedMotion="user">
-      <title>Gallery — Vima Doors</title>
+      <title>Gallery | Vima Doors</title>
       <meta
         name="description"
-        content="Browse the Vima Doors gallery — real posts from our Instagram: teak wood doors, laminate doors, pooja doors, and behind-the-scenes craftsmanship from our Hyderabad workshop."
+        content="Browse the Vima Doors gallery, real posts from our Instagram: teak wood doors, laminate doors, pooja doors, and behind-the-scenes craftsmanship from our Hyderabad workshop."
       />
 
       {/* ─── HERO (light + floating collage) ─────────────────────────── */}
@@ -108,7 +108,7 @@ export default function GalleryPage() {
                 variants={fadeUp}
                 className="mx-auto mt-6 max-w-xl leading-relaxed text-muted-foreground lg:mx-0"
               >
-                Real doors, real installs, real workshop moments — browse our
+                Real doors, real installs, real workshop moments. Browse our
                 latest posts from Instagram and see the craft up close.
               </motion.p>
               <motion.div variants={fadeUp} className="mt-8">
@@ -123,7 +123,7 @@ export default function GalleryPage() {
               </motion.div>
             </motion.div>
 
-            {/* Collage — tap a print to open that post */}
+            {/* Collage: tap a print to open that post */}
             <div className="relative mx-auto h-[330px] w-full max-w-[420px] sm:h-[390px] lg:h-[430px] lg:max-w-[460px]">
               {COLLAGE.map(({ postIndex, position, rotate }, i) => {
                 const post = POSTS[postIndex];
