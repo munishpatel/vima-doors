@@ -32,7 +32,6 @@ export default defineConfig({
   },
   resolve: {
     alias: {
-      '@/': path.resolve(__dirname, './src/'),
       '@/components': path.resolve(__dirname, './src/components'),
       '@/lib': path.resolve(__dirname, './src/lib'),
       '@/api': path.resolve(__dirname, './src/server/api'),
@@ -42,6 +41,8 @@ export default defineConfig({
       '@/pages': path.resolve(__dirname, './src/pages'),
       '@/hooks': path.resolve(__dirname, './src/hooks'),
       '@/styles': path.resolve(__dirname, './src/styles'),
+      // Catch-all, listed last so the remapped entries above still win.
+      '@': path.resolve(__dirname, './src'),
     },
   },
 });
