@@ -6,7 +6,7 @@
  * customer will have heard from their carpenter or contractor.
  *
  * This file is deliberately free of any `three` import so the section shell,
- * the 2D fallback diagram, and the accessible legend can all read it without
+ * the 2D fallback diagram and the banner's text list can all read it without
  * pulling the 3D bundle in. Camera framing is expressed in plain spherical
  * numbers; `CameraRig` is the only thing that turns them into a THREE.Spherical.
  */
@@ -24,39 +24,45 @@ export interface CameraFraming {
   theta: number;
 }
 
+/**
+ * Exploded-view travel for each callout, metres. The leaf (stiles, rails and
+ * panels) stays put and everything else pulls away from it: the chowkhat
+ * backwards, the carving forwards, the hardware out to its own side.
+ */
+export const EXPLODE_OFFSETS: Record<AnatomyPartId, [number, number, number]> = {
+  frame: [0, 0, -0.75],
+  'stile-rail': [0, 0, 0],
+  carving: [0, 0, 0.45],
+  hinges: [-0.22, 0, 0.22],
+  lock: [0.36, 0, 0.32],
+};
+
 export interface AnatomyPart {
   id: AnatomyPartId;
   /** Two-digit callout number. */
   callout: string;
   label: string;
-  /** Short line shown in the pin tooltip before the card expands. */
+  /** One or two words, for the blueprint callout tags. */
+  short: string;
+  /** One line, shown when the part is hovered in the banner. */
   summary: string;
   description: string;
   specs: { label: string; value: string }[];
-  /** World-space anchor for the 3D pin. */
+  /** World-space anchor for the 3D callout. */
   anchor: [number, number, number];
-  camera: CameraFraming;
   /** Callout position in the 2D fallback SVG's 0–100 viewBox space. */
   anchor2d: [number, number];
   /** Point on the drawing the 2D leader line runs to. */
   leader2d: [number, number];
 }
 
-/** Default framing: a three-quarter view of the whole assembly. */
-export const HOME_FRAMING: CameraFraming = {
-  // The whole assembly is 2.18 m tall. At a 32° vertical fov this leaves
-  // comfortable margin for the callout pins on a wide, full-bleed stage.
-  target: [0, 0.04, 0],
-  radius: 4.6,
-  phi: 1.46,
-  theta: 0.55,
-};
 
 export const ANATOMY_PARTS: AnatomyPart[] = [
   {
     id: 'frame',
     callout: '01',
     label: 'Doorframe / Chowkhat',
+    short: 'Chowkhat',
     summary: 'Seasoned hardwood chowkhat, rebated for the shutter',
     description:
       'The chowkhat carries every load the shutter puts into the wall. Ours is seasoned hardwood, machined with a continuous rebate so the door seats against one unbroken face — not a stop patti nailed on afterwards. Treated against termite before it leaves the works.',
@@ -67,7 +73,6 @@ export const ANATOMY_PARTS: AnatomyPart[] = [
       { label: 'Fixing', value: 'M8 sleeve anchor × 6' },
     ],
     anchor: [-0.49, 1.09, 0.08],
-    camera: { target: [-0.42, 0.92, 0], radius: 1.95, phi: 1.36, theta: 0.78 },
     anchor2d: [11, 10],
     leader2d: [27.5, 6],
   },
@@ -75,6 +80,7 @@ export const ANATOMY_PARTS: AnatomyPart[] = [
     id: 'stile-rail',
     callout: '02',
     label: 'Stile & Rail',
+    short: 'Stile & Rail',
     summary: 'Mortise-and-tenon core that will not sag or rack',
     description:
       'Stiles run the full height and the rails tenon into them, so the shutter resists racking on its own before any veneer goes on. The lock rail is deepened to take a mortise case without cutting into anything structural. Timber is kiln-seasoned, which is what stops a door swelling shut in the monsoon.',
@@ -85,7 +91,6 @@ export const ANATOMY_PARTS: AnatomyPart[] = [
       { label: 'Moisture', value: 'Kiln-seasoned, 8–10%' },
     ],
     anchor: [0.39, 0.42, 0.035],
-    camera: { target: [0.3, 0.2, 0], radius: 1.89, phi: 1.5, theta: 0.5 },
     anchor2d: [89, 46],
     leader2d: [68, 40],
   },
@@ -93,6 +98,7 @@ export const ANATOMY_PARTS: AnatomyPart[] = [
     id: 'carving',
     callout: '03',
     label: 'Carving / Nakashi',
+    short: 'Nakashi',
     summary: 'CNC-cut reeding and nakashi, finished by hand',
     description:
       'Reeding and nakashi work are cut on a 3-axis router from the same program every time — that is what lets a repeat order match one placed two years ago. Edges are broken by hand before polish so the grain is never left sharp.',
@@ -103,7 +109,6 @@ export const ANATOMY_PARTS: AnatomyPart[] = [
       { label: 'Polish', value: 'Matte PU, 3 coats' },
     ],
     anchor: [0.0, 0.66, 0.05],
-    camera: { target: [0, 0.52, 0], radius: 1.56, phi: 1.47, theta: 0.3 },
     anchor2d: [89, 20],
     leader2d: [56, 28],
   },
@@ -111,6 +116,7 @@ export const ANATOMY_PARTS: AnatomyPart[] = [
     id: 'hinges',
     callout: '04',
     label: 'Hinges / Kabza',
+    short: 'Kabza',
     summary: 'Fully concealed 3D-adjustable kabza, rated to 80 kg',
     description:
       'Concealed kabza keep the closed face completely clean — no knuckles breaking the chowkhat line. Three axes of adjustment mean the reveal can be corrected on site without re-cutting the mortise, which matters when plaster is never quite plumb.',
@@ -121,7 +127,6 @@ export const ANATOMY_PARTS: AnatomyPart[] = [
       { label: 'Finish', value: 'Satin nickel' },
     ],
     anchor: [-0.45, 0.78, 0.03],
-    camera: { target: [-0.44, 0.78, 0], radius: 1.18, phi: 1.5, theta: -0.62 },
     anchor2d: [11, 44],
     leader2d: [30, 51],
   },
@@ -129,6 +134,7 @@ export const ANATOMY_PARTS: AnatomyPart[] = [
     id: 'lock',
     callout: '05',
     label: 'Lock & Handle',
+    short: 'Mortise Lock',
     summary: 'Full mortise case with a solid brass lever',
     description:
       'A mortise case sits inside the lock rail rather than a tubular latch bored through it, so the hardware is as solid as the door. The lever is solid brass on a 52 mm rose, sized to the stile rather than the other way round.',
@@ -139,12 +145,7 @@ export const ANATOMY_PARTS: AnatomyPart[] = [
       { label: 'Tested', value: '200,000 cycles' },
     ],
     anchor: [0.38, -0.05, 0.11],
-    camera: { target: [0.4, -0.05, 0.04], radius: 1.09, phi: 1.52, theta: 0.92 },
     anchor2d: [89, 72],
     leader2d: [71, 55],
   },
 ];
-
-export const PART_BY_ID: Record<AnatomyPartId, AnatomyPart> = Object.fromEntries(
-  ANATOMY_PARTS.map((p) => [p.id, p]),
-) as Record<AnatomyPartId, AnatomyPart>;
