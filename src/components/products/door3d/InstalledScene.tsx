@@ -3,13 +3,14 @@ import * as THREE from 'three';
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
 import { Environment, Lightformer, RoundedBox } from '@react-three/drei';
 
-import DoorModel from './DoorModel';
+import DoorModel, { DoorFrame } from './DoorModel';
 
 /**
  * The finished door, hung in a room.
  *
- * The door itself is a photograph of a real Vima door, mapped onto a slab set
- * into the wall so the room's lighting and shadows fall across it. The room
+ * The door itself is a photograph of a real Vima door, mapped onto a shutter
+ * hung in the modelled chowkhat so the room's lighting and shadows fall
+ * across both. The room
  * around it is kept deliberately quiet: limewashed wall, classical wall
  * mouldings, a polished ivory vitrified floor, and a console with a lamp so it
  * reads as somebody's home rather than a showroom. If the photo cannot be
@@ -200,11 +201,32 @@ function Wall() {
 /*  Door                                                               */
 /* ------------------------------------------------------------------ */
 
-/** The largest opening the photo is fitted into: a standard door height, up to a wide single leaf. */
-const OPENING = { width: 1.2, height: 2.18 };
-const DOOR_DEPTH = 0.05;
-/** Shaves a hair off every edge so no trace of the photo's background survives the trim. */
+/**
+ * The clear opening inside `DoorFrame`'s chowkhat (inner jamb faces at
+ * ±0.453 m, sill top at -1.05 m, head soffit at 1.068 m), less a 3 mm
+ * shutter gap all round except at the sill.
+ */
+const LEAF = { width: 0.9, height: 2.112, bottom: -1.05 };
+const LEAF_DEPTH = 0.045;
+/** Shaves a hair off every edge so no trace of the photo's background survives the crop. */
 const EDGE_INSET = 0.006;
+
+/**
+ * Crops the texture like CSS `object-fit: cover`, so the photo fills the
+ * shutter exactly without stretching whatever its proportions.
+ */
+function coverTexture(texture: THREE.Texture) {
+  const image = texture.image as { width: number; height: number };
+  const usable = 1 - EDGE_INSET * 2;
+  const photoAspect = image.width / image.height;
+  const leafAspect = LEAF.width / LEAF.height;
+  let rx = usable;
+  let ry = usable;
+  if (photoAspect > leafAspect) rx *= leafAspect / photoAspect;
+  else ry *= photoAspect / leafAspect;
+  texture.repeat.set(rx, ry);
+  texture.offset.set((1 - rx) / 2, (1 - ry) / 2);
+}
 
 function PhotoDoor({ url }: { url: string }) {
   const [texture, setTexture] = useState<THREE.Texture | null>(null);
@@ -222,8 +244,7 @@ function PhotoDoor({ url }: { url: string }) {
         if (cancelled) return t.dispose();
         t.colorSpace = THREE.SRGBColorSpace;
         t.anisotropy = Math.min(8, maxAnisotropy);
-        t.repeat.set(1 - EDGE_INSET * 2, 1 - EDGE_INSET * 2);
-        t.offset.set(EDGE_INSET, EDGE_INSET);
+        coverTexture(t);
         loaded = t;
         setTexture(t);
       },
@@ -236,37 +257,29 @@ function PhotoDoor({ url }: { url: string }) {
     };
   }, [url, maxAnisotropy]);
 
-  // Fit the photo into the opening at its own proportions, standing on the floor.
-  const size = useMemo(() => {
-    const image = texture?.image as { width: number; height: number } | undefined;
-    if (!image?.width || !image.height) return null;
-    const aspect = image.width / image.height;
-    let height = OPENING.height;
-    let width = height * aspect;
-    if (width > OPENING.width) {
-      width = OPENING.width;
-      height = width / aspect;
-    }
-    return { width, height };
-  }, [texture]);
-
   if (failed) return <DoorModel activeId={null} hoverId={null} />;
-  if (!texture || !size) return null;
 
   return (
-    <mesh
-      position={[0, FLOOR_Y + size.height / 2, WALL_Z + DOOR_DEPTH / 2]}
-      castShadow
-      receiveShadow
-    >
-      <boxGeometry args={[size.width, size.height, DOOR_DEPTH]} />
-      {/* Box faces run +x, -x, +y, -y, +z, -z; only the front carries the photo. */}
-      {[0, 1, 2, 3].map((i) => (
-        <meshStandardMaterial key={i} attach={`material-${i}`} color="#5b3c25" roughness={0.6} />
-      ))}
-      <meshStandardMaterial attach="material-4" map={texture} roughness={0.5} />
-      <meshStandardMaterial attach="material-5" color="#5b3c25" roughness={0.6} />
-    </mesh>
+    <group>
+      {/* The chowkhat from the modelled door, so the photo is hung, not propped. */}
+      <DoorFrame />
+      {texture && (
+        <mesh position={[0, LEAF.bottom + LEAF.height / 2, 0]} castShadow receiveShadow>
+          <boxGeometry args={[LEAF.width, LEAF.height, LEAF_DEPTH]} />
+          {/* Box faces run +x, -x, +y, -y, +z, -z; only the front carries the photo. */}
+          {[0, 1, 2, 3].map((i) => (
+            <meshStandardMaterial
+              key={i}
+              attach={`material-${i}`}
+              color="#5b3c25"
+              roughness={0.6}
+            />
+          ))}
+          <meshStandardMaterial attach="material-4" map={texture} roughness={0.5} />
+          <meshStandardMaterial attach="material-5" color="#5b3c25" roughness={0.6} />
+        </mesh>
+      )}
+    </group>
   );
 }
 

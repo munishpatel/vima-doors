@@ -335,6 +335,20 @@ const LOCK_DISCS: { radius: number; depth: number; position: Vec3 }[] = [
 /*  Model                                                              */
 /* ------------------------------------------------------------------ */
 
+/**
+ * Just the chowkhat — jambs, head, rebate and sill — for hanging a shutter
+ * that is not modelled here, such as a photographed door.
+ */
+export function DoorFrame() {
+  return (
+    <Part state="idle" seed={1.4}>
+      {FRAME_MEMBERS.map((m, i) => (
+        <Member key={i} {...m} />
+      ))}
+    </Part>
+  );
+}
+
 export interface DoorModelProps {
   activeId: AnatomyPartId | null;
   hoverId: AnatomyPartId | null;
