@@ -18,12 +18,14 @@ const CUSTOM_DESIGN_HREF =
 const WALL = '#dccbb3';
 
 /**
- * A fluted Vima door, photographed on a white backdrop. `e_trim` crops the
- * white border away at the CDN so only the door is left.
+ * A fluted Vima door, cut out of its product photo at the CDN. `e_trim` drops
+ * the outer white border; the photo still has a pale panel to the door's right
+ * and a strip of floor beneath it, so a relative crop then keeps only the
+ * door: the left 65% and top 92% of the trimmed frame, just inside its edges.
  */
 const DOOR_PHOTO = mediaUrl(
   'https://res.cloudinary.com/vimadoors/image/upload/v1790272377/Fluted_1_oulo1t.jpg',
-  'e_trim:20:white/f_jpg,q_auto,w_1024',
+  'e_trim:20:white/c_crop,g_north_west,w_0.65,h_0.92/f_jpg,q_auto,w_1024',
 );
 const BLUEPRINT_BG = 'radial-gradient(90% 70% at 55% 45%, #1c2a36 0%, #121c25 55%, #0c1319 100%)';
 /** Fine 10 mm grid with a heavier 50 mm section line, like drafting film. */
