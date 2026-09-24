@@ -66,11 +66,17 @@ function InstalledFallback() {
         background: `linear-gradient(180deg, #e3d4be 0%, ${WALL} 79.6%, #efe6d8 79.6%, #efe6d8 80.4%, #e9e1d4 80.4%, #ded3c3 100%)`,
       }}
     >
-      <img
-        src={DOOR_PHOTO}
-        alt="A fluted Vima door installed in a home"
-        className="absolute bottom-[19.6%] left-1/2 h-[36%] -translate-x-1/2 object-contain drop-shadow-[0_12px_18px_rgba(40,25,10,0.25)] md:left-auto md:right-[18%] md:h-[66%] md:translate-x-0"
-      />
+      {/* Teak chowkhat: jambs and head, open at the floor like the 3D frame. */}
+      <div
+        className="absolute bottom-[19.6%] left-1/2 flex h-[36%] -translate-x-1/2 border-x-[5px] border-t-[5px] border-[#8a5a2c] shadow-[0_12px_24px_rgba(40,25,10,0.25)] md:left-auto md:right-[18%] md:h-[66%] md:translate-x-0 md:border-x-[8px] md:border-t-[8px]"
+        style={{ aspectRatio: '1030 / 2180' }}
+      >
+        <img
+          src={DOOR_PHOTO}
+          alt="A fluted Vima door installed in a home"
+          className="h-full w-full object-cover"
+        />
+      </div>
     </div>
   );
 }
