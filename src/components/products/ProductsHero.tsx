@@ -7,7 +7,8 @@ import { useRenderCapability } from '@/hooks/useRenderCapability';
 import { mediaUrl } from '@/lib/cloudinary';
 import DoorDiagram2D from './DoorDiagram2D';
 
-/** Everything that touches `three` sits behind this boundary. */
+/** Everything that touches `three` sits behind these boundaries. */
+const InstalledScene = lazy(() => import('./door3d/InstalledScene'));
 const BlueprintScene = lazy(() => import('./door3d/BlueprintScene'));
 
 const CUSTOM_DESIGN_HREF =
@@ -16,11 +17,14 @@ const CUSTOM_DESIGN_HREF =
 
 const WALL = '#dccbb3';
 
-/** A fluted Vima door, photographed installed in a home. */
-const INSTALLED_PHOTO =
-  'https://res.cloudinary.com/vimadoors/image/upload/v1790272377/Fluted_1_oulo1t.jpg';
-const INSTALLED_WIDTHS = [720, 1080, 1440, 1920];
-const installedSrc = (w: number) => mediaUrl(INSTALLED_PHOTO, `f_auto,q_auto,c_limit,w_${w}`);
+/**
+ * A fluted Vima door, photographed on a white backdrop. `e_trim` crops the
+ * white border away at the CDN so only the door is left.
+ */
+const DOOR_PHOTO = mediaUrl(
+  'https://res.cloudinary.com/vimadoors/image/upload/v1790272377/Fluted_1_oulo1t.jpg',
+  'e_trim:20:white/f_jpg,q_auto,w_1024',
+);
 const BLUEPRINT_BG = 'radial-gradient(90% 70% at 55% 45%, #1c2a36 0%, #121c25 55%, #0c1319 100%)';
 /** Fine 10 mm grid with a heavier 50 mm section line, like drafting film. */
 const BLUEPRINT_GRID = [
@@ -50,6 +54,24 @@ function scrollToCollection() {
 /* ------------------------------------------------------------------ */
 /*  2D fallbacks                                                       */
 /* ------------------------------------------------------------------ */
+
+/** The installed half without WebGL: painted wall, floor line, the door photo. */
+function InstalledFallback() {
+  return (
+    <div
+      className="absolute inset-0"
+      style={{
+        background: `linear-gradient(180deg, #e3d4be 0%, ${WALL} 79.6%, #efe6d8 79.6%, #efe6d8 80.4%, #e9e1d4 80.4%, #ded3c3 100%)`,
+      }}
+    >
+      <img
+        src={DOOR_PHOTO}
+        alt="A fluted Vima door installed in a home"
+        className="absolute bottom-[19.6%] left-1/2 h-[36%] -translate-x-1/2 object-contain drop-shadow-[0_12px_18px_rgba(40,25,10,0.25)] md:left-auto md:right-[18%] md:h-[66%] md:translate-x-0"
+      />
+    </div>
+  );
+}
 
 /** The blueprint half without WebGL: the labelled elevation on a drafting sheet. */
 function BlueprintFallback() {
@@ -97,20 +119,20 @@ export default function ProductsHero() {
         className="relative h-[580px] overflow-hidden md:h-[520px] xl:h-full"
         style={{ background: WALL }}
       >
-        <motion.img
-          src={installedSrc(1440)}
-          srcSet={INSTALLED_WIDTHS.map((w) => `${installedSrc(w)} ${w}w`).join(', ')}
-          sizes="(min-width: 1280px) 50vw, 100vw"
-          alt="A fluted Vima door installed in a home"
-          fetchPriority="high"
-          decoding="async"
-          initial={reducedMotion ? false : { scale: 1.06 }}
-          animate={{ scale: 1 }}
-          transition={{ duration: 1.8, ease: 'easeOut' }}
-          className="absolute inset-0 h-full w-full object-cover"
-        />
+        {show3d && (
+          <Suspense fallback={null}>
+            <div className="absolute inset-0">
+              <InstalledScene
+                doorPhoto={DOOR_PHOTO}
+                paused={paused}
+                reducedMotion={reducedMotion}
+              />
+            </div>
+          </Suspense>
+        )}
+        {show2d && <InstalledFallback />}
 
-        {/* Soft limewash scrim so the headline stays legible over the photo. */}
+        {/* Soft limewash scrim so the headline always sits on clean wall. */}
         <div
           aria-hidden
           className="pointer-events-none absolute inset-0 bg-gradient-to-b from-[#efe4d3]/90 via-[#efe4d3]/30 to-transparent md:bg-gradient-to-r md:from-[#efe4d3]/85 md:via-[#efe4d3]/30 md:via-30% md:to-transparent md:to-50%"
@@ -134,8 +156,7 @@ export default function ProductsHero() {
             animate="visible"
             className="mt-3 font-heading text-[2.3rem] leading-[1.04] text-[#2a1c12] md:text-[2.8rem] lg:mt-4 xl:text-[3rem] 2xl:text-[3.4rem]"
           >
-            Luxury Wooden Doors{' '}
-            <span className="block text-[#7a4b1e]">by Vima Doors</span>
+            Luxury Wooden Doors <span className="block text-[#7a4b1e]">by Vima Doors</span>
           </motion.h1>
           <motion.p
             custom={2}
