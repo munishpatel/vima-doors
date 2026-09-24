@@ -11,7 +11,6 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import {
-  CATEGORIES,
   CATEGORY_BY_SLUG,
   PRODUCTS,
   SORT_OPTIONS,
@@ -127,25 +126,10 @@ export default function ProductCatalog() {
 
   return (
     <section id="collection" aria-labelledby="catalog-heading" className="scroll-mt-[84px] bg-background">
-      <div className="container mx-auto px-6 pb-24 pt-16 md:pt-20 lg:px-10">
-        {/* ── Section head ──────────────────────────────────────────── */}
-        <div className="mb-10 max-w-2xl">
-          <span className="font-mono text-[10px] uppercase tracking-[0.32em] text-primary/70">
-            The Catalog
-          </span>
-          <h2
-            id="catalog-heading"
-            className="mt-4 font-heading text-4xl leading-[1.1] text-foreground md:text-5xl"
-          >
-            {CATEGORIES.length} collections,
-            <br />
-            one standard of build.
-          </h2>
-          <p className="mt-4 text-[15px] leading-relaxed text-foreground/60">
-            Browse by finish family. Every design here can be made to your
-            opening, in any of the thicknesses listed.
-          </p>
-        </div>
+      <div className="container mx-auto px-6 pb-24 pt-10 md:pt-12 lg:px-10">
+        <h2 id="catalog-heading" className="sr-only">
+          Door catalogue
+        </h2>
 
         <CategoryNav
           active={category}

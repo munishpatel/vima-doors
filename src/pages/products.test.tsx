@@ -68,7 +68,7 @@ describe('split banner', () => {
     await user.click(screen.getByRole('button', { name: /browse our collection/i }));
     expect(Element.prototype.scrollIntoView).toHaveBeenCalled();
     expect(document.getElementById('collection')).toContainElement(
-      screen.getByRole('heading', { name: /collections/i, level: 2 }),
+      screen.getByRole('heading', { name: /door catalogue/i, level: 2 }),
     );
   });
 });
