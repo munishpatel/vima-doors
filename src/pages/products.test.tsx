@@ -31,13 +31,12 @@ const cardTitles = () =>
     .map((el) => within(el).getByRole('heading', { level: 3 }).textContent);
 
 describe('split banner', () => {
-  it('shows the installed photo and, without WebGL, the labelled elevation', async () => {
+  it('without WebGL, shows the trimmed door photo and the labelled elevation', async () => {
     renderPage();
-    expect(screen.getByRole('img', { name: /fluted vima door installed in a home/i })).toHaveAttribute(
-      'src',
-      expect.stringContaining('Fluted_1_oulo1t.jpg'),
-    );
-    expect(await screen.findByRole('img', { name: /teak door elevation/i })).toBeInTheDocument();
+    const photo = await screen.findByRole('img', { name: /fluted vima door installed in a home/i });
+    expect(photo).toHaveAttribute('src', expect.stringContaining('e_trim'));
+    expect(photo).toHaveAttribute('src', expect.stringContaining('Fluted_1_oulo1t.jpg'));
+    expect(screen.getByRole('img', { name: /teak door elevation/i })).toBeInTheDocument();
   });
 
   it('pairs the installed headline with the custom-design pitch', () => {
