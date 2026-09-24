@@ -3,10 +3,9 @@ import { ANATOMY_PARTS, type AnatomyPartId } from '@/data/doorAnatomy';
 /**
  * Flat teak elevation used instead of WebGL on low-power devices.
  *
- * The products banner draws it twice: bare in the installed half, and with
- * the five callouts on the blueprint half, so the fallback tells the same
- * "this door, and what is inside it" story as the 3D scenes. Callouts are
- * `aria-hidden`; the banner lists the parts as text for assistive tech.
+ * The products banner shows it on the blueprint half when WebGL is out, with
+ * the same five callouts as the 3D scene. Callouts are `aria-hidden`; the
+ * banner lists the parts as text for assistive tech.
  */
 
 const TEAK_DARK = '#8a5a2c';
@@ -25,8 +24,6 @@ export interface DoorDiagram2DProps {
   hoverId?: AnatomyPartId | null;
   onSelect?: (id: AnatomyPartId) => void;
   onHoverChange?: (id: AnatomyPartId | null) => void;
-  /** Off for the installed view, where the door is shown as it is lived with. */
-  showCallouts?: boolean;
   /** Accessible name for the drawing. */
   label?: string;
 }
@@ -36,7 +33,6 @@ export default function DoorDiagram2D({
   hoverId = null,
   onSelect,
   onHoverChange,
-  showCallouts = true,
   label = 'Teak door elevation labelled with the chowkhat, stile and rail construction, carving, kabza and lock.',
 }: DoorDiagram2DProps) {
   const focus = hoverId ?? activeId;
@@ -202,7 +198,7 @@ export default function DoorDiagram2D({
       </g>
 
       {/* Callouts */}
-      {showCallouts && ANATOMY_PARTS.map((part) => {
+      {ANATOMY_PARTS.map((part) => {
         const [cx, cy] = part.anchor2d;
         const [lx, ly] = part.leader2d;
         const lit = focus === part.id;

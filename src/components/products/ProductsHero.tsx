@@ -4,10 +4,10 @@ import { ArrowDown, ArrowLeftRight, Hand, PencilRuler } from 'lucide-react';
 
 import { ANATOMY_PARTS, type AnatomyPartId } from '@/data/doorAnatomy';
 import { useRenderCapability } from '@/hooks/useRenderCapability';
+import { mediaUrl } from '@/lib/cloudinary';
 import DoorDiagram2D from './DoorDiagram2D';
 
-/** Everything that touches `three` sits behind these boundaries. */
-const InstalledScene = lazy(() => import('./door3d/InstalledScene'));
+/** Everything that touches `three` sits behind this boundary. */
 const BlueprintScene = lazy(() => import('./door3d/BlueprintScene'));
 
 const CUSTOM_DESIGN_HREF =
@@ -15,6 +15,12 @@ const CUSTOM_DESIGN_HREF =
   encodeURIComponent("Hi, I'd like Vima Doors to build a door to my own design.");
 
 const WALL = '#dccbb3';
+
+/** A fluted Vima door, photographed installed in a home. */
+const INSTALLED_PHOTO =
+  'https://res.cloudinary.com/vimadoors/image/upload/v1790272377/Fluted_1_oulo1t.jpg';
+const INSTALLED_WIDTHS = [720, 1080, 1440, 1920];
+const installedSrc = (w: number) => mediaUrl(INSTALLED_PHOTO, `f_auto,q_auto,c_limit,w_${w}`);
 const BLUEPRINT_BG = 'radial-gradient(90% 70% at 55% 45%, #1c2a36 0%, #121c25 55%, #0c1319 100%)';
 /** Fine 10 mm grid with a heavier 50 mm section line, like drafting film. */
 const BLUEPRINT_GRID = [
@@ -44,22 +50,6 @@ function scrollToCollection() {
 /* ------------------------------------------------------------------ */
 /*  2D fallbacks                                                       */
 /* ------------------------------------------------------------------ */
-
-/** The installed half without WebGL: painted wall, floor line, flat door. */
-function InstalledFallback() {
-  return (
-    <div
-      className="absolute inset-0"
-      style={{
-        background: `linear-gradient(180deg, #e3d4be 0%, ${WALL} 79.6%, #efe6d8 79.6%, #efe6d8 80.4%, #e9e1d4 80.4%, #ded3c3 100%)`,
-      }}
-    >
-      <div className="absolute bottom-[18%] left-1/2 aspect-square h-[36%] -translate-x-1/2 md:left-auto md:right-[4%] md:h-[66%] md:translate-x-0">
-        <DoorDiagram2D showCallouts={false} label="Teak door installed in a home" />
-      </div>
-    </div>
-  );
-}
 
 /** The blueprint half without WebGL: the labelled elevation on a drafting sheet. */
 function BlueprintFallback() {
@@ -107,16 +97,20 @@ export default function ProductsHero() {
         className="relative h-[580px] overflow-hidden md:h-[520px] xl:h-full"
         style={{ background: WALL }}
       >
-        {show3d && (
-          <Suspense fallback={null}>
-            <div className="absolute inset-0">
-              <InstalledScene paused={paused} reducedMotion={reducedMotion} />
-            </div>
-          </Suspense>
-        )}
-        {show2d && <InstalledFallback />}
+        <motion.img
+          src={installedSrc(1440)}
+          srcSet={INSTALLED_WIDTHS.map((w) => `${installedSrc(w)} ${w}w`).join(', ')}
+          sizes="(min-width: 1280px) 50vw, 100vw"
+          alt="A fluted Vima door installed in a home"
+          fetchPriority="high"
+          decoding="async"
+          initial={reducedMotion ? false : { scale: 1.06 }}
+          animate={{ scale: 1 }}
+          transition={{ duration: 1.8, ease: 'easeOut' }}
+          className="absolute inset-0 h-full w-full object-cover"
+        />
 
-        {/* Soft limewash scrim so the headline always sits on clean wall. */}
+        {/* Soft limewash scrim so the headline stays legible over the photo. */}
         <div
           aria-hidden
           className="pointer-events-none absolute inset-0 bg-gradient-to-b from-[#efe4d3]/90 via-[#efe4d3]/30 to-transparent md:bg-gradient-to-r md:from-[#efe4d3]/85 md:via-[#efe4d3]/30 md:via-30% md:to-transparent md:to-50%"
@@ -150,7 +144,7 @@ export default function ProductsHero() {
             animate="visible"
             className="mt-3 max-w-[20rem] text-[13.5px] leading-relaxed text-[#2a1c12]/70 lg:mt-5 lg:text-[15px]"
           >
-            Seasoned teak, hand-finished and hung true — this is how it looks once it is home.
+            Hand-finished and hung true — this is how a Vima door looks once it is home.
           </motion.p>
           <motion.div
             custom={3}
