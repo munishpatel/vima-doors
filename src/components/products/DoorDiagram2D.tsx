@@ -1,13 +1,12 @@
 import { ANATOMY_PARTS, type AnatomyPartId } from '@/data/doorAnatomy';
 
 /**
- * Flat teak elevation used instead of WebGL on low-power devices, when the
- * user prefers reduced motion, or when they pick "2D" by hand.
+ * Flat teak elevation used instead of WebGL on low-power devices.
  *
- * Same five callouts, same palette and same interaction contract as the 3D
- * scene, so the surrounding shell does not need to know which one is mounted.
- * Callouts are `aria-hidden` here too — the button row below the frame is the
- * accessible control surface for both modes.
+ * The products banner draws it twice: bare in the installed half, and with
+ * the five callouts on the blueprint half, so the fallback tells the same
+ * "this door, and what is inside it" story as the 3D scenes. Callouts are
+ * `aria-hidden`; the banner lists the parts as text for assistive tech.
  */
 
 const TEAK_DARK = '#8a5a2c';
@@ -22,17 +21,23 @@ const REEDS = Array.from({ length: 9 }, (_, i) => 35.5 + i * 3.7);
 const HINGE_ROWS = [18, 51, 84];
 
 export interface DoorDiagram2DProps {
-  activeId: AnatomyPartId | null;
-  hoverId: AnatomyPartId | null;
-  onSelect: (id: AnatomyPartId) => void;
-  onHoverChange: (id: AnatomyPartId | null) => void;
+  activeId?: AnatomyPartId | null;
+  hoverId?: AnatomyPartId | null;
+  onSelect?: (id: AnatomyPartId) => void;
+  onHoverChange?: (id: AnatomyPartId | null) => void;
+  /** Off for the installed view, where the door is shown as it is lived with. */
+  showCallouts?: boolean;
+  /** Accessible name for the drawing. */
+  label?: string;
 }
 
 export default function DoorDiagram2D({
-  activeId,
-  hoverId,
+  activeId = null,
+  hoverId = null,
   onSelect,
   onHoverChange,
+  showCallouts = true,
+  label = 'Teak door elevation labelled with the chowkhat, stile and rail construction, carving, kabza and lock.',
 }: DoorDiagram2DProps) {
   const focus = hoverId ?? activeId;
 
@@ -42,10 +47,10 @@ export default function DoorDiagram2D({
   const brass = (id: AnatomyPartId) => (focus === id ? BRASS_LIT : BRASS);
 
   const hit = (id: AnatomyPartId) => ({
-    className: 'cursor-pointer',
-    onClick: () => onSelect(id),
-    onPointerEnter: () => onHoverChange(id),
-    onPointerLeave: () => onHoverChange(null),
+    className: onSelect ? 'cursor-pointer' : undefined,
+    onClick: () => onSelect?.(id),
+    onPointerEnter: () => onHoverChange?.(id),
+    onPointerLeave: () => onHoverChange?.(null),
     opacity: dim(id),
   });
 
@@ -54,7 +59,7 @@ export default function DoorDiagram2D({
       viewBox="0 0 100 100"
       className="h-full w-full"
       role="img"
-      aria-label="Teak door elevation labelled with the chowkhat, stile and rail construction, carving, kabza and lock."
+      aria-label={label}
     >
       <defs>
         {/* Grain: turbulence stretched along the fibre direction. Low frequency
@@ -197,7 +202,7 @@ export default function DoorDiagram2D({
       </g>
 
       {/* Callouts */}
-      {ANATOMY_PARTS.map((part) => {
+      {showCallouts && ANATOMY_PARTS.map((part) => {
         const [cx, cy] = part.anchor2d;
         const [lx, ly] = part.leader2d;
         const lit = focus === part.id;
@@ -205,10 +210,10 @@ export default function DoorDiagram2D({
           <g
             key={part.id}
             aria-hidden
-            className="cursor-pointer"
-            onClick={() => onSelect(part.id)}
-            onPointerEnter={() => onHoverChange(part.id)}
-            onPointerLeave={() => onHoverChange(null)}
+            className={onSelect ? 'cursor-pointer' : undefined}
+            onClick={() => onSelect?.(part.id)}
+            onPointerEnter={() => onHoverChange?.(part.id)}
+            onPointerLeave={() => onHoverChange?.(null)}
             opacity={focus && !lit ? 0.45 : 1}
           >
             <line x1={cx} y1={cy} x2={lx} y2={ly} stroke={SHADOW} strokeWidth="0.3" opacity="0.5" />

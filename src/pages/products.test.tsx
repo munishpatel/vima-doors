@@ -30,15 +30,26 @@ const cardTitles = () =>
     .getAllByRole('article')
     .map((el) => within(el).getByRole('heading', { level: 3 }).textContent);
 
-describe('anatomy hero', () => {
-  it('falls back to the flat elevation when WebGL is unavailable', async () => {
+describe('split banner', () => {
+  it('shows the installed door and its labelled anatomy without WebGL', async () => {
     renderPage();
-    expect(await screen.findByRole('img', { name: /teak door elevation/i })).toBeInTheDocument();
-    // No WebGL means no 3D toggle is offered at all.
-    expect(screen.queryByRole('group', { name: /door view/i })).not.toBeInTheDocument();
+    expect(await screen.findByRole('img', { name: /teak door installed in a home/i })).toBeInTheDocument();
+    expect(screen.getByRole('img', { name: /teak door elevation/i })).toBeInTheDocument();
   });
 
-  it('labels each part with the term the Indian door trade uses', () => {
+  it('pairs the installed headline with the custom-design pitch', () => {
+    renderPage();
+    expect(
+      screen.getByRole('heading', { level: 1, name: /luxury wooden doors by vima doors/i }),
+    ).toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: /you imagine it\. we build it\./i })).toBeInTheDocument();
+    expect(screen.getByRole('link', { name: /share your design/i })).toHaveAttribute(
+      'href',
+      expect.stringContaining('https://wa.me/918106802929'),
+    );
+  });
+
+  it('names every part of the door in the trade terms', () => {
     renderPage();
     for (const label of [
       'Doorframe / Chowkhat',
@@ -47,38 +58,31 @@ describe('anatomy hero', () => {
       'Hinges / Kabza',
       'Lock & Handle',
     ]) {
-      expect(screen.getByRole('button', { name: new RegExp(label, 'i') })).toBeInTheDocument();
+      expect(screen.getByText(new RegExp(`^${label}:`))).toBeInTheDocument();
     }
   });
 
-  it('expands specs only once a part is selected', async () => {
+  it('scrolls down to the catalogue', async () => {
     const user = userEvent.setup();
     renderPage();
-
-    expect(screen.queryByText('80 kg on 3 kabza')).not.toBeInTheDocument();
-
-    await user.click(screen.getByRole('button', { name: /hinges \/ kabza/i }));
-
-    expect(await screen.findByText('80 kg on 3 kabza')).toBeInTheDocument();
-    expect(screen.getByRole('button', { name: /hinges \/ kabza/i })).toHaveAttribute(
-      'aria-pressed',
-      'true',
+    await user.click(screen.getByRole('button', { name: /browse our collection/i }));
+    expect(Element.prototype.scrollIntoView).toHaveBeenCalled();
+    expect(document.getElementById('collection')).toContainElement(
+      screen.getByRole('heading', { name: /collections/i, level: 2 }),
     );
   });
+});
 
-  it('deselects when the same part is clicked twice', async () => {
-    const user = userEvent.setup();
+describe('intro', () => {
+  it('introduces Vima Doors as a door manufacturer, without windows', () => {
     renderPage();
-    const button = screen.getByRole('button', { name: /lock & handle/i });
-
-    await user.click(button);
-    expect(await screen.findByText('Euro profile, 6-pin')).toBeInTheDocument();
-    expect(button).toHaveAttribute('aria-pressed', 'true');
-
-    // The card's exit animates `height: auto`, which jsdom cannot measure, so
-    // assert the selection state rather than waiting on an unmount.
-    await user.click(button);
-    await waitFor(() => expect(button).toHaveAttribute('aria-pressed', 'false'));
+    const intro = screen
+      .getByRole('heading', { name: /vima doors — premium door manufacturer in india/i })
+      .closest('section');
+    expect(intro).not.toBeNull();
+    expect(intro).toHaveTextContent(/door manufacturers/i);
+    expect(intro).not.toHaveTextContent(/window/i);
+    expect(intro).not.toHaveTextContent(/boon/i);
   });
 });
 

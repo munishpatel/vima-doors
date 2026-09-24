@@ -126,7 +126,7 @@ export default function ProductCatalog() {
   const filtersDirty = category !== 'all' || query !== '' || sort !== 'newest';
 
   return (
-    <section aria-labelledby="catalog-heading" className="bg-background">
+    <section id="collection" aria-labelledby="catalog-heading" className="scroll-mt-[84px] bg-background">
       <div className="container mx-auto px-6 pb-24 pt-16 md:pt-20 lg:px-10">
         {/* ── Section head ──────────────────────────────────────────── */}
         <div className="mb-10 max-w-2xl">

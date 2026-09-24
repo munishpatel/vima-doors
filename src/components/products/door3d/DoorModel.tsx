@@ -6,12 +6,13 @@ import {
   useMemo,
   useRef,
   type ReactNode,
+  type RefObject,
 } from 'react';
 import * as THREE from 'three';
 import { useFrame, type ThreeEvent } from '@react-three/fiber';
 import { RoundedBox } from '@react-three/drei';
 
-import type { AnatomyPartId } from '@/data/doorAnatomy';
+import { EXPLODE_OFFSETS, type AnatomyPartId } from '@/data/doorAnatomy';
 import {
   WOOD_TONES,
   createBrassMaterial,
@@ -30,12 +31,18 @@ interface PartMaterials {
   metal: THREE.MeshPhysicalMaterial;
 }
 
+type Vec3 = [number, number, number];
+
 const MaterialContext = createContext<PartMaterials | null>(null);
 
 export type PartVisualState = 'idle' | 'active' | 'muted';
 
 interface PartProps {
   state: PartVisualState;
+  /** Where this part travels to when the door is fully exploded. */
+  explodeOffset?: Vec3;
+  /** 0 = assembled, 1 = fully exploded. Read every frame, never rendered. */
+  explodeRef?: RefObject<number>;
   /** Shifts the figure so adjacent members do not look like one board. */
   seed: number;
   children: ReactNode;
@@ -52,7 +59,17 @@ interface PartProps {
  * member gains a little exposure and a warm emissive lift while the rest fall
  * back, which keeps the frame looking like a photograph instead of a viewport.
  */
-function Part({ state, seed, children, onSelect, onHoverChange }: PartProps) {
+function Part({
+  state,
+  seed,
+  explodeOffset,
+  explodeRef,
+  children,
+  onSelect,
+  onHoverChange,
+}: PartProps) {
+  const group = useRef<THREE.Group>(null);
+
   const materials = useMemo<PartMaterials & { woodRefs: WoodMaterial[] }>(() => {
     const v = createWoodMaterial({ tone: WOOD_TONES.teak, grain: 'v', seed });
     const h = createWoodMaterial({ tone: WOOD_TONES.teak, grain: 'h', seed: seed + 4.3 });
@@ -86,12 +103,22 @@ function Part({ state, seed, children, onSelect, onHoverChange }: PartProps) {
     }
     materials.metal.emissiveIntensity = Math.max(t, 0) * 0.3;
     materials.metal.envMapIntensity = 1.8 + t * 0.6;
+
+    if (group.current && explodeOffset) {
+      const e = explodeRef?.current ?? 0;
+      group.current.position.set(
+        explodeOffset[0] * e,
+        explodeOffset[1] * e,
+        explodeOffset[2] * e,
+      );
+    }
   });
 
-  const interactive = Boolean(onSelect);
+  const interactive = Boolean(onSelect ?? onHoverChange);
 
   return (
     <group
+      ref={group}
       onClick={
         interactive
           ? (e: ThreeEvent<MouseEvent>) => {
@@ -118,8 +145,6 @@ function Part({ state, seed, children, onSelect, onHoverChange }: PartProps) {
 /* ------------------------------------------------------------------ */
 /*  Primitives                                                         */
 /* ------------------------------------------------------------------ */
-
-type Vec3 = [number, number, number];
 
 /**
  * Every member gets a small eased arris rather than a hard 90° edge. It is the
@@ -313,8 +338,10 @@ const LOCK_DISCS: { radius: number; depth: number; position: Vec3 }[] = [
 export interface DoorModelProps {
   activeId: AnatomyPartId | null;
   hoverId: AnatomyPartId | null;
-  onSelect: (id: AnatomyPartId) => void;
-  onHoverChange: (id: AnatomyPartId | null) => void;
+  onSelect?: (id: AnatomyPartId) => void;
+  onHoverChange?: (id: AnatomyPartId | null) => void;
+  /** When given, parts travel along `EXPLODE_OFFSETS` scaled by its value. */
+  explodeRef?: RefObject<number>;
 }
 
 export default function DoorModel({
@@ -322,6 +349,7 @@ export default function DoorModel({
   hoverId,
   onSelect,
   onHoverChange,
+  explodeRef,
 }: DoorModelProps) {
   const focus = hoverId ?? activeId;
   const stateFor = (id: AnatomyPartId): PartVisualState => {
@@ -332,8 +360,10 @@ export default function DoorModel({
   const partProps = (id: AnatomyPartId, seed: number) => ({
     state: stateFor(id),
     seed,
-    onSelect: () => onSelect(id),
-    onHoverChange: (hovering: boolean) => onHoverChange(hovering ? id : null),
+    explodeOffset: EXPLODE_OFFSETS[id],
+    explodeRef,
+    onSelect: onSelect && (() => onSelect(id)),
+    onHoverChange: onHoverChange && ((hovering: boolean) => onHoverChange(hovering ? id : null)),
   });
 
   return (
