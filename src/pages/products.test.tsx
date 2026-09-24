@@ -3,7 +3,7 @@ import userEvent from '@testing-library/user-event';
 import { MemoryRouter } from 'react-router-dom';
 import { beforeAll, describe, expect, it, vi } from 'vitest';
 
-import { PRODUCTS } from '@/data/products';
+import { CATEGORIES, PRODUCTS } from '@/data/products';
 import ProductsPage from './products';
 
 // jsdom has no layout engine and no WebGL, so the page takes its 2D path.
@@ -83,6 +83,25 @@ describe('intro', () => {
     expect(intro).toHaveTextContent(/door manufacturers/i);
     expect(intro).not.toHaveTextContent(/window/i);
     expect(intro).not.toHaveTextContent(/boon/i);
+  });
+
+  it('shows a tile for every collection', () => {
+    renderPage();
+    for (const category of CATEGORIES) {
+      expect(
+        screen.getByRole('button', { name: `Browse ${category.name} doors` }),
+      ).toBeInTheDocument();
+    }
+  });
+
+  it('filters the catalogue from a collection tile', async () => {
+    const user = userEvent.setup();
+    renderPage();
+
+    await user.click(screen.getByRole('button', { name: 'Browse Veneer doors' }));
+
+    await waitFor(() => expect(screen.getAllByRole('article')).toHaveLength(3));
+    expect(screen.getByRole('tab', { name: /veneer/i })).toHaveAttribute('aria-selected', 'true');
   });
 });
 

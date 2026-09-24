@@ -1,8 +1,8 @@
 /**
  * Product catalog source of truth.
  *
- * Photography is not shot yet, so every product carries a `placeholder`
- * descriptor instead of an image URL. `DoorPlaceholder` turns that descriptor
+ * Product photography is not shot yet, so every product carries a `placeholder`
+ * descriptor instead of an image URL. (Categories do have a tile photo.) `DoorPlaceholder` turns that descriptor
  * into a schematic elevation, which keeps the grid legible (and on-brand)
  * until real imagery replaces it. Swapping in photos later means adding an
  * `images: string[]` field and branching inside `ProductCard`.
@@ -38,7 +38,11 @@ export interface ProductCategory {
   /** One-line editorial descriptor shown under the section heading. */
   tagline: string;
   motif: PlaceholderMotif;
+  /** Cloudinary delivery URL for the category tile. The motif stands in if it fails. */
+  image: string;
 }
+
+const CDN = 'https://res.cloudinary.com/vimadoors/image/upload';
 
 export interface ProductSpec {
   coreMaterial: string;
@@ -68,54 +72,63 @@ export const CATEGORIES: ProductCategory[] = [
     name: 'Fluted',
     tagline: 'Vertical reeding milled to a fixed pitch, so the face reads as rhythm before it reads as door.',
     motif: 'flute',
+    image: `${CDN}/v1785105089/DOOR-01_zqybcy.png`,
   },
   {
     slug: 'gold-pati',
     name: 'Gold Pati',
     tagline: 'Brass pati inlaid along the grain and levelled flush with the finish coat.',
     motif: 'inlay',
+    image: `${CDN}/v1785105089/GOLDPATTI-01_fu5r62.png`,
   },
   {
     slug: 'highlighters',
     name: 'Highlighters',
     tagline: 'A single CNC relief cut, placed to catch the room’s primary light source.',
     motif: 'highlight',
+    image: `${CDN}/v1785105089/DESIGN-01_jutrwm.png`,
   },
   {
     slug: 'laminate-cut-paste',
     name: 'Laminate Cut Paste',
     tagline: 'Contrasting laminates cut and seam-matched by hand into one continuous face.',
     motif: 'cut-paste',
+    image: `${CDN}/v1785105090/LAMINATE-02_nvdyk4.png`,
   },
   {
     slug: 'nova-v25',
     name: 'NOVA V25',
     tagline: 'Our 25 mm engineered shutter system — flush, light, and dimensionally stable.',
     motif: 'system',
+    image: `${CDN}/v1785105090/MEMBRANE-01_bgnpg3.webp`,
   },
   {
     slug: 'vintage-collection',
     name: 'Vintage Collection',
     tagline: 'Heritage stile-and-rail profiles, re-cut on modern tooling to modern tolerances.',
     motif: 'heritage',
+    image: `${CDN}/v1785105090/LAMINATE-01_rp03mn.png`,
   },
   {
     slug: 'teak',
     name: 'Teak',
     tagline: 'Quarter-sawn Burma and Indian teak, seasoned in-house before it is ever cut.',
     motif: 'grain',
+    image: `${CDN}/v1785105090/TEAK-01_btvt99.webp`,
   },
   {
     slug: 'veneer',
     name: 'Veneer',
     tagline: 'Book-matched natural veneer laid over an engineered core that will not move.',
     motif: 'book-match',
+    image: `${CDN}/v1785105090/VENEER-01_bo3ahd.webp`,
   },
   {
     slug: 'pooja-doors',
     name: 'Pooja Doors',
     tagline: 'Pierced jaali, bell detail, and brass accents cut for the prayer room.',
     motif: 'jaali',
+    image: `${CDN}/v1785105090/PPOJA-01_lolxew.webp`,
   },
 ];
 
