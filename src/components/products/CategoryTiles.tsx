@@ -1,7 +1,6 @@
 import { useState } from 'react';
-import { useSearchParams } from 'react-router-dom';
 
-import { CATEGORIES, type CategorySlug, type ProductCategory } from '@/data/products';
+import { CATEGORIES, type ProductCategory } from '@/data/products';
 import { mediaUrl } from '@/lib/cloudinary';
 import DoorPlaceholder from './DoorPlaceholder';
 
@@ -30,14 +29,14 @@ function Tile({
   category: ProductCategory;
   wall: string;
   seed: number;
-  onSelect: (slug: CategorySlug) => void;
+  onSelect: () => void;
 }) {
   const [failed, setFailed] = useState(false);
 
   return (
     <button
       type="button"
-      onClick={() => onSelect(category.slug)}
+      onClick={onSelect}
       aria-label={`Browse ${category.name} doors`}
       className="group relative block aspect-[4/5] w-full overflow-hidden rounded-md text-left shadow-[0_10px_30px_rgba(60,38,16,0.08)] ring-1 ring-black/5 transition-shadow duration-300 hover:shadow-[0_18px_40px_rgba(60,38,16,0.18)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
     >
@@ -74,22 +73,9 @@ function Tile({
   );
 }
 
-/**
- * Picture tiles for each collection. Choosing one filters the catalogue below
- * through the same `?category=` URL state the pill nav writes, then scrolls to it.
- */
+/** Picture tiles for each collection. Choosing one scrolls to the product collections below. */
 export default function CategoryTiles() {
-  const [, setParams] = useSearchParams();
-
-  const select = (slug: CategorySlug) => {
-    setParams(
-      (prev) => {
-        const next = new URLSearchParams(prev);
-        next.set('category', slug);
-        return next;
-      },
-      { replace: true },
-    );
+  const select = () => {
     document.getElementById('collection')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
   };
 

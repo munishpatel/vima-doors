@@ -3,7 +3,7 @@ import { motion } from 'motion/react';
 import CategoryTiles from './CategoryTiles';
 
 /**
- * Brand statement and collection tiles between the banner and the catalogue.
+ * Brand statement and collection tiles between the banner and the product collections.
  * The copy and the tiles share one container, so the paragraph's edges line
  * up with the outer edges of the tile grid.
  */
