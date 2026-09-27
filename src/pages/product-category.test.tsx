@@ -85,7 +85,7 @@ describe('category page', () => {
     ).toBeInTheDocument();
   });
 
-  it('skips the request for a collection without a tag', () => {
+  it('skips the design request for a collection without a tag', () => {
     const fetchMock = stubTagList([]);
     renderPage('/products/teak-doors');
     expect(screen.getByText(/photos of our teak doors are on their way/i)).toBeInTheDocument();
@@ -93,7 +93,10 @@ describe('category page', () => {
       'href',
       expect.stringContaining('https://wa.me/918106802929'),
     );
-    expect(fetchMock).not.toHaveBeenCalled();
+    // Only the catalogue banner asks Cloudinary for anything.
+    expect(fetchMock.mock.calls.map(([url]) => url)).toEqual([
+      'https://res.cloudinary.com/vimadoors/image/list/Catelogue.json',
+    ]);
   });
 
   it('falls through to the 404 page for an unknown collection', () => {

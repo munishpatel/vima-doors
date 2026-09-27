@@ -1,6 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import { useParams } from 'react-router-dom';
 
+import CatalogueBanner from '@/components/products/CatalogueBanner';
 import CategoryCover from '@/components/products/CategoryCover';
 import CategoryStrip from '@/components/products/CategoryStrip';
 import { CATEGORY_BY_SLUG, isCategorySlug, type ProductCategory } from '@/data/products';
@@ -115,6 +116,8 @@ export default function ProductCategoryPage() {
           <DesignGrid category={category} />
         </div>
       </section>
+
+      <CatalogueBanner />
     </>
   );
 }

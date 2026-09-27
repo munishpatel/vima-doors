@@ -1,7 +1,8 @@
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { render, screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { MemoryRouter } from 'react-router-dom';
-import { beforeAll, describe, expect, it, vi } from 'vitest';
+import { afterEach, beforeAll, beforeEach, describe, expect, it, vi } from 'vitest';
 
 import { CATEGORIES } from '@/data/products';
 import ProductsPage from './products';
@@ -17,11 +18,29 @@ beforeAll(() => {
   Element.prototype.scrollTo = vi.fn();
 });
 
+/** Answers the Cloudinary tag list with these resources. */
+function stubTagList(resources: { public_id: string; format: string }[]) {
+  vi.stubGlobal(
+    'fetch',
+    vi.fn().mockResolvedValue({
+      ok: true,
+      status: 200,
+      json: () => Promise.resolve({ resources: resources.map((r) => ({ ...r, version: 1 })) }),
+    }),
+  );
+}
+
+beforeEach(() => stubTagList([{ public_id: 'VIMA_Catalouge_NOVA_u2o2z4', format: 'pdf' }]));
+afterEach(() => vi.unstubAllGlobals());
+
 function renderPage(initialUrl = '/products') {
+  const client = new QueryClient({ defaultOptions: { queries: { retry: false } } });
   return render(
-    <MemoryRouter initialEntries={[initialUrl]}>
-      <ProductsPage />
-    </MemoryRouter>,
+    <QueryClientProvider client={client}>
+      <MemoryRouter initialEntries={[initialUrl]}>
+        <ProductsPage />
+      </MemoryRouter>
+    </QueryClientProvider>,
   );
 }
 
@@ -120,5 +139,36 @@ describe('product collections', () => {
       expect(photo).toHaveAttribute('src', expect.stringContaining('/upload/f_auto,q_auto,w_800/'));
       expect(photo).toHaveAccessibleName();
     }
+  });
+});
+
+describe('catalogue banner', () => {
+  const banner = () =>
+    within(screen.getByRole('heading', { name: /download our latest catalogue/i }).closest('section')!);
+
+  it('opens the WhatsApp catalogue', () => {
+    renderPage();
+    expect(banner().getByRole('link', { name: /view on whatsapp/i })).toHaveAttribute(
+      'href',
+      'https://wa.me/c/918106802929',
+    );
+  });
+
+  it('opens the PDF tagged on Cloudinary in a new tab', async () => {
+    renderPage();
+    const link = await banner().findByRole('link', { name: /download pdf/i });
+    expect(link).toHaveAttribute(
+      'href',
+      'https://res.cloudinary.com/vimadoors/image/upload/v1/VIMA_Catalouge_NOVA_u2o2z4.pdf',
+    );
+    expect(link).toHaveAttribute('target', '_blank');
+  });
+
+  it('keeps only the WhatsApp option while no PDF is tagged', async () => {
+    stubTagList([]);
+    renderPage();
+    await vi.waitFor(() => expect(fetch).toHaveBeenCalled());
+    expect(banner().queryByRole('link', { name: /download pdf/i })).not.toBeInTheDocument();
+    expect(banner().getByRole('link', { name: /view on whatsapp/i })).toBeInTheDocument();
   });
 });
