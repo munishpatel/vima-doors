@@ -39,3 +39,34 @@ export const GRID_IMAGE_TRANSFORM = 'f_auto,q_auto,c_fill,ar_1:1,w_600';
 
 /** Full-size modal transform for images. */
 export const MODAL_IMAGE_TRANSFORM = 'f_auto,q_auto,w_1080';
+
+const CLOUD_NAME = 'vimadoors';
+
+interface ListedResource {
+  public_id: string;
+  version: number;
+  format: string;
+}
+
+/**
+ * Delivery URLs of every image carrying `tag`, via Cloudinary's public
+ * resource list (no API key needed), ordered by the numbers in their names:
+ * Lam_1, Lam_2 … Lam_23. A tag with no images yet comes back as `[]`.
+ */
+export async function listByTag(tag: string, signal?: AbortSignal): Promise<string[]> {
+  const res = await fetch(
+    `https://res.cloudinary.com/${CLOUD_NAME}/image/list/${encodeURIComponent(tag)}.json`,
+    { signal },
+  );
+  if (res.status === 404) return [];
+  if (!res.ok) throw new Error(`Cloudinary list for "${tag}" failed: ${res.status}`);
+
+  const { resources } = (await res.json()) as { resources: ListedResource[] };
+  return resources
+    .slice()
+    .sort((a, b) => a.public_id.localeCompare(b.public_id, undefined, { numeric: true }))
+    .map(
+      (r) =>
+        `https://res.cloudinary.com/${CLOUD_NAME}/image/upload/v${r.version}/${r.public_id}.${r.format}`,
+    );
+}
