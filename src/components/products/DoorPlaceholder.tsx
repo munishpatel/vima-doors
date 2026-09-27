@@ -3,12 +3,10 @@ import { useMemo } from 'react';
 import type { PlaceholderMotif } from '@/data/products';
 
 /**
- * Stand-in artwork for product photography.
+ * Stand-in artwork for a collection tile whose photo fails to load.
  *
- * Each category gets its own motif so the grid still communicates the design
- * language while the shoot is pending. Two viewBoxes over the same drawing
- * give us a full elevation and a zoomed detail crop, which is what the card
- * cross-fades between on hover.
+ * Each category gets its own motif, so the tile still communicates the
+ * design language without its photo.
  */
 
 const PAPER = '#efe7da';
@@ -17,7 +15,7 @@ const BOARD_DEEP = '#cdbda3';
 const LINE = '#8a7457';
 const BRASS = '#b08b4f';
 
-/** Deterministic 0–1 sequence so a product's grain never reshuffles. */
+/** Deterministic 0–1 sequence so a tile's grain never reshuffles. */
 function seeded(seed: number) {
   let s = seed * 9301 + 49297;
   return () => {
@@ -218,22 +216,17 @@ function Motif({ motif, seed }: { motif: PlaceholderMotif; seed: number }) {
 export interface DoorPlaceholderProps {
   motif: PlaceholderMotif;
   seed: number;
-  /** `detail` reuses the same drawing through a tighter viewBox. */
-  view?: 'front' | 'detail';
   className?: string;
 }
 
 export default function DoorPlaceholder({
   motif,
   seed,
-  view = 'front',
   className,
 }: DoorPlaceholderProps) {
-  const viewBox = view === 'front' ? '0 0 120 162' : '38 34 52 70';
-
   return (
     <svg
-      viewBox={viewBox}
+      viewBox="0 0 120 162"
       preserveAspectRatio="xMidYMid slice"
       className={className}
       aria-hidden

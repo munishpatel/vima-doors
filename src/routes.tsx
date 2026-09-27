@@ -1,8 +1,10 @@
 import { RouteObject } from 'react-router-dom';
 import { lazy } from 'react';
 import HomePage from './pages/index';
+import type { CategorySlug } from './data/products';
 
 const ProductsPage = lazy(() => import('./pages/products'));
+const ProductCategoryPage = lazy(() => import('./pages/product-category'));
 const AboutPage = lazy(() => import('./pages/about'));
 const GalleryPage = lazy(() => import('./pages/gallery'));
 const ContactPage = lazy(() => import('./pages/contact'));
@@ -16,6 +18,10 @@ export const routes: RouteObject[] = [
   {
     path: '/products',
     element: <ProductsPage />,
+  },
+  {
+    path: '/products/:slug',
+    element: <ProductCategoryPage />,
   },
   {
     path: '/about',
@@ -36,6 +42,12 @@ export const routes: RouteObject[] = [
 ];
 
 // Types for type-safe navigation
-export type Path = '/' | '/products' | '/about' | '/gallery' | '/contact';
+export type Path =
+  | '/'
+  | '/products'
+  | `/products/${CategorySlug}`
+  | '/about'
+  | '/gallery'
+  | '/contact';
 
 export type Params = Record<string, string | undefined>;

@@ -27,6 +27,8 @@ export default [
         performance: 'readonly',
         IntersectionObserver: 'readonly',
         URLSearchParams: 'readonly',
+        fetch: 'readonly',
+        AbortSignal: 'readonly',
         MouseEvent: 'readonly',
         PointerEvent: 'readonly',
         localStorage: 'readonly',
