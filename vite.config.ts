@@ -30,6 +30,8 @@ export default defineConfig({
 				manualChunks: {
 					"react-vendor": ["react", "react-dom"],
 					query: ["@tanstack/react-query"],
+					// Only pulled in when the products hero mounts its canvas.
+					"three-vendor": ["three", "@react-three/fiber", "@react-three/drei"],
 				},
 			},
 		},
