@@ -82,22 +82,14 @@ describe('intro', () => {
     expect(intro).not.toHaveTextContent(/boon/i);
   });
 
-  it('shows a tile for every collection', () => {
+  it('links each collection tile to its own page', () => {
     renderPage();
     for (const category of CATEGORIES) {
-      expect(
-        screen.getByRole('button', { name: `Browse ${category.name} doors` }),
-      ).toBeInTheDocument();
+      expect(screen.getByRole('link', { name: `View ${category.title}` })).toHaveAttribute(
+        'href',
+        `/products/${category.slug}`,
+      );
     }
-  });
-
-  it('scrolls to the product collections from a collection tile', async () => {
-    const user = userEvent.setup();
-    renderPage();
-
-    await user.click(screen.getByRole('button', { name: 'Browse Veneer doors' }));
-
-    expect(Element.prototype.scrollIntoView).toHaveBeenCalled();
   });
 });
 

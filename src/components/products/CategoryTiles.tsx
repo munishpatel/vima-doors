@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 import { CATEGORIES, type ProductCategory } from '@/data/products';
 import { mediaUrl } from '@/lib/cloudinary';
@@ -24,20 +25,17 @@ function Tile({
   category,
   wall,
   seed,
-  onSelect,
 }: {
   category: ProductCategory;
   wall: string;
   seed: number;
-  onSelect: () => void;
 }) {
   const [failed, setFailed] = useState(false);
 
   return (
-    <button
-      type="button"
-      onClick={onSelect}
-      aria-label={`Browse ${category.name} doors`}
+    <Link
+      to={`/products/${category.slug}`}
+      aria-label={`View ${category.title}`}
       className="group relative block aspect-[4/5] w-full overflow-hidden rounded-md text-left shadow-[0_10px_30px_rgba(60,38,16,0.08)] ring-1 ring-black/5 transition-shadow duration-300 hover:shadow-[0_18px_40px_rgba(60,38,16,0.18)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
     >
       {failed ? (
@@ -69,16 +67,12 @@ function Tile({
       <span className="absolute left-1/2 top-1/2 w-max max-w-[88%] -translate-x-1/2 -translate-y-1/2 rounded-full bg-white px-4 py-2 text-center text-[13px] font-semibold leading-tight sm:px-5 sm:text-[14px] tracking-wide text-[#2a1c12] shadow-[0_6px_20px_rgba(40,25,10,0.16)] transition-colors duration-300 group-hover:bg-primary group-hover:text-primary-foreground md:text-[15px] xl:whitespace-nowrap">
         {category.name}
       </span>
-    </button>
+    </Link>
   );
 }
 
-/** Picture tiles for each collection. Choosing one scrolls to the product collections below. */
+/** Picture tiles for each collection, each opening that collection's page. */
 export default function CategoryTiles() {
-  const select = () => {
-    document.getElementById('collection')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-  };
-
   return (
     // Nine collections: 2-up on phones, a 3 × 3 block on tablets, 5 + 4 on desktop.
     <ul className="flex flex-wrap justify-center gap-4 md:gap-5">
@@ -87,7 +81,7 @@ export default function CategoryTiles() {
           key={category.slug}
           className="w-[calc((100%-1rem)/2)] md:w-[calc((100%-2.5rem)/3)] xl:w-[calc((100%-5rem)/5)]"
         >
-          <Tile category={category} wall={WALLS[i % WALLS.length]} seed={i + 1} onSelect={select} />
+          <Tile category={category} wall={WALLS[i % WALLS.length]} seed={i + 1} />
         </li>
       ))}
     </ul>
