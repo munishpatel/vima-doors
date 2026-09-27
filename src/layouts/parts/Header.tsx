@@ -42,6 +42,10 @@ export default function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
+  /** A section's own pages (e.g. /products/teak-doors) keep its nav item lit. */
+  const isCurrent = (href: string) =>
+    location.pathname === href || (href !== '/' && location.pathname.startsWith(`${href}/`));
+
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 60);
     window.addEventListener('scroll', handleScroll, { passive: true });
@@ -127,7 +131,7 @@ export default function Header() {
             {/* Desktop nav */}
             <nav className="hidden md:flex items-center gap-0.5">
               {navItems.map((item) => {
-                const isActive = location.pathname === item.href;
+                const isActive = isCurrent(item.href);
                 return (
                   <motion.div
                     key={item.href}
@@ -233,13 +237,13 @@ export default function Header() {
                     <Link
                       to={item.href}
                       className={`flex items-center justify-between py-3.5 px-4 text-sm tracking-widest uppercase font-medium rounded-sm transition-colors ${
-                        location.pathname === item.href
+                        isCurrent(item.href)
                           ? 'text-primary bg-primary/5'
                           : 'text-foreground/70 hover:text-foreground hover:bg-muted'
                       }`}
                     >
                       {item.label}
-                      {location.pathname === item.href && (
+                      {isCurrent(item.href) && (
                         <span className="w-1.5 h-1.5 rounded-full bg-primary" />
                       )}
                     </Link>
