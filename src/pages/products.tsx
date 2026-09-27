@@ -1,3 +1,4 @@
+import CatalogueBanner from '@/components/products/CatalogueBanner';
 import ProductCollections from '@/components/products/ProductCollections';
 import ProductsHero from '@/components/products/ProductsHero';
 import ProductsIntro from '@/components/products/ProductsIntro';
@@ -14,6 +15,7 @@ export default function ProductsPage() {
       <ProductsHero />
       <ProductsIntro />
       <ProductCollections />
+      <CatalogueBanner />
     </>
   );
 }

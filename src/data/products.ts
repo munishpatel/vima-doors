@@ -113,6 +113,7 @@ export const CATEGORIES: ProductCategory[] = [
     designName: 'Vintage',
     motif: 'heritage',
     image: `${CDN}/v1785105090/LAMINATE-01_rp03mn.png`,
+    tag: 'Vintage',
     wall: '#a39883',
   },
   {
