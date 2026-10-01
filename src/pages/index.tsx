@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { motion } from 'motion/react';
-import { ArrowRight, ChevronDown } from 'lucide-react';
+import { ArrowRight, ArrowUpRight, ChevronDown } from 'lucide-react';
+import { mediaUrl } from '@/lib/cloudinary';
 
 // ─── Animation Variants ───────────────────────────────────────────────────────
 const fadeUp = {
@@ -45,11 +46,45 @@ const DOOR_SHOWCASE = [
   { name: 'Designer Door',         src: 'https://res.cloudinary.com/vimadoors/image/upload/v1785105089/DESIGN-01_jutrwm.png' },
 ];
 
+// Soft wall tones for the vignette behind each door, cycled per card so
+// neighbouring tiles read as different rooms. [wall top, wall bottom, floor]
+const DOOR_SCENES = [
+  ['#efe3d1', '#dcc7a9', '#b58d63'], // warm cream
+  ['#e1e6dc', '#c6cfbe', '#a88a66'], // sage
+  ['#ecdfda', '#d6c2ba', '#b08a6c'], // blush taupe
+  ['#e6e0d6', '#cec4b4', '#9f7f5c'], // stone
+];
+
 // Interleave so every track carries a varied mix of styles rather than
 // grouping similar finishes together.
 // Desktop: three vertical columns. Mobile: two horizontal rows.
 const DOOR_COLS = [0, 1, 2].map((c) => DOOR_SHOWCASE.filter((_, i) => i % 3 === c));
 const DOOR_ROWS = [0, 1].map((r) => DOOR_SHOWCASE.filter((_, i) => i % 2 === r));
+
+// Seconds each card takes to scroll past, per column. Durations scale with the
+// card count so a 4-card column doesn't outrun a 3-card one; the slight spread
+// (roughly 36-44px/s on desktop) keeps the columns from moving in lockstep.
+const DOOR_SECONDS_PER_CARD = [10, 11, 9];
+
+// ─── Best Sellers Data ────────────────────────────────────────────────────────
+// Names follow the numbering on each category page (designName + position in
+// its Cloudinary tag list), so a card and the page it links to agree.
+const BEST_SELLERS = [
+  { name: 'Gold Pati 01',   collection: 'Gold Pati',   slug: 'gold-pati-doors',          src: 'https://res.cloudinary.com/vimadoors/image/upload/v1790465847/Gold_0_cdyyhd.jpg' },
+  { name: 'Fluted 01',      collection: 'Fluted',      slug: 'fluted-doors',             src: 'https://res.cloudinary.com/vimadoors/image/upload/v1790272377/Fluted_1_oulo1t.jpg' },
+  { name: 'Gold Pati 04',   collection: 'Gold Pati',   slug: 'gold-pati-doors',          src: 'https://res.cloudinary.com/vimadoors/image/upload/v1790465848/Gold_3_pcovc6.jpg' },
+  { name: 'Vintage 04',     collection: 'Vintage',     slug: 'vintage-collection',       src: 'https://res.cloudinary.com/vimadoors/image/upload/v1790525472/Vintage_4_pmvmyt.jpg' },
+  { name: 'Gold Pati 07',   collection: 'Gold Pati',   slug: 'gold-pati-doors',          src: 'https://res.cloudinary.com/vimadoors/image/upload/v1790272044/Gold_mbqxme.jpg' },
+  { name: 'Highlighter 01', collection: 'Highlighter', slug: 'highlighter-doors',        src: 'https://res.cloudinary.com/vimadoors/image/upload/v1790467000/High_1_mtvjyp.jpg' },
+  { name: 'Cut Paste 01',   collection: 'Cut Paste',   slug: 'laminate-cut-paste-doors', src: 'https://res.cloudinary.com/vimadoors/image/upload/v1790473263/Lam_1_s7aeoi.jpg' },
+  { name: 'Vintage 08',     collection: 'Vintage',     slug: 'vintage-collection',       src: 'https://res.cloudinary.com/vimadoors/image/upload/v1790525529/Vintage_8_swntpq.jpg' },
+  { name: 'Gold Pati 02',   collection: 'Gold Pati',   slug: 'gold-pati-doors',          src: 'https://res.cloudinary.com/vimadoors/image/upload/v1790465848/Gold_1_oevr4u.jpg' },
+  { name: 'Gold Pati 05',   collection: 'Gold Pati',   slug: 'gold-pati-doors',          src: 'https://res.cloudinary.com/vimadoors/image/upload/v1790465848/Gold_4_v3awrc.jpg' },
+];
+
+// Pad (not crop) to 3:4 so taller shots keep the whole door; the padding takes
+// the photo's own edge colour so it blends into the studio backdrop.
+const BEST_SELLER_TRANSFORM = 'f_auto,q_auto,c_pad,ar_3:4,b_auto:border';
 
 // ─── Testimonials Data ────────────────────────────────────────────────────────
 const testimonials = [
@@ -74,37 +109,62 @@ const testimonials = [
 ];
 
 // ─── Door Showcase Card ───────────────────────────────────────────────────────
+// Each door is staged in a small room vignette (wall, floor, frame, contact
+// shadow) instead of filling the card edge to edge, so it reads as a product
+// on display rather than a slab of texture.
 function DoorCard({
   name,
   src,
   variant,
+  scene,
   ariaHidden = false,
 }: {
   name: string;
   src: string;
   variant: 'v' | 'h';
+  scene: number;
   ariaHidden?: boolean;
 }) {
   const isVertical = variant === 'v';
+  const [wallTop, wallBottom, floor] = DOOR_SCENES[scene % DOOR_SCENES.length];
   return (
     <figure
       aria-hidden={ariaHidden}
-      className={`group/card relative m-0 shrink-0 overflow-hidden rounded-2xl bg-muted shadow-[0_14px_34px_rgba(0,0,0,0.12)] ring-1 ring-black/5 transition-shadow duration-300 hover:shadow-[0_22px_48px_rgba(0,0,0,0.22)] ${
-        isVertical ? 'mb-5 w-full' : 'mr-4 h-64 sm:h-80'
+      className={`group/card m-0 shrink-0 rounded-[1.25rem] bg-background p-2.5 shadow-[0_10px_30px_rgba(60,40,20,0.10)] ring-1 ring-black/[0.04] transition-shadow duration-500 hover:shadow-[0_18px_44px_rgba(60,40,20,0.18)] ${
+        isVertical ? 'mb-5 w-full' : 'mr-4 w-44 sm:w-52'
       }`}
     >
-      <img
-        src={src}
-        alt={ariaHidden ? '' : name}
-        loading="lazy"
-        decoding="async"
-        className={`block ${isVertical ? 'h-auto w-full' : 'h-full w-auto'}`}
-      />
-      <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/55 via-black/0 to-transparent" />
-      <figcaption className="absolute inset-x-0 bottom-0 p-3">
-        <span className="text-xs md:text-sm font-medium tracking-wide text-white drop-shadow-sm">
-          {name}
-        </span>
+      <div
+        className="relative aspect-[3/4] overflow-hidden rounded-xl"
+        style={{
+          background: `radial-gradient(120% 70% at 50% 0%, rgba(255,255,255,0.55), transparent 60%), linear-gradient(to bottom, ${wallTop}, ${wallBottom})`,
+        }}
+      >
+        {/* Floor */}
+        <div
+          className="absolute inset-x-0 bottom-0 h-[13%]"
+          style={{ background: `linear-gradient(to bottom, ${floor}, color-mix(in srgb, ${floor} 80%, #000))` }}
+        />
+        {/* Skirting line where wall meets floor */}
+        <div className="absolute inset-x-0 bottom-[13%] h-[3px] bg-white/60" />
+
+        {/* Door in frame, standing on the floor line */}
+        <div className="absolute bottom-[13%] left-1/2 h-[76%] -translate-x-1/2 transition-transform duration-700 ease-out group-hover/card:scale-[1.04] origin-bottom">
+          {/* Contact shadow */}
+          <div className="absolute -bottom-2 left-1/2 h-4 w-[130%] -translate-x-1/2 rounded-[50%] bg-black/25 blur-md" />
+          <div className="relative h-full rounded-t-[3px] bg-gradient-to-b from-white to-[#f1ebe3] p-[5px] pb-0 shadow-[0_8px_22px_rgba(0,0,0,0.18)]">
+            <img
+              src={src}
+              alt={ariaHidden ? '' : name}
+              loading="lazy"
+              decoding="async"
+              className="block h-full w-auto"
+            />
+          </div>
+        </div>
+      </div>
+      <figcaption className="px-1.5 pb-0.5 pt-3 text-center font-heading text-sm md:text-base text-foreground">
+        {name}
       </figcaption>
     </figure>
   );
@@ -162,17 +222,19 @@ export default function HomePage() {
               Premium interior and exterior doors crafted to the highest standards
               of quality, performance, and security, tailored to your taste.
             </motion.p>
-            <motion.div variants={fadeUp} className="flex flex-wrap gap-4">
+            <motion.div variants={fadeUp} className="flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:gap-4">
               <Link
                 to="/products"
-                className="inline-flex items-center gap-2 bg-primary text-primary-foreground text-sm tracking-widest uppercase px-7 py-3.5 hover:bg-primary/90 transition-colors duration-200"
+                className="btn-cta btn-primary justify-between sm:justify-start"
               >
                 Explore Doors
-                <ArrowRight size={15} />
+                <span className="btn-icon">
+                  <ArrowRight size={16} />
+                </span>
               </Link>
               <Link
                 to="/contact"
-                className="inline-flex items-center gap-2 border border-stone-400 text-stone-200 text-sm tracking-widest uppercase px-7 py-3.5 hover:border-white hover:text-white transition-colors duration-200"
+                className="btn-cta btn-glass justify-center"
               >
                 Contact Us
               </Link>
@@ -436,13 +498,14 @@ export default function HomePage() {
                     className={`door-track flex flex-col ${
                       c === 1 ? 'door-track--down' : 'door-track--up'
                     }`}
-                    style={{ animationDuration: `${46 + c * 6}s` }}
+                    style={{ animationDuration: `${col.length * DOOR_SECONDS_PER_CARD[c]}s` }}
                   >
                     {[...col, ...col].map((d, i) => (
                       <DoorCard
                         key={`v-${c}-${i}`}
                         {...d}
                         variant="v"
+                        scene={c + (i % col.length)}
                         ariaHidden={i >= col.length}
                       />
                     ))}
@@ -467,6 +530,7 @@ export default function HomePage() {
                     key={`h-${r}-${i}`}
                     {...d}
                     variant="h"
+                    scene={r * 2 + (i % row.length)}
                     ariaHidden={i >= row.length}
                   />
                 ))}
@@ -479,8 +543,8 @@ export default function HomePage() {
           .door-track { will-change: transform; }
           .door-track--up    { animation: doorUp 48s linear infinite; }
           .door-track--down  { animation: doorDown 48s linear infinite; }
-          .door-track--left  { animation: doorLeft 40s linear infinite; }
-          .door-track--right { animation: doorRight 40s linear infinite; }
+          .door-track--left  { animation: doorLeft 30s linear infinite; }
+          .door-track--right { animation: doorRight 30s linear infinite; }
           @keyframes doorUp    { from { transform: translateY(0); }    to { transform: translateY(-50%); } }
           @keyframes doorDown  { from { transform: translateY(-50%); } to { transform: translateY(0); } }
           @keyframes doorLeft  { from { transform: translateX(0); }    to { transform: translateX(-50%); } }
@@ -501,8 +565,77 @@ export default function HomePage() {
         `}</style>
       </section>
 
+      {/* ─── BEST SELLERS ──────────────────────────────────────────────────── */}
+      <section className="py-24 md:py-32 bg-background">
+        <div className="container mx-auto px-6 lg:px-10">
+          <motion.div
+            variants={stagger}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            className="mb-12 md:mb-14 flex flex-col items-center gap-6 text-center md:flex-row md:items-end md:justify-between md:text-left"
+          >
+            <div>
+              <motion.p variants={fadeUp} className="text-xs tracking-[0.3em] uppercase text-primary mb-4 font-medium">
+                Most Loved
+              </motion.p>
+              <motion.h2 variants={fadeUp} className="font-heading text-4xl md:text-5xl lg:text-6xl text-foreground leading-[1.08] tracking-tight">
+                Best Selling Doors
+              </motion.h2>
+            </div>
+            <motion.div variants={fadeUp}>
+              <Link
+                to="/products"
+                className="inline-flex items-center gap-2 text-sm tracking-widest uppercase text-primary border-b border-primary pb-0.5 hover:gap-4 transition-all duration-200"
+              >
+                View All Doors
+                <ArrowRight size={14} />
+              </Link>
+            </motion.div>
+          </motion.div>
+
+          <motion.ul
+            variants={stagger}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: '-80px' }}
+            className="grid grid-cols-2 gap-4 sm:gap-5 md:grid-cols-3 lg:grid-cols-5 lg:gap-6"
+          >
+            {BEST_SELLERS.map((door) => (
+              <motion.li key={door.name} variants={fadeUp}>
+                <Link
+                  to={`/products/${door.slug}`}
+                  className="group block rounded-[1.25rem] bg-white p-2.5 ring-1 ring-black/[0.04] shadow-[0_8px_26px_rgba(60,40,20,0.08)] transition-all duration-500 hover:-translate-y-1.5 hover:shadow-[0_22px_48px_rgba(60,40,20,0.16)]"
+                >
+                  <div className="relative aspect-[3/4] overflow-hidden rounded-xl bg-muted">
+                    <img
+                      src={mediaUrl(door.src, `${BEST_SELLER_TRANSFORM},w_480`)}
+                      srcSet={`${mediaUrl(door.src, `${BEST_SELLER_TRANSFORM},w_480`)} 480w, ${mediaUrl(door.src, `${BEST_SELLER_TRANSFORM},w_800`)} 800w`}
+                      sizes="(min-width: 1024px) 20vw, (min-width: 768px) 33vw, 50vw"
+                      alt={`${door.name} door`}
+                      loading="lazy"
+                      decoding="async"
+                      className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.05]"
+                    />
+                    <span className="absolute left-2.5 top-2.5 rounded-md bg-white/85 px-2 py-1 text-[9px] tracking-[0.18em] uppercase text-foreground/70 backdrop-blur-sm">
+                      {door.collection}
+                    </span>
+                  </div>
+                  <div className="flex items-center justify-between gap-2 px-1.5 pb-1 pt-3">
+                    <span className="font-heading text-base md:text-lg text-foreground [font-variant-numeric:lining-nums]">{door.name}</span>
+                    <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full border border-primary/20 text-primary transition-colors duration-300 group-hover:border-primary group-hover:bg-primary group-hover:text-primary-foreground">
+                      <ArrowUpRight size={14} />
+                    </span>
+                  </div>
+                </Link>
+              </motion.li>
+            ))}
+          </motion.ul>
+        </div>
+      </section>
+
       {/* ─── INTERIOR DOORS ────────────────────────────────────────────────── */}
-      <section className="py-24 md:py-32 bg-background overflow-hidden">
+      <section className="py-24 md:py-32 bg-muted overflow-hidden">
         <div className="container mx-auto px-6 lg:px-10">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-20 items-center">
             {/* Text (left) */}
@@ -560,7 +693,7 @@ export default function HomePage() {
       </section>
 
       {/* ─── EXTERIOR DOORS ────────────────────────────────────────────────── */}
-      <section className="py-24 md:py-32 bg-muted overflow-hidden">
+      <section className="py-24 md:py-32 bg-background overflow-hidden">
         <div className="container mx-auto px-6 lg:px-10">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-20 items-center">
             {/* Text (right) */}
@@ -616,7 +749,7 @@ export default function HomePage() {
       </section>
 
       {/* ─── TESTIMONIALS ──────────────────────────────────────────────────── */}
-      <section className="py-24 md:py-32 bg-background">
+      <section className="py-24 md:py-32 bg-muted">
         <div className="container mx-auto px-6 lg:px-10">
           <motion.div
             variants={stagger}
@@ -643,7 +776,7 @@ export default function HomePage() {
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.1 }}
                 whileHover={{ y: -4, transition: { duration: 0.2 } }}
-                className="bg-muted border border-border p-8 flex flex-col gap-6 cursor-default"
+                className="bg-background border border-border p-8 flex flex-col gap-6 cursor-default"
               >
                 <p className="text-foreground/80 leading-relaxed text-sm italic flex-1">
                   &ldquo;{t.quote}&rdquo;
@@ -697,10 +830,12 @@ export default function HomePage() {
             >
               <Link
                 to="/contact"
-                className="inline-flex items-center gap-3 bg-primary text-primary-foreground text-sm tracking-widest uppercase px-8 py-4 hover:bg-primary/90 transition-colors duration-200"
+                className="btn-cta btn-primary"
               >
                 Request a Free Quote
-                <ArrowRight size={15} />
+                <span className="btn-icon">
+                  <ArrowRight size={16} />
+                </span>
               </Link>
             </motion.div>
           </div>
