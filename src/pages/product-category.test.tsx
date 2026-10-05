@@ -87,8 +87,8 @@ describe('category page', () => {
 
   it('skips the design request for a collection without a tag', () => {
     const fetchMock = stubTagList([]);
-    renderPage('/products/teak-doors');
-    expect(screen.getByText(/photos of our teak doors are on their way/i)).toBeInTheDocument();
+    renderPage('/products/veneer-doors');
+    expect(screen.getByText(/photos of our veneer doors are on their way/i)).toBeInTheDocument();
     expect(screen.getByRole('link', { name: /ask on whatsapp/i })).toHaveAttribute(
       'href',
       expect.stringContaining('https://wa.me/918106802929'),

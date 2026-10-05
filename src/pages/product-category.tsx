@@ -5,7 +5,7 @@ import CatalogueBanner from '@/components/products/CatalogueBanner';
 import CategoryCover from '@/components/products/CategoryCover';
 import CategoryStrip from '@/components/products/CategoryStrip';
 import { CATEGORY_BY_SLUG, isCategorySlug, type ProductCategory } from '@/data/products';
-import { listByTag, mediaUrl } from '@/lib/cloudinary';
+import { appendTransform, listByTag } from '@/lib/cloudinary';
 import NotFoundPage from './_404';
 
 /**
@@ -19,14 +19,16 @@ const WA_NUMBER = '918106802929';
 const GRID = 'grid grid-cols-2 gap-3 sm:gap-5 md:grid-cols-3 lg:grid-cols-4';
 
 function DesignGrid({ category }: { category: ProductCategory }) {
-  const { tag } = category;
-  const { data: designs = [], isPending } = useQuery({
+  const { tag, designs: fixed } = category;
+  const fromTag = fixed === undefined && tag !== undefined;
+  const { data: tagged = [], isPending } = useQuery({
     queryKey: ['cloudinary-tag', tag],
     queryFn: ({ signal }) => listByTag(tag!, signal),
-    enabled: tag !== undefined,
+    enabled: fromTag,
   });
+  const designs = fixed ?? tagged;
 
-  if (tag !== undefined && isPending) {
+  if (fromTag && isPending) {
     return (
       <ul aria-busy="true" aria-label="Loading designs" className={`mt-10 ${GRID}`}>
         {Array.from({ length: 4 }, (_, i) => (
@@ -68,7 +70,10 @@ function DesignGrid({ category }: { category: ProductCategory }) {
       </p>
       <ul className={GRID}>
         {designs.map((src, i) => {
-          const name = `${category.designName} ${String(i + 1).padStart(2, '0')}`;
+          const n = String(i + 1).padStart(2, '0');
+          const name = category.designCode
+            ? `${category.designCode}-${n}`
+            : `${category.designName} ${n}`;
           return (
             <li
               key={src}
@@ -76,7 +81,7 @@ function DesignGrid({ category }: { category: ProductCategory }) {
             >
               <div className="aspect-[3/4] overflow-hidden rounded-lg">
                 <img
-                  src={mediaUrl(src, DESIGN_TRANSFORM)}
+                  src={appendTransform(src, DESIGN_TRANSFORM)}
                   alt={`${name} door`}
                   loading="lazy"
                   decoding="async"
