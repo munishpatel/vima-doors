@@ -1,5 +1,5 @@
 import { afterEach, describe, it, expect, vi } from 'vitest';
-import { listByTag, mediaUrl, posterUrl } from './cloudinary';
+import { appendTransform, listByTag, mediaUrl, posterUrl } from './cloudinary';
 
 const IMAGE_URL =
   'https://res.cloudinary.com/vimadoors/image/upload/v1784417740/img1_gew173.jpg';
@@ -27,6 +27,23 @@ describe('mediaUrl', () => {
 
   it('returns the URL unchanged when the transform is empty', () => {
     expect(mediaUrl(IMAGE_URL, '')).toBe(IMAGE_URL);
+  });
+});
+
+describe('appendTransform', () => {
+  it('matches mediaUrl when the URL has no transforms yet', () => {
+    expect(appendTransform(IMAGE_URL, 'w_800')).toBe(mediaUrl(IMAGE_URL, 'w_800'));
+  });
+
+  it('chains after existing transforms so they run first', () => {
+    expect(
+      appendTransform(
+        'https://res.cloudinary.com/vimadoors/image/upload/pg_2,c_crop,w_500/v1790527649/cat.jpg',
+        'f_auto,w_600',
+      ),
+    ).toBe(
+      'https://res.cloudinary.com/vimadoors/image/upload/pg_2,c_crop,w_500/f_auto,w_600/v1790527649/cat.jpg',
+    );
   });
 });
 

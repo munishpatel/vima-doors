@@ -38,6 +38,8 @@ export interface ProductCategory {
   title: string;
   /** Label for each design on the category page, numbered after it ("Fluted 01"). */
   designName: string;
+  /** Catalogue code prefix. When set, designs are labelled by code ("VD-01") instead. */
+  designCode?: string;
   motif: PlaceholderMotif;
   /** Cloudinary delivery URL for the category tile. The motif stands in if it fails. */
   image: string;
@@ -52,9 +54,28 @@ export interface ProductCategory {
    * with it and it appears on the page; filename numbers set the order.
    */
   tag?: string;
+  /** Fixed design images, listed instead of `tag` (e.g. cut from a catalogue PDF). */
+  designs?: string[];
 }
 
 const CDN = 'https://res.cloudinary.com/vimadoors/image/upload';
+
+/**
+ * NOVA V25 designs, cut from the NOVA catalogue PDF by the CDN rather than
+ * uploaded one by one: `pg_N` renders page N as an image (1240x1754 px),
+ * `c_crop` cuts out one door with its frame, and the pad squares it to 3:4 on
+ * the card colour. Pages 2-11 hold two doors each, VD-01 to VD-20 in order;
+ * pages 2-4 sit ~15px further up and left than the rest. If the PDF is
+ * replaced with a new layout, these offsets need re-measuring.
+ */
+const NOVA_PDF = 'v1790527649/VIMA_Catalouge_NOVA_u2o2z4.jpg';
+const NOVA_DESIGNS = Array.from({ length: 10 }, (_, i) => i + 2).flatMap((page) => {
+  const [left, right, top] = page <= 4 ? [75, 659, 374] : [89, 670, 379];
+  return [left, right].map(
+    (x) =>
+      `${CDN}/pg_${page},c_crop,x_${x},y_${top},w_508,h_1052/c_pad,ar_3:4,b_rgb:f5efe5/${NOVA_PDF}`,
+  );
+});
 
 export const CATEGORIES: ProductCategory[] = [
   {
@@ -102,8 +123,10 @@ export const CATEGORIES: ProductCategory[] = [
     name: 'NOVA V25',
     title: 'NOVA V25 Doors',
     designName: 'NOVA V25',
+    designCode: 'VD',
     motif: 'system',
     image: `${CDN}/v1785105090/MEMBRANE-01_bgnpg3.webp`,
+    designs: NOVA_DESIGNS,
     wall: '#a4a8a6',
   },
   {
@@ -123,6 +146,7 @@ export const CATEGORIES: ProductCategory[] = [
     designName: 'Teak',
     motif: 'grain',
     image: `${CDN}/v1785105090/TEAK-01_btvt99.webp`,
+    tag: 'Teak',
     wall: '#9aa89a',
   },
   {
