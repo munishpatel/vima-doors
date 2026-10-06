@@ -13,6 +13,7 @@ import {
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
+import ExploreDoorsButton from '@/components/ExploreDoorsButton';
 
 /* ------------------------------------------------------------------ */
 /*  Static data                                                        */
@@ -550,6 +551,41 @@ export default function ContactPage() {
               </div>
             </motion.div>
           </div>
+        </div>
+      </section>
+
+      {/* ─── BROWSE FIRST ─────────────────────────────────────────────── */}
+      <section className="relative overflow-hidden bg-muted py-16 md:py-20">
+        <div className="pointer-events-none absolute -top-24 right-0 h-80 w-80 rounded-full bg-primary/[0.07] blur-3xl" />
+
+        <div className="relative container mx-auto px-6 lg:px-10">
+          <motion.div
+            variants={stagger}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            className="flex flex-col gap-8 text-center md:flex-row md:items-center md:justify-between md:text-left"
+          >
+            <div className="mx-auto max-w-xl md:mx-0">
+              <motion.h2
+                variants={fadeUp}
+                className="font-heading text-3xl text-foreground leading-tight"
+              >
+                Still Deciding?
+              </motion.h2>
+              <motion.p
+                variants={fadeUp}
+                className="text-muted-foreground mt-3 leading-relaxed"
+              >
+                Take a look through our collection first, then reach out with
+                the doors you have in mind.
+              </motion.p>
+            </div>
+
+            <motion.div variants={fadeUp} className="shrink-0">
+              <ExploreDoorsButton />
+            </motion.div>
+          </motion.div>
         </div>
       </section>
     </>

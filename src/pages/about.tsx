@@ -11,6 +11,8 @@ import {
   MapPin,
 } from 'lucide-react';
 
+import ExploreDoorsButton from '@/components/ExploreDoorsButton';
+
 /* ------------------------------------------------------------------ */
 /*  Animation variants                                                 */
 /* ------------------------------------------------------------------ */
@@ -372,6 +374,16 @@ export default function AboutPage() {
               </motion.div>
             ))}
           </div>
+
+          <motion.div
+            variants={fadeUp}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            className="mt-12 flex justify-center"
+          >
+            <ExploreDoorsButton />
+          </motion.div>
         </div>
       </section>
 
