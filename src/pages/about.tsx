@@ -443,12 +443,14 @@ export default function AboutPage() {
                   transition={{ duration: 0.5, ease: 'easeOut', delay: i * 0.08 }}
                   className="group relative rounded-2xl border border-border bg-muted/40 p-7 transition-colors hover:border-primary/40 hover:bg-muted"
                 >
-                  <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10 text-primary mb-6 transition-transform duration-300 group-hover:scale-110">
-                    <Icon size={22} strokeWidth={1.75} />
-                  </span>
-                  <h3 className="font-heading text-lg text-foreground mb-3 leading-snug">
-                    {value.title}
-                  </h3>
+                  <div className="mb-5 flex items-center gap-4">
+                    <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-primary/10 text-primary transition-transform duration-300 group-hover:scale-110">
+                      <Icon size={22} strokeWidth={1.75} />
+                    </span>
+                    <h3 className="font-heading text-lg text-foreground leading-snug">
+                      {value.title}
+                    </h3>
+                  </div>
                   <p className="text-sm text-muted-foreground leading-relaxed">
                     {value.body}
                   </p>
