@@ -22,6 +22,21 @@ export function mediaUrl(url: string, transform: string): string {
 }
 
 /**
+ * Append a transformation after any already in the URL (right before the
+ * `/v<version>/` segment), so it runs last. Use this instead of `mediaUrl`
+ * when the URL carries its own transforms that must apply first, such as a
+ * crop out of a PDF page.
+ *
+ * appendTransform('.../upload/pg_2,c_crop,w_500/v1/cat.jpg', 'w_600')
+ *   -> '.../upload/pg_2,c_crop,w_500/w_600/v1/cat.jpg'
+ */
+export function appendTransform(url: string, transform: string): string {
+  const version = url.match(/\/v\d+\//);
+  if (!version || version.index === undefined || !transform) return mediaUrl(url, transform);
+  return `${url.slice(0, version.index)}/${transform}${url.slice(version.index)}`;
+}
+
+/**
  * Derive a poster-frame JPG from a Cloudinary video URL (frame at 0s).
  *
  * posterUrl('.../video/upload/v1/clip.mp4')

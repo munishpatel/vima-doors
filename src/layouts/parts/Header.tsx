@@ -110,6 +110,17 @@ export default function Header() {
         <div className="container mx-auto px-6 lg:px-10">
           <div className="flex h-[60px] md:h-[84px] items-center justify-between">
 
+            {/* Menu toggle (mobile). First in the DOM so focus order matches
+                the left-to-right layout. */}
+            <button
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              className="md:hidden -ml-2.5 flex h-11 w-11 shrink-0 items-center justify-center text-foreground transition-colors"
+              aria-label={isMobileMenuOpen ? 'Close menu' : 'Open menu'}
+              aria-expanded={isMobileMenuOpen}
+            >
+              {isMobileMenuOpen ? <X size={22} /> : <Menu size={22} />}
+            </button>
+
             {/* Logo */}
             <Link
               to="/"
@@ -183,15 +194,28 @@ export default function Header() {
               </motion.a>
             </div>
 
-          {/* Mobile Toggle */}
-          <button
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="md:hidden p-2 text-foreground transition-colors"
-            aria-label="Toggle menu"
-          >
-            {isMobileMenuOpen ? <X size={22} /> : <Menu size={22} />}
-          </button>
-        </div>
+            {/* WhatsApp (mobile). Same width as the menu toggle so the logo
+                sits dead centre between them. */}
+            <a
+              href={WA_HREF}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Chat with us on WhatsApp"
+              className="md:hidden -mr-1.5 flex h-11 w-11 shrink-0 items-center justify-center"
+            >
+              <span
+                className="relative flex h-10 w-10 items-center justify-center rounded-full text-white shadow-[0_4px_14px_rgba(37,211,102,0.4)] transition-transform duration-200 active:scale-95"
+                style={{ background: 'linear-gradient(135deg, #075E54 0%, #128C7E 45%, #25D366 100%)' }}
+              >
+                <WhatsAppIcon size={19} />
+                {/* "We're online" dot */}
+                <span className="absolute right-0 top-0 flex h-2.5 w-2.5">
+                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#25D366] opacity-60" />
+                  <span className="relative inline-flex h-2.5 w-2.5 rounded-full border-2 border-background bg-[#25D366]" />
+                </span>
+              </span>
+            </a>
+          </div>
         </div>
 
         {/* ── Mobile menu ───────────────────────────────────────────────── */}

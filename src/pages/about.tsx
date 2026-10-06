@@ -524,10 +524,12 @@ export default function AboutPage() {
             >
               <Link
                 to="/contact"
-                className="inline-flex items-center gap-3 bg-primary text-primary-foreground text-sm tracking-widest uppercase px-8 py-4 hover:bg-primary/90 transition-colors duration-200"
+                className="btn-cta btn-primary"
               >
                 Get in Touch
-                <ArrowRight size={15} />
+                <span className="btn-icon">
+                  <ArrowRight size={16} />
+                </span>
               </Link>
             </motion.div>
           </div>

@@ -79,6 +79,65 @@
   }
 }
 
+/* Call-to-action buttons. `.btn-cta` plus one of `.btn-primary` (solid walnut)
+   or `.btn-glass` (frosted, for use over photos and video). Put the icon in a
+   `.btn-icon` span to get the chip that nudges forward on hover. */
+@layer components {
+  .btn-cta {
+    @apply relative isolate inline-flex h-[52px] items-center gap-3 overflow-hidden rounded-full pl-7 pr-1.5 text-[13px] font-medium uppercase tracking-[0.18em] transition-all duration-300 ease-out;
+    @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-ring;
+  }
+  .btn-cta:not(:has(.btn-icon)) {
+    @apply pr-7;
+  }
+  .btn-cta:hover {
+    @apply -translate-y-0.5;
+  }
+  .btn-cta:active {
+    @apply translate-y-0 duration-100;
+  }
+
+  .btn-primary {
+    @apply text-primary-foreground;
+    background: linear-gradient(135deg, hsl(19 44% 38%), hsl(var(--primary)) 55%, hsl(19 46% 23%));
+    box-shadow:
+      inset 0 1px 0 hsl(30 60% 80% / 0.25),
+      0 10px 24px -8px hsl(19 50% 20% / 0.55);
+  }
+  .btn-primary:hover {
+    box-shadow:
+      inset 0 1px 0 hsl(30 60% 80% / 0.3),
+      0 16px 34px -10px hsl(19 55% 22% / 0.7);
+  }
+  /* Light sheen that sweeps across on hover */
+  .btn-primary::before {
+    content: '';
+    @apply pointer-events-none absolute inset-y-0 -left-1/2 -z-10 w-1/2 -skew-x-12 opacity-0 transition-all duration-700 ease-out;
+    background: linear-gradient(90deg, transparent, hsl(35 80% 85% / 0.28), transparent);
+  }
+  .btn-primary:hover::before {
+    @apply left-[110%] opacity-100;
+  }
+
+  .btn-glass {
+    @apply border border-white/30 bg-white/10 text-white backdrop-blur-md;
+    box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.15);
+  }
+  .btn-glass:hover {
+    @apply border-white bg-white text-foreground;
+  }
+
+  .btn-icon {
+    @apply flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-white/15 transition-transform duration-300 ease-out;
+  }
+  .btn-cta:hover .btn-icon {
+    @apply translate-x-0.5;
+  }
+  .btn-glass:hover .btn-icon {
+    @apply bg-foreground/10;
+  }
+}
+
 /* Custom utility classes */
 @layer utilities {
   .animate-in {
