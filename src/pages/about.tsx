@@ -363,12 +363,14 @@ export default function AboutPage() {
               viewport={{ once: true }}
               className="relative rounded-2xl border border-white/10 bg-white/[0.03] p-8 md:p-10"
             >
-              <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-emerald-400/15 text-emerald-300 mb-6">
-                <Target size={22} strokeWidth={1.75} />
-              </span>
-              <h3 className="font-heading text-2xl text-white mb-4">
-                Our Mission
-              </h3>
+              <div className="mb-6 flex items-center gap-4">
+                <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-emerald-400/15 text-emerald-300">
+                  <Target size={22} strokeWidth={1.75} />
+                </span>
+                <h3 className="font-heading text-2xl text-white leading-none">
+                  Our Mission
+                </h3>
+              </div>
               <p className="text-stone-300 leading-relaxed">
                 To lead our industry by investing continuously in technology and
                 craftsmanship that elevate everyday living. We aim to give
@@ -388,12 +390,14 @@ export default function AboutPage() {
               transition={{ delay: 0.1 }}
               className="relative rounded-2xl border border-white/10 bg-white/[0.03] p-8 md:p-10"
             >
-              <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-amber-400/15 text-amber-300 mb-6">
-                <Eye size={22} strokeWidth={1.75} />
-              </span>
-              <h3 className="font-heading text-2xl text-white mb-4">
-                Our Vision
-              </h3>
+              <div className="mb-6 flex items-center gap-4">
+                <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-amber-400/15 text-amber-300">
+                  <Eye size={22} strokeWidth={1.75} />
+                </span>
+                <h3 className="font-heading text-2xl text-white leading-none">
+                  Our Vision
+                </h3>
+              </div>
               <p className="text-stone-300 leading-relaxed">
                 To be the most trusted name in doors, shaping preferred
                 lifestyles through relentless innovation, uncompromising quality,
