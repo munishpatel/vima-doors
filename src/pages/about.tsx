@@ -284,47 +284,6 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* ─── SHOWROOM SHOWCASE ────────────────────────────────────────── */}
-      <section className="relative overflow-hidden">
-        <div className="relative h-[340px] md:h-[520px]">
-          <img
-            src="/assets/VimaDoors.png"
-            alt="Vima Doors exclusive doors showroom decorated for its opening in Hyderabad"
-            className="absolute inset-0 h-full w-full object-cover"
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/40 to-black/20" />
-
-          <div className="relative z-10 flex h-full items-end">
-            <div className="container mx-auto px-6 lg:px-10 pb-12 md:pb-16">
-              <motion.div
-                variants={stagger}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true, margin: '-80px' }}
-                className="max-w-xl"
-              >
-                <motion.div variants={fadeUp}>
-                  <Eyebrow tone="amber">Visit Us</Eyebrow>
-                </motion.div>
-                <motion.h2
-                  variants={fadeUp}
-                  className="font-heading text-3xl md:text-4xl text-white leading-tight mb-3"
-                >
-                  Our Exclusive Doors Showroom
-                </motion.h2>
-                <motion.p
-                  variants={fadeUp}
-                  className="flex items-center gap-2 text-stone-300"
-                >
-                  <MapPin size={16} className="text-amber-400 shrink-0" />
-                  Ramachandrapuram, Hyderabad, Telangana
-                </motion.p>
-              </motion.div>
-            </div>
-          </div>
-        </div>
-      </section>
-
       {/* ─── WHAT WE MAKE ─────────────────────────────────────────────── */}
       <section className="py-24 md:py-32 bg-muted overflow-hidden">
         <div className="container mx-auto px-6 lg:px-10">
@@ -492,6 +451,47 @@ export default function AboutPage() {
                 </motion.div>
               );
             })}
+          </div>
+        </div>
+      </section>
+
+      {/* ─── SHOWROOM SHOWCASE ────────────────────────────────────────── */}
+      <section className="relative overflow-hidden">
+        <div className="relative h-[340px] md:h-[520px]">
+          <img
+            src="/assets/VimaDoors.png"
+            alt="Vima Doors exclusive doors showroom decorated for its opening in Hyderabad"
+            className="absolute inset-0 h-full w-full object-cover"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/40 to-black/20" />
+
+          <div className="relative z-10 flex h-full items-end">
+            <div className="container mx-auto px-6 lg:px-10 pb-12 md:pb-16">
+              <motion.div
+                variants={stagger}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, margin: '-80px' }}
+                className="max-w-xl"
+              >
+                <motion.div variants={fadeUp}>
+                  <Eyebrow tone="amber">Visit Us</Eyebrow>
+                </motion.div>
+                <motion.h2
+                  variants={fadeUp}
+                  className="font-heading text-3xl md:text-4xl text-white leading-tight mb-3"
+                >
+                  Our Exclusive Doors Showroom
+                </motion.h2>
+                <motion.p
+                  variants={fadeUp}
+                  className="flex items-center gap-2 text-stone-300"
+                >
+                  <MapPin size={16} className="text-amber-400 shrink-0" />
+                  Ramachandrapuram, Hyderabad, Telangana
+                </motion.p>
+              </motion.div>
+            </div>
           </div>
         </div>
       </section>
