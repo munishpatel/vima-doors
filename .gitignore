@@ -148,4 +148,5 @@ vite.config.ts.timestamp-*
 .vite/
 
 # Claude Code local config
-.claude/
+.claude/*
+!.claude/settings.json

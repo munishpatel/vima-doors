@@ -11,6 +11,8 @@ import {
   MapPin,
 } from 'lucide-react';
 
+import ExploreDoorsButton from '@/components/ExploreDoorsButton';
+
 /* ------------------------------------------------------------------ */
 /*  Animation variants                                                 */
 /* ------------------------------------------------------------------ */
@@ -282,47 +284,6 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* ─── SHOWROOM SHOWCASE ────────────────────────────────────────── */}
-      <section className="relative overflow-hidden">
-        <div className="relative h-[340px] md:h-[520px]">
-          <img
-            src="/assets/VimaDoors.png"
-            alt="Vima Doors exclusive doors showroom decorated for its opening in Hyderabad"
-            className="absolute inset-0 h-full w-full object-cover"
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/40 to-black/20" />
-
-          <div className="relative z-10 flex h-full items-end">
-            <div className="container mx-auto px-6 lg:px-10 pb-12 md:pb-16">
-              <motion.div
-                variants={stagger}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true, margin: '-80px' }}
-                className="max-w-xl"
-              >
-                <motion.div variants={fadeUp}>
-                  <Eyebrow tone="amber">Visit Us</Eyebrow>
-                </motion.div>
-                <motion.h2
-                  variants={fadeUp}
-                  className="font-heading text-3xl md:text-4xl text-white leading-tight mb-3"
-                >
-                  Our Exclusive Doors Showroom
-                </motion.h2>
-                <motion.p
-                  variants={fadeUp}
-                  className="flex items-center gap-2 text-stone-300"
-                >
-                  <MapPin size={16} className="text-amber-400 shrink-0" />
-                  Ramachandrapuram, Hyderabad, Telangana
-                </motion.p>
-              </motion.div>
-            </div>
-          </div>
-        </div>
-      </section>
-
       {/* ─── WHAT WE MAKE ─────────────────────────────────────────────── */}
       <section className="py-24 md:py-32 bg-muted overflow-hidden">
         <div className="container mx-auto px-6 lg:px-10">
@@ -372,6 +333,16 @@ export default function AboutPage() {
               </motion.div>
             ))}
           </div>
+
+          <motion.div
+            variants={fadeUp}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            className="mt-12 flex justify-center"
+          >
+            <ExploreDoorsButton />
+          </motion.div>
         </div>
       </section>
 
@@ -392,12 +363,14 @@ export default function AboutPage() {
               viewport={{ once: true }}
               className="relative rounded-2xl border border-white/10 bg-white/[0.03] p-8 md:p-10"
             >
-              <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-emerald-400/15 text-emerald-300 mb-6">
-                <Target size={22} strokeWidth={1.75} />
-              </span>
-              <h3 className="font-heading text-2xl text-white mb-4">
-                Our Mission
-              </h3>
+              <div className="mb-6 flex items-center gap-4">
+                <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-emerald-400/15 text-emerald-300">
+                  <Target size={22} strokeWidth={1.75} />
+                </span>
+                <h3 className="font-heading text-2xl text-white leading-none">
+                  Our Mission
+                </h3>
+              </div>
               <p className="text-stone-300 leading-relaxed">
                 To lead our industry by investing continuously in technology and
                 craftsmanship that elevate everyday living. We aim to give
@@ -417,12 +390,14 @@ export default function AboutPage() {
               transition={{ delay: 0.1 }}
               className="relative rounded-2xl border border-white/10 bg-white/[0.03] p-8 md:p-10"
             >
-              <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-amber-400/15 text-amber-300 mb-6">
-                <Eye size={22} strokeWidth={1.75} />
-              </span>
-              <h3 className="font-heading text-2xl text-white mb-4">
-                Our Vision
-              </h3>
+              <div className="mb-6 flex items-center gap-4">
+                <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-amber-400/15 text-amber-300">
+                  <Eye size={22} strokeWidth={1.75} />
+                </span>
+                <h3 className="font-heading text-2xl text-white leading-none">
+                  Our Vision
+                </h3>
+              </div>
               <p className="text-stone-300 leading-relaxed">
                 To be the most trusted name in doors, shaping preferred
                 lifestyles through relentless innovation, uncompromising quality,
@@ -468,18 +443,61 @@ export default function AboutPage() {
                   transition={{ duration: 0.5, ease: 'easeOut', delay: i * 0.08 }}
                   className="group relative rounded-2xl border border-border bg-muted/40 p-7 transition-colors hover:border-primary/40 hover:bg-muted"
                 >
-                  <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10 text-primary mb-6 transition-transform duration-300 group-hover:scale-110">
-                    <Icon size={22} strokeWidth={1.75} />
-                  </span>
-                  <h3 className="font-heading text-lg text-foreground mb-3 leading-snug">
-                    {value.title}
-                  </h3>
+                  <div className="mb-5 flex items-center gap-4">
+                    <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-primary/10 text-primary transition-transform duration-300 group-hover:scale-110">
+                      <Icon size={22} strokeWidth={1.75} />
+                    </span>
+                    <h3 className="font-heading text-lg text-foreground leading-snug">
+                      {value.title}
+                    </h3>
+                  </div>
                   <p className="text-sm text-muted-foreground leading-relaxed">
                     {value.body}
                   </p>
                 </motion.div>
               );
             })}
+          </div>
+        </div>
+      </section>
+
+      {/* ─── SHOWROOM SHOWCASE ────────────────────────────────────────── */}
+      <section className="relative overflow-hidden">
+        <div className="relative h-[340px] md:h-[520px]">
+          <img
+            src="/assets/VimaDoors.png"
+            alt="Vima Doors exclusive doors showroom decorated for its opening in Hyderabad"
+            className="absolute inset-0 h-full w-full object-cover"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/40 to-black/20" />
+
+          <div className="relative z-10 flex h-full items-end">
+            <div className="container mx-auto px-6 lg:px-10 pb-12 md:pb-16">
+              <motion.div
+                variants={stagger}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, margin: '-80px' }}
+                className="max-w-xl"
+              >
+                <motion.div variants={fadeUp}>
+                  <Eyebrow tone="amber">Visit Us</Eyebrow>
+                </motion.div>
+                <motion.h2
+                  variants={fadeUp}
+                  className="font-heading text-3xl md:text-4xl text-white leading-tight mb-3"
+                >
+                  Our Exclusive Doors Showroom
+                </motion.h2>
+                <motion.p
+                  variants={fadeUp}
+                  className="flex items-center gap-2 text-stone-300"
+                >
+                  <MapPin size={16} className="text-amber-400 shrink-0" />
+                  Ramachandrapuram, Hyderabad, Telangana
+                </motion.p>
+              </motion.div>
+            </div>
           </div>
         </div>
       </section>

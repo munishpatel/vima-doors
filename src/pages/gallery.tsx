@@ -8,6 +8,7 @@ import HighlightsRow from '@/components/gallery/HighlightsRow';
 import TabBar, { GalleryTab } from '@/components/gallery/TabBar';
 import PostGrid from '@/components/gallery/PostGrid';
 import PostDialog from '@/components/gallery/PostDialog';
+import ExploreDoorsButton from '@/components/ExploreDoorsButton';
 
 /* ------------------------------------------------------------------ */
 /*  Animation variants                                                 */
@@ -198,6 +199,53 @@ export default function GalleryPage() {
           <div className="mt-8 md:mt-12">
             <TabBar active={tab} onChange={changeTab} />
             <PostGrid posts={visiblePosts} onOpen={setActiveIndex} />
+          </div>
+        </div>
+      </section>
+
+      {/* ─── CTA ──────────────────────────────────────────────────────── */}
+      <section className="relative overflow-hidden bg-muted py-20 md:py-28">
+        <div className="pointer-events-none absolute -top-24 right-0 h-80 w-80 rounded-full bg-primary/[0.07] blur-3xl" />
+
+        <div className="relative container mx-auto px-6 lg:px-10">
+          <div className="flex flex-col gap-8 text-center md:flex-row md:items-center md:justify-between md:text-left">
+            <motion.div
+              variants={stagger}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+              className="mx-auto max-w-xl md:mx-0"
+            >
+              <motion.p
+                variants={fadeUp}
+                className="mb-4 text-xs font-semibold uppercase tracking-[0.3em] text-primary"
+              >
+                Find Your Door
+              </motion.p>
+              <motion.h2
+                variants={fadeUp}
+                className="font-heading text-3xl leading-tight text-foreground md:text-4xl"
+              >
+                Spotted a Door You Love?
+              </motion.h2>
+              <motion.p
+                variants={fadeUp}
+                className="mt-4 leading-relaxed text-muted-foreground"
+              >
+                Browse our full collection to compare styles and finishes, and
+                find the right door for your home.
+              </motion.p>
+            </motion.div>
+
+            <motion.div
+              variants={fadeUp}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+              className="shrink-0"
+            >
+              <ExploreDoorsButton />
+            </motion.div>
           </div>
         </div>
       </section>
