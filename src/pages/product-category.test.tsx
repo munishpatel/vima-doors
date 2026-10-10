@@ -85,14 +85,12 @@ describe('category page', () => {
     ).toBeInTheDocument();
   });
 
-  it('skips the design request for a collection without a tag', () => {
+  it('lists fixed catalogue designs without asking Cloudinary for a tag', () => {
     const fetchMock = stubTagList([]);
-    renderPage('/products/veneer-doors');
-    expect(screen.getByText(/photos of our veneer doors are on their way/i)).toBeInTheDocument();
-    expect(screen.getByRole('link', { name: /ask on whatsapp/i })).toHaveAttribute(
-      'href',
-      expect.stringContaining('https://wa.me/918106802929'),
-    );
+    renderPage('/products/nova-v25-doors');
+    const designs = within(screen.getByRole('region', { name: /nova v25 doors designs/i }));
+    expect(designs.getAllByRole('img')).toHaveLength(20);
+    expect(designs.getByText('VD-01')).toBeInTheDocument();
     // Only the catalogue banner asks Cloudinary for anything.
     expect(fetchMock.mock.calls.map(([url]) => url)).toEqual([
       'https://res.cloudinary.com/vimadoors/image/list/Catelogue.json',

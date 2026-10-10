@@ -157,6 +157,7 @@ export const CATEGORIES: ProductCategory[] = [
     motif: 'book-match',
     image: `${CDN}/v1785105090/VENEER-01_bo3ahd.webp`,
     cover: '/assets/covers/veneer-doors.webp',
+    tag: 'Veneer',
     wall: '#a7b59b',
   },
   {
