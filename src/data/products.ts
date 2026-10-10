@@ -166,6 +166,7 @@ export const CATEGORIES: ProductCategory[] = [
     designName: 'Pooja Door',
     motif: 'jaali',
     image: `${CDN}/v1785105090/PPOJA-01_lolxew.webp`,
+    tag: 'Pooja',
     wall: '#b3a086',
   },
 ];
